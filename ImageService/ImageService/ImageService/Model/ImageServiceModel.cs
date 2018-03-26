@@ -15,12 +15,22 @@ namespace ImageService.Model
     public class ImageServiceModel : IImageServiceModel
     {
         #region Members
-        private string m_OutputFolder;            // The Output Folder
-        private int m_thumbnailSize;              // The Size Of The Thumbnail Size
+        //private string m_OutputFolder;            // The Output Folder
+        //private int m_thumbnailSize;              // The Size Of The Thumbnail
+
+        private string OutputFolder { get; set; }
+        private int Thumbnail { get; set; }
+
+        public ImageServiceModel(string m_OutputFolder, int m_thumbnailSize)
+        {
+            OutputFolder = m_OutputFolder;
+            Thumbnail = m_thumbnailSize;
+        }
 
         public string AddFile(string path, out bool result)
         {
-            throw new NotImplementedException();  
+
+            throw new NotImplementedException(); 
         }
 
         #endregion
