@@ -23,11 +23,9 @@ namespace ImageService.Controller
                 { (int)CommandEnum.NewFileCommand, new NewFileCommand(Model) }
             };
         }
+
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
-            // Write Code Here
-            //
-            //
             ICommand command;
             if (commands.TryGetValue(commandID, out command))
             {

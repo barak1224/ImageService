@@ -64,8 +64,6 @@ namespace ImageService
     
         private int eventId = 1;
 
-        internal IImageServiceModal Modal { get => modal; set => modal = value; }
-
         #endregion
 
 
