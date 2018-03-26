@@ -58,7 +58,7 @@ namespace ImageService.Controller.Handlers
             foreach (string ext in extensions)
             {
                 FileSystemWatcher watcher = new FileSystemWatcher(m_path, ext);
-                watcher.Created += Watcher_CreatedFile;
+                watcher.Created += OnCreate;
                 m_dirWatcher.Add(watcher);
             }
         }
@@ -67,7 +67,7 @@ namespace ImageService.Controller.Handlers
          * When new file created with one of the extensions, the EventHandler of the watcher
          * calls 
          **/
-        private void Watcher_CreatedFile(object sender, FileSystemEventArgs e)
+        private void OnCreate(object sender, FileSystemEventArgs e)
         {
             //TODO
         }
