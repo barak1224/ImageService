@@ -12,15 +12,18 @@ using System.Threading.Tasks;
 
 namespace ImageService.Model
 {
+    /*
+     *Class in charge of dealing with the basic functions for the files organization.
+     */
     public class ImageServiceModel : IImageServiceModel
     {
         #region Members
-        //private string m_OutputFolder;            // The Output Folder
-        //private int m_thumbnailSize;              // The Size Of The Thumbnail
-
         private string OutputFolder { get; set; }
         private int Thumbnail { get; set; }
 
+        #endregion
+
+        // Constructor
         public ImageServiceModel(string m_OutputFolder, int m_thumbnailSize)
         {
             OutputFolder = m_OutputFolder;
@@ -29,11 +32,44 @@ namespace ImageService.Model
 
         public string AddFile(string path, out bool result)
         {
+            // get the time of creation of the file
+            DateTime date = File.GetCreationTime(path);
+            string yearFolder = Path.Combine(OutputFolder, date.Year.ToString("YYYY"));
+            string monthFolder = Path.Combine(yearFolder, date.Month.ToString("MMMM"));
+            string destFile = Path.Combine(yearFolder, Path.GetFileName(path));
 
-            throw new NotImplementedException(); 
+            //creates the folder. If it exists, it does nothing.
+            Directory.CreateDirectory(monthFolder);
+            File.Copy(path, destFile);
+
+            if (Directory.Exists(destFile))
+            {
+                result = false;
+                return String.Format("File from \"{0}\" could not be added to \"{1}\".", path, OutputFolder);
+            }
+            else
+            {
+                result = true;
+                return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
+            }
         }
 
-        #endregion
+    
+            
+        private string CreateFolder(string path, out bool result)
+        {
+                Directory.CreateDirectory(path);
+                //TODO
+        }
+
+        private string MoveFile(string path, out bool result)
+        {
+            string fileName = Path.GetFileName(sourcePath);
+            if (!Directory.Exists(Path.Combine(destPath, fileName)))
+            {
+                Directory.Move(sourcePath, destPath);
+            }
+        }
 
     }
 }

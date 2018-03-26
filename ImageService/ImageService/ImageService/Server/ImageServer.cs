@@ -16,12 +16,19 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
+
         #endregion
 
         #region Properties
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
         #endregion
 
+
+        public void CreateHandler(string path)
+        {
+            throw new NotImplementedException();
+            //TODO
+        }
        
     }
 }
