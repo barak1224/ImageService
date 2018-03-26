@@ -43,16 +43,31 @@ namespace ImageService
 
     public partial class ImageService : ServiceBase
     {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        #region Members
+        private System.ComponentModel.IContainer components = null;
+        
+        private System.Diagnostics.EventLog eventLog1;
+        
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
+        
         private ImageServer m_imageServer;          // The Image Server
+        
         private IImageServiceModel modal;
+        
         private IImageController controller;
+        
         private ILoggingService logging;
-
+    
         private int eventId = 1;
 
         internal IImageServiceModal Modal { get => modal; set => modal = value; }
+
+        #endregion
+
 
         public ImageService()
         {
@@ -131,7 +146,7 @@ namespace ImageService
             eventLog1.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
         }
 
-        private void LoggingServices_MessageRecieved(object sender, MessageRecievedEventArgs messageArgs)
+        private void OnMessage(object sender, MessageRecievedEventArgs messageArgs)
         {
             eventLog1.WriteEntry(messageArgs.Message);
         }
