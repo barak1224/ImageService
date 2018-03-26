@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
+using ImageService.Logging.Model;
 
 namespace ImageService
 {

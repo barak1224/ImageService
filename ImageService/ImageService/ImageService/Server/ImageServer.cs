@@ -2,7 +2,7 @@
 using ImageService.Controller.Handlers;
 using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
-using ImageService.Modal;
+using ImageService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -10,9 +10,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ImageService.Modal
+namespace ImageService.Model
 {
-    public class ImageServiceModal : IImageServiceModal
+    public class ImageServiceModel : IImageServiceModel
     {
         #region Members
         private string m_OutputFolder;            // The Output Folder
