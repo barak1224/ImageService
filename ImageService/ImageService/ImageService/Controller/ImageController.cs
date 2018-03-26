@@ -30,9 +30,11 @@ namespace ImageService.Controller
             if (commands.TryGetValue(commandID, out command))
             {
                 return command.Execute(args, out resultSuccesful);
-            } else {
+            }
+            else
+            {
                 resultSuccesful = false;
-                return "ID was not found";
+                return "Command was not found";
             }
         }
     }
