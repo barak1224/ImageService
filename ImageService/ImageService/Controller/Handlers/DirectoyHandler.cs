@@ -21,7 +21,6 @@ namespace ImageService.Controller.Handlers
         private List<FileSystemWatcher> m_dirWatcher;       // The Watcher of the Dir
         private string m_path;                              // The Path of directory
         private string[] extensions;
-        private Dictionary<int, Func<>> dict;
         #endregion
 
         public DirectoyHandler(IImageController controller, ILoggingService logging)
@@ -42,7 +41,7 @@ namespace ImageService.Controller.Handlers
                 }
             }
         }
-
+        // TODO
         private void CloseHandler()
         {
             foreach (FileSystemWatcher watcher in m_dirWatcher)
