@@ -48,9 +48,9 @@ namespace ImageService
         /// </summary>
         #region Members
         private System.ComponentModel.IContainer components = null;
-        
+
         private System.Diagnostics.EventLog eventLog1;
-        
+
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
 
@@ -58,7 +58,7 @@ namespace ImageService
         private IImageServiceModel modelImage;
         private IImageController controller;
         private ILoggingService logging; private AppParsing appPar;
-    
+
         private int eventId = 1;
 
         #endregion
@@ -102,7 +102,7 @@ namespace ImageService
 
         private void CreateObjects()
         {
-            modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThubnailSize);
+            modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThubnailSized);
             controller = new ImageController(modelImage);
             logging = new LoggingService();
             logging.MessageRecieved += OnMessage;

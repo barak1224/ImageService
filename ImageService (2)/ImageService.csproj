@@ -51,7 +51,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -64,47 +63,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageService.Infrastructure\Enums\CommandEnum.cs" />
-    <Compile Include="ImageService\AppParsing.cs" />
-    <Compile Include="ImageService\Commands\ICommand.cs" />
-    <Compile Include="ImageService\Commands\NewFileCommand.cs" />
-    <Compile Include="ImageService\Controller\ExecuteCommandArgs.cs" />
-    <Compile Include="ImageService\Controller\Handlers\DirectoyHandler.cs" />
-    <Compile Include="ImageService\Controller\Handlers\IDirectoryHandler.cs" />
-    <Compile Include="ImageService\Controller\IImageController.cs" />
-    <Compile Include="ImageService\Controller\ImageController.cs" />
-    <Compile Include="ImageService\ImageService.cs">
+    <Compile Include="ImageService\IImageServiceModal.cs" />
+    <Compile Include="ImageService\ImageService.Infrastructure\Enums\CommandEnum.cs" />
+    <Compile Include="ImageService\ImageService\Commands\ICommand.cs" />
+    <Compile Include="ImageService\ImageService\Commands\NewFileCommand.cs" />
+    <Compile Include="ImageService\ImageService\Controller\Handlers\DirectoyHandler.cs" />
+    <Compile Include="ImageService\ImageService\Controller\Handlers\IDirectoryHandler.cs" />
+    <Compile Include="ImageService\ImageService\Controller\IImageController.cs" />
+    <Compile Include="ImageService\ImageService\Controller\ImageController.cs" />
+    <Compile Include="ImageService\ImageService\ImageService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ImageService\ImageService.Designer.cs">
+    <Compile Include="ImageService\ImageService\ImageService.Designer.cs">
       <DependentUpon>ImageService.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageService\Model\Event\CommandRecievedEventArgs.cs" />
-    <Compile Include="ImageService\Model\Event\DirectoryCloseEventArgs.cs" />
-    <Compile Include="ImageService\Model\IImageServiceModel.cs" />
-    <Compile Include="ImageService\Model\ImageServiceModel.cs" />
-    <Compile Include="ImageService\Program.cs" />
-    <Compile Include="ImageService\ProjectInstaller.cs">
+    <Compile Include="ImageService\ImageService\Model\Event\CommandRecievedEventArgs.cs" />
+    <Compile Include="ImageService\ImageService\Model\Event\DirectoryCloseEventArgs.cs" />
+    <Compile Include="ImageService\ImageService\Model\IImageServiceModel.cs" />
+    <Compile Include="ImageService\ImageService\Model\ImageServiceModel.cs" />
+    <Compile Include="ImageService\ImageService\Program.cs" />
+    <Compile Include="ImageService\ImageService\ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ImageService\ProjectInstaller.Designer.cs">
+    <Compile Include="ImageService\ImageService\ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageService\Server\ImageServer.cs" />
-    <Compile Include="Logging\ILoggingService.cs" />
-    <Compile Include="Logging\LoggingService.cs" />
-    <Compile Include="Logging\Model\MessageRecievedEventArgs.cs" />
-    <Compile Include="Logging\Model\MessageTypeEnum.cs" />
+    <Compile Include="ImageService\ImageService\Server\ImageServer.cs" />
+    <Compile Include="ImageService\Logging\ILoggingService.cs" />
+    <Compile Include="ImageService\Logging\LoggingService.cs" />
+    <Compile Include="ImageService\Logging\Model\MessageRecievedEventArgs.cs" />
+    <Compile Include="ImageService\Logging\Model\MessageTypeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ImageService\App.config" />
+    <None Include="ImageService\ImageService\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ImageService\ImageService.resx">
+    <EmbeddedResource Include="ImageService\ImageService\ImageService.resx">
       <DependentUpon>ImageService.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImageService\ProjectInstaller.resx">
+    <EmbeddedResource Include="ImageService\ImageService\ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -120,6 +118,5 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

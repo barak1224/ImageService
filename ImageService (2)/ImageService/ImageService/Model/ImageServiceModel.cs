@@ -59,8 +59,13 @@ namespace ImageService.Model
 
         private void CreateFolder(string path, out bool result)
         {
+<<<<<<< HEAD:ImageService/ImageService/ImageService/Model/ImageServiceModel.cs
             result = true; //might change
             Directory.CreateDirectory(path);
+=======
+                Directory.CreateDirectory(path);
+                //TODO
+>>>>>>> d560ec3f74f0db287c55f74fc992c9650ca612d8:ImageService (2)/ImageService/ImageService/Model/ImageServiceModel.cs
         }
 
         private void MoveFile(string path, out bool result)

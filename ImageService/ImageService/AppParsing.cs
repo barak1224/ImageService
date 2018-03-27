@@ -7,13 +7,13 @@ using System.Configuration;
 
 namespace ImageService
 {
-    class AppParsing
+    public class AppParsing
     {
         public string[] PathHandlers { get; }
         public string OutputDir { get; }
         public string SourceName { get; }
         public string LogName { get; }
-        public int ThubnailSize { get; }
+        public int ThubnailSized { get; }
         public AppParsing()
         {
             PathHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
@@ -21,9 +21,9 @@ namespace ImageService
             SourceName = ConfigurationManager.AppSettings["SourceName"];
             LogName = ConfigurationManager.AppSettings["LogName"];
             int ts;
-            if(int.TryParse(ConfigurationManager.AppSettings["ThumbnailSize"], out ts))
+            if(int.TryParse(ConfigurationManager.AppSettings["ThumbnailSized"], out ts))
             {
-                ThubnailSize = ts;
+                ThubnailSized = ts;
             }
         }
 

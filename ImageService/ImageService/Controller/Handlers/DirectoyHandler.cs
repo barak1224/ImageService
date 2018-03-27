@@ -21,30 +21,36 @@ namespace ImageService.Controller.Handlers
         private List<FileSystemWatcher> m_dirWatcher;       // The Watcher of the Dir
         private string m_path;                              // The Path of directory
         private string[] extensions;
+        private Dictionary<int, Func<>> dict;
         #endregion
 
         public DirectoyHandler(IImageController controller, ILoggingService logging)
         {
             m_controller = controller;
             m_logging = logging;
-        }
+        } 
 
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
 
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            if (e.RequestDirPath.Equals(m_path))
+            if (e.RequestDirPath.Equals(m_path) || e.RequestDirPath.Equals("*")) 
             {
-                bool result;
-                string message = m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
-                if (result)
+                if(e.CommandID == (int)CommandEnum.CloseCommand)
                 {
-                    m_logging.Log(message, MessageTypeEnum.INFO);
-                } else
-                {
-                    m_logging.Log(message, MessageTypeEnum.FAIL);
+                    CloseHandler();
                 }
             }
+        }
+
+        private void CloseHandler()
+        {
+            foreach (FileSystemWatcher watcher in m_dirWatcher)
+            {
+                watcher.EnableRaisingEvents = false;
+                watcher.Dispose();
+            }
+            DirectoryClose?.Invoke(this, new DirectoryCloseEventArgs(m_path, "was closed"));
         }
 
         /**
