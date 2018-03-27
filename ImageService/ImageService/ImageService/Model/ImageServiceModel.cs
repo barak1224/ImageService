@@ -58,8 +58,7 @@ namespace ImageService.Model
             
         private string CreateFolder(string path, out bool result)
         {
-                Directory.CreateDirectory(path);
-                //TODO
+            Directory.CreateDirectory(path);
         }
 
         private string MoveFile(string path, out bool result)

@@ -63,8 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageService\IImageServiceModal.cs" />
     <Compile Include="ImageService\ImageService.Infrastructure\Enums\CommandEnum.cs" />
+    <Compile Include="ImageService\ImageService\AppParsing.cs" />
     <Compile Include="ImageService\ImageService\Commands\ICommand.cs" />
     <Compile Include="ImageService\ImageService\Commands\NewFileCommand.cs" />
     <Compile Include="ImageService\ImageService\Controller\Handlers\DirectoyHandler.cs" />
