@@ -56,19 +56,16 @@ namespace Service.Model
 
     
             
-        private string CreateFolder(string path, out bool result)
+        private void CreateFolder(string path, out bool result)
         {
-                Directory.CreateDirectory(path);
-                //TODO
+            result = true; //might change
+            Directory.CreateDirectory(path);
         }
 
-        private string MoveFile(string path, out bool result)
+        private void MoveFile(string path, out bool result)
         {
-            string fileName = Path.GetFileName(sourcePath);
-            if (!Directory.Exists(Path.Combine(destPath, fileName)))
-            {
-                Directory.Move(sourcePath, destPath);
-            }
+            throw new NotImplementedException();
         }
+
     }
 }
