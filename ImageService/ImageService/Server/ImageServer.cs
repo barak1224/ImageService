@@ -35,6 +35,7 @@ namespace ImageService.Server
             foreach (string pathHandler in pathHandlers)
             {
                 CreateHandler(pathHandler);
+                logging.Log($"Handler for {pathHandler} was created", MessageTypeEnum.INFO);
             }
         }
 

@@ -41,7 +41,6 @@ namespace ImageService.Model
             //creates the folder. If it exists, it does nothing.
             Directory.CreateDirectory(monthFolder);
 
-            
             if (Directory.Exists(destFile))
             {
                 result = false;

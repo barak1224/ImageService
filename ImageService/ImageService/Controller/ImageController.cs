@@ -36,13 +36,14 @@ namespace ImageService.Controller
             ICommand command;
             if (commands.TryGetValue(commandID, out command))
             {
-                Task<Tuple<string, bool>> t = new Task<Tuple<string, bool>>(() =>
+                Task<Tuple<string, bool>> task = new Task<Tuple<string, bool>>(() =>
                 {
                     bool result;
                     string msg = command.Execute(args, out result);
                     return Tuple.Create(msg,result);
                 });
-                Tuple<string, bool> taskArgs = t.Result;
+                task.Start();
+                Tuple<string, bool> taskArgs = task.Result;
                 resultSuccesful = taskArgs.Item2;
                 return taskArgs.Item1;
             }

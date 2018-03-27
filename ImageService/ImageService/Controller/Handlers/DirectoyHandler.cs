@@ -41,7 +41,7 @@ namespace ImageService.Controller.Handlers
                 }
             }
         }
-        // TODO
+
         private void CloseHandler()
         {
             foreach (FileSystemWatcher watcher in m_dirWatcher)
@@ -61,14 +61,18 @@ namespace ImageService.Controller.Handlers
             m_path = dirPath;
             extensions = new string[]
             {
-                "jpg", "png", "bmp", "gif"
+                "*.jpg", "*.png", "*.bmp", "*.gif"
             };
             m_dirWatcher = new List<FileSystemWatcher>();
             foreach (string ext in extensions)
             {
                 FileSystemWatcher watcher = new FileSystemWatcher(m_path, ext);
-                watcher.Created += OnCreate;
+                watcher.Created += new FileSystemEventHandler(OnCreated);
+                watcher.EnableRaisingEvents = true;
+                watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+           |                           NotifyFilters.FileName | NotifyFilters.DirectoryName;
                 m_dirWatcher.Add(watcher);
+                m_logging.Log("Watcher", MessageTypeEnum.INFO);
             }
         }
 
@@ -76,7 +80,7 @@ namespace ImageService.Controller.Handlers
          * When new file created with one of the extensions, the EventHandler of the watcher
          * calls 
          **/
-        private void OnCreate(object sender, FileSystemEventArgs e)
+        private void OnCreated(object sender, FileSystemEventArgs e)
         {
             bool result;
             string[] args = { e.FullPath };
