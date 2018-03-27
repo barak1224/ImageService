@@ -36,27 +36,33 @@ namespace ImageService.Model
             DateTime date = File.GetCreationTime(path);
             string yearFolder = Path.Combine(OutputFolder, date.Year.ToString());
             string monthFolder = Path.Combine(yearFolder, GetMonth(date.Month));
-            string destFile = Path.Combine(monthFolder, Path.GetFileName(path));
 
             //creates the folder. If it exists, it does nothing.
-            Directory.CreateDirectory(monthFolder);
-
-            
-            if (Directory.Exists(destFile))
+            if (!Directory.Exists(monthFolder))
             {
-                result = false;
-                return String.Format("A file called \"{0}\" already exists at \"{1}\".", Path.GetFileName(path), OutputFolder);
+                Directory.CreateDirectory(monthFolder);
             }
-            else
+
+            return CopyFile(path, monthFolder, out result);
+        }
+
+        private string CopyFile(string path, string monthFolder, out bool result)
+        {
+            string destFile = Path.Combine(monthFolder, Path.GetFileName(path));
+            try
             {
-                File.Copy(path, destFile);
+                File.Copy(path, monthFolder);
+                
                 result = true;
-                return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
+                return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, monthFolder);
+            } catch (IOException e) {
+                
+                bool temp = Directory.Exists(destFile);
+                result = temp;
+                return String.Format("A file called \"{0}\" already exists at \"{1}\".", Path.GetFileName(path), monthFolder);
             }
         }
 
-    
-            
         private void CreateFolder(string path, out bool result)
         {
             result = true; //might change

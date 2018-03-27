@@ -11,7 +11,7 @@ namespace UnitTestProject1
         {
             bool result = false;
             ImageServiceModel imageModel = new ImageServiceModel("C:\\Users\\Iosi\\Desktop", 5);
-            string error = imageModel.AddFile("C:\\Users\\Iosi\\Pictures\\TMlogo.png", out result);
+            string error = imageModel.AddFile("C:\\Users\\Iosi\\Pictures\\TMlogo3.png", out result);
             Assert.AreEqual(result, true, error);
         }
     }
