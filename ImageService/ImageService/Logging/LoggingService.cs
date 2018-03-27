@@ -12,6 +12,9 @@ namespace ImageService.Logging
     {
         public event EventHandler<MessageRecievedEventArgs> MessageRecieved;
 
+        /**
+         * The function raising a event to send the message to the logger
+         */
         public void Log(string message, MessageTypeEnum type)
         {
             MessageRecievedEventArgs messageArgs = new MessageRecievedEventArgs();

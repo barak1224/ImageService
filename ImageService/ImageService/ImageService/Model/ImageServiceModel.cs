@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
+//using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,40 +34,38 @@ namespace ImageService.Model
         {
             // get the time of creation of the file
             DateTime date = File.GetCreationTime(path);
-            string yearFolder = Path.Combine(OutputFolder, date.Year.ToString("YYYY"));
-            string monthFolder = Path.Combine(yearFolder, date.Month.ToString("MMMM"));
-            string destFile = Path.Combine(yearFolder, Path.GetFileName(path));
+            string yearFolder = Path.Combine(OutputFolder, date.Year.ToString());
+            string monthFolder = Path.Combine(yearFolder, date.Month.ToString());
+            string destFile = Path.Combine(monthFolder, Path.GetFileName(path));
 
             //creates the folder. If it exists, it does nothing.
             Directory.CreateDirectory(monthFolder);
-            File.Copy(path, destFile);
+
 
             if (Directory.Exists(destFile))
             {
                 result = false;
-                return String.Format("File from \"{0}\" could not be added to \"{1}\".", path, OutputFolder);
+                return String.Format("A file called \"{0}\" already exists at \"{1}\".", Path.GetFileName(path), OutputFolder);
             }
             else
             {
+                File.Copy(path, destFile);
                 result = true;
                 return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
             }
         }
 
-    
-            
-        private string CreateFolder(string path, out bool result)
+
+
+        private void CreateFolder(string path, out bool result)
         {
+            result = true; //might change
             Directory.CreateDirectory(path);
         }
 
-        private string MoveFile(string path, out bool result)
+        private void MoveFile(string path, out bool result)
         {
-            string fileName = Path.GetFileName(sourcePath);
-            if (!Directory.Exists(Path.Combine(destPath, fileName)))
-            {
-                Directory.Move(sourcePath, destPath);
-            }
+            throw new NotImplementedException();
         }
 
     }

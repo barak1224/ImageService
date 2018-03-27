@@ -47,6 +47,10 @@ namespace ImageService.Controller.Handlers
             }
         }
 
+        /**
+         * The function creates the watchers to listen to the dirPath
+         * Input: string dirPath - the directory to be handle by the handler
+         **/
         public void StartHandleDirectory(string dirPath)
         {
             m_path = dirPath;
@@ -69,7 +73,17 @@ namespace ImageService.Controller.Handlers
          **/
         private void OnCreate(object sender, FileSystemEventArgs e)
         {
-            //TODO
+            bool result;
+            string[] args = { e.FullPath };
+            string message = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);   
+            if (result)
+            {
+                m_logging.Log(message, MessageTypeEnum.INFO);
+            }
+            else
+            {
+                m_logging.Log(message, MessageTypeEnum.FAIL);
+            }
         }
     }
 }

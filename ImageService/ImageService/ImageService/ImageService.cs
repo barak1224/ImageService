@@ -53,14 +53,11 @@ namespace ImageService
         
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
-        
+
         private ImageServer m_imageServer;          // The Image Server
-        
-        private IImageServiceModel modal;
-        
+        private IImageServiceModel modelImage;
         private IImageController controller;
-        
-        private ILoggingService logging;
+        private ILoggingService logging; private AppParsing appPar;
     
         private int eventId = 1;
 
@@ -70,15 +67,15 @@ namespace ImageService
         public ImageService()
         {
             InitializeComponent();
+            appPar = new AppParsing();
             eventLog1 = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists("MySource"))
+            if (!System.Diagnostics.EventLog.SourceExists(appPar.SourceName))
             {
                 System.Diagnostics.EventLog.CreateEventSource(
-                    "MySource", "MyNewLog");
+                    appPar.SourceName, appPar.LogName);
             }
-            eventLog1.Source = "MySource";
-            eventLog1.Log = "MyNewLog";
-            logging = new LoggingService();
+            eventLog1.Source = appPar.SourceName;
+            eventLog1.Log = appPar.LogName;
         }
 
         protected override void OnStart(string[] args)
@@ -100,8 +97,17 @@ namespace ImageService
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+            CreateObjects();
+        }
 
-            logging.MessageRecieved += LoggingServices_MessageRecieved;
+        private void CreateObjects()
+        {
+            modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThubnailSize);
+            controller = new ImageController(modelImage);
+            logging = new LoggingService();
+            logging.MessageRecieved += OnMessage;
+
+            m_imageServer = new ImageServer(controller, logging, appPar.PathHandlers);
         }
 
         protected override void OnStop()
@@ -119,7 +125,7 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            logging.MessageRecieved -= LoggingServices_MessageRecieved;
+            logging.MessageRecieved -= OnMessage;
         }
 
         protected override void OnContinue()
