@@ -26,10 +26,5 @@ namespace ImageService
                 ThubnailSized = ts;
             }
         }
-
-        private void SplitHandlers(string handlers)
-        {
-
-        }
     }
 }
