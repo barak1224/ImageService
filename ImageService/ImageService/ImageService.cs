@@ -8,15 +8,15 @@ using System.ServiceProcess;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using Service.Server;
-using Service.Controller;
-using Service.Model;
-using Service.Logging;
-using Service.Logging.Model;
+using ImageService.Server;
+using ImageService.Controller;
+using ImageService.Model;
+using ImageService.Logging;
+using ImageService.Logging.Model;
 using System.Configuration;
-using Service.Infrastructure;
+using ImageService.Infrastructure;
 
-namespace Service
+namespace ImageService
 {
     public enum ServiceState
     {

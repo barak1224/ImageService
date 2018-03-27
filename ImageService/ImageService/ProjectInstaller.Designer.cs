@@ -1,4 +1,4 @@
-﻿namespace Service
+﻿namespace ImageService
 {
     partial class ProjectInstaller
     {

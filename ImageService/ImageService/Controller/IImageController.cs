@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Controller
+namespace ImageService.Controller
 {
     public interface IImageController
     {

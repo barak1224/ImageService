@@ -1,17 +1,17 @@
-﻿using Service.Model;
+﻿using ImageService.Model;
 using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Service.Infrastructure;
-using Service.Infrastructure.Enums;
-using Service.Logging;
-using Service.Logging.Model;
+using ImageService.Infrastructure;
+using ImageService.Infrastructure.Enums;
+using ImageService.Logging;
+using ImageService.Logging.Model;
 using System.Text.RegularExpressions;
 
-namespace Service.Controller.Handlers
+namespace ImageService.Controller.Handlers
 {
     public class DirectoyHandler : IDirectoryHandler
     {

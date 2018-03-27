@@ -1,12 +1,12 @@
-﻿using Service.Infrastructure;
-using Service.Model;
+﻿using ImageService.Infrastructure;
+using ImageService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Commands
+namespace ImageService.Commands
 {
     public class NewFileCommand : ICommand
     {

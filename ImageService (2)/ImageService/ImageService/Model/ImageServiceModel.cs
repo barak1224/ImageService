@@ -1,4 +1,4 @@
-﻿using Service.Infrastructure;
+﻿using ImageService.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Service.Model
+namespace ImageService.Model
 {
     /*
      *Class in charge of dealing with the basic functions for the files organization.

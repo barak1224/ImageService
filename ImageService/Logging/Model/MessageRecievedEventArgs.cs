@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Logging.Model
+namespace ImageService.Logging.Model
 {
     public class MessageRecievedEventArgs : EventArgs
     {

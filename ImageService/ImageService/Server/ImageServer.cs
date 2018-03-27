@@ -1,15 +1,15 @@
-﻿using Service.Controller;
-using Service.Controller.Handlers;
-using Service.Infrastructure.Enums;
-using Service.Logging;
-using Service.Model;
+﻿using ImageService.Controller;
+using ImageService.Controller.Handlers;
+using ImageService.Infrastructure.Enums;
+using ImageService.Logging;
+using ImageService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Server
+namespace ImageService.Server
 {
     public class ImageServer
     {

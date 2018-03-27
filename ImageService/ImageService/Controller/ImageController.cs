@@ -1,14 +1,14 @@
-﻿using Service.Commands;
-using Service.Infrastructure;
-using Service.Infrastructure.Enums;
-using Service.Model;
+﻿using ImageService.Commands;
+using ImageService.Infrastructure;
+using ImageService.Infrastructure.Enums;
+using ImageService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Controller
+namespace ImageService.Controller
 {
     public class ImageController : IImageController
     {

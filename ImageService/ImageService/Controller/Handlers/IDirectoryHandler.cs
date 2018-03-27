@@ -1,11 +1,11 @@
-﻿using Service.Model;
+﻿using ImageService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Controller.Handlers
+namespace ImageService.Controller.Handlers
 {
     public interface IDirectoryHandler
     {

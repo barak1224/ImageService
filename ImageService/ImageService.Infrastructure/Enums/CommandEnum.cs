@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Infrastructure.Enums
+namespace ImageService.Infrastructure.Enums
 {
     public enum CommandEnum : int
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Service
+namespace ImageService
 {
     partial class ImageService
     {
