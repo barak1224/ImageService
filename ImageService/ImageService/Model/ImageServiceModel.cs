@@ -42,22 +42,19 @@ namespace ImageService.Model
             {
                 Directory.CreateDirectory(monthFolder);
             }
-
             return CopyFile(path, monthFolder, out result);
         }
 
         private string CopyFile(string path, string monthFolder, out bool result)
         {
-            string destFile = Path.Combine(monthFolder, Path.GetFileName(path));
             try
             {
                 File.Copy(path, monthFolder);
-                
                 result = true;
+
                 return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, monthFolder);
-            } catch (IOException e) {
-                
-                bool temp = Directory.Exists(destFile);
+            } catch (IOException) {
+                bool temp = Directory.Exists(Path.Combine(monthFolder, Path.GetFileName(path)));
                 result = temp;
                 return String.Format("A file called \"{0}\" already exists at \"{1}\".", Path.GetFileName(path), monthFolder);
             }

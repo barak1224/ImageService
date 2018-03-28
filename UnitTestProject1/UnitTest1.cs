@@ -9,9 +9,10 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestAddFile()
         {
-            bool result = false;
-            ImageServiceModel imageModel = new ImageServiceModel("C:\\Users\\Iosi\\Desktop", 5);
-            string error = imageModel.AddFile("C:\\Users\\Iosi\\Pictures\\TMlogo3.png", out result);
+            int thumbnailSize = 5;
+            bool result;
+            IImageServiceModel imageModel = new ImageServiceModel(@"C:\Users\Iosi\Desktop", thumbnailSize);
+            string error = imageModel.AddFile(@"C:\Users\Iosi\Pictures\TMlogo.png", out result);
             Assert.AreEqual(result, true, error);
         }
     }
