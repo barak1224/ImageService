@@ -32,17 +32,41 @@ namespace ImageService.Model
 
         public string AddFile(string path, out bool result)
         {
+            Thread.Sleep(1000);
             // get the time of creation of the file
             DateTime date = File.GetCreationTime(path);
             string yearFolder = Path.Combine(OutputFolder, date.Year.ToString());
             string monthFolder = Path.Combine(yearFolder, GetMonth(date.Month));
+            string destFile = Path.Combine(monthFolder, Path.GetFileName(path));
 
             //creates the folder. If it exists, it does nothing.
-            if (!Directory.Exists(monthFolder))
+            Directory.CreateDirectory(monthFolder);
+
+            if (Directory.Exists(destFile))
             {
-                Directory.CreateDirectory(monthFolder);
+                result = false;
+                return String.Format("A file called \"{0}\" already exists at \"{1}\".", Path.GetFileName(path), OutputFolder);
             }
-            return CopyFile(path, monthFolder, out result);
+            else
+            {
+                File.Copy(path, destFile);
+                AddToThumbnail(destFile);
+                result = true;
+                return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
+            }
+        }
+
+        private void AddToThumbnail(string destFile)
+        {
+            string thumbnailFolder = Path.Combine(OutputFolder, @"Thumbnail");
+            if (!Directory.Exists(thumbnailFolder))
+            {
+                Directory.CreateDirectory(thumbnailFolder);
+            }
+
+            Image thumb = Image.FromFile(destFile).GetThumbnailImage(100, 100, null, IntPtr.Zero);
+            thumb.Save(Path.Combine(thumbnailFolder, Path.ChangeExtension(Path.GetFileName(destFile), "thumb")));
+            thumb.Dispose();
         }
 
         private string CopyFile(string path, string monthFolder, out bool result)
