@@ -124,7 +124,7 @@ namespace ImageService
             // Update the service state to Paused.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-
+            m_imageServer.CloseServer();
             logging.MessageRecieved -= OnMessage;
         }
 

@@ -32,6 +32,7 @@ namespace ImageService.Model
 
         public string AddFile(string path, out bool result)
         {
+            Thread.Sleep(1000);
             // get the time of creation of the file
             DateTime date = File.GetCreationTime(path);
             string yearFolder = Path.Combine(OutputFolder, date.Year.ToString());
