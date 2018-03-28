@@ -3,11 +3,6 @@ namespace ImageService
 {
     partial class ImageService
     {
-
-        private System.ComponentModel.IContainer components = null;
-
-        private System.Diagnostics.EventLog eventLog1;
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
