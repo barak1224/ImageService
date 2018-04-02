@@ -35,12 +35,12 @@ namespace ImageService.Model
             Thread.Sleep(1000);
             // get the time of creation of the file
             DateTime date = File.GetCreationTime(path);
-            string yearFolder = Path.Combine(OutputFolder, date.Year.ToString());
-            string monthFolder = Path.Combine(yearFolder, GetMonth(date.Month));
-            string destFile = Path.Combine(monthFolder, Path.GetFileName(path));
+            string dateFolder = Path.Combine(date.Year.ToString(), GetMonth(date.Month));
+            string destPath = Path.Combine(OutputFolder, dateFolder);
+            string destFile = Path.Combine(destPath, Path.GetFileName(path));
 
             //creates the folder. If it exists, it does nothing.
-            Directory.CreateDirectory(monthFolder);
+            Directory.CreateDirectory(destPath);
 
             if (Directory.Exists(destFile))
             {
@@ -50,15 +50,15 @@ namespace ImageService.Model
             else
             {
                 File.Copy(path, destFile);
-                AddToThumbnail(destFile);
+                AddToThumbnail(destFile, dateFolder);
                 result = true;
                 return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
             }
         }
 
-        private void AddToThumbnail(string destFile)
+        private void AddToThumbnail(string destFile, string destFolder)
         {
-            string thumbnailFolder = Path.Combine(OutputFolder, @"Thumbnail");
+            string thumbnailFolder = Path.Combine(OutputFolder, Path.Combine(@"Thumbnail", destFolder));
             if (!Directory.Exists(thumbnailFolder))
             {
                 Directory.CreateDirectory(thumbnailFolder);
