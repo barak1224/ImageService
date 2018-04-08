@@ -33,6 +33,7 @@ namespace ImageService.Model
 
         public string AddFile(string path, out bool result)
         {
+            int counter = 1;
             Thread.Sleep(1000);
             // get the time of creation of the file
             DateTime date = GetDateTakenFromImage(path);
@@ -42,19 +43,23 @@ namespace ImageService.Model
 
             //creates the folder. If it exists, it does nothing.
             Directory.CreateDirectory(destPath);
+            bool exists = File.Exists(destFile);
+            if (exists)
+            {
+                string tentativePath = destFile;
+                while (File.Exists(tentativePath))
+                {
+                    
+                    tentativePath = Path.Combine(destPath, Path.GetFileNameWithoutExtension(destFile) + "(" + counter + ")" + Path.GetExtension(destFile));
+                    counter++;
+                }
+                destFile = tentativePath;
+            }
 
-            if (Directory.Exists(destFile))
-            {
-                result = false;
-                return String.Format("A file called \"{0}\" already exists at \"{1}\".", Path.GetFileName(path), OutputFolder);
-            }
-            else
-            {
-                File.Move(path, destFile);
-                AddToThumbnail(destFile, dateFolder);
-                result = true;
-                return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
-            }
+            File.Move(path, destFile);
+            AddToThumbnail(destFile, dateFolder);
+            result = true;
+            return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
         }
 
         private void AddToThumbnail(string destFile, string destFolder)
