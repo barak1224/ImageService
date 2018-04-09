@@ -50,7 +50,7 @@ namespace ImageService.Model
                 while (File.Exists(tentativePath))
                 {
                     
-                    tentativePath = Path.Combine(destPath, Path.GetFileNameWithoutExtension(destFile) + "(" + counter + ")" + Path.GetExtension(destFile));
+                    tentativePath = Path.Combine(destPath, Path.GetFileNameWithoutExtension(destFile) + " (" + counter + ")" + Path.GetExtension(destFile));
                     counter++;
                 }
                 destFile = tentativePath;
