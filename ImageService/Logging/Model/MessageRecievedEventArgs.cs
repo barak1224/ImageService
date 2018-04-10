@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ImageService.Logging.Model
 {
+    /// <summary>
+    /// The class that holds the details for messaging for the logging
+    /// </summary>
     public class MessageRecievedEventArgs : EventArgs
     {
         public MessageTypeEnum Status { get; set; }

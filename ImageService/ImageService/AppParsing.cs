@@ -7,6 +7,9 @@ using System.Configuration;
 
 namespace ImageService
 {
+    /// <summary>
+    /// The funciton is parsing the app config
+    /// </summary>
     public class AppParsing
     {
         public string[] PathHandlers { get; }
@@ -14,6 +17,10 @@ namespace ImageService
         public string SourceName { get; }
         public string LogName { get; }
         public int ThubnailSized { get; }
+
+        /// <summary>
+        /// The constructor parsing the app.config file and save as members
+        /// </summary>
         public AppParsing()
         {
             PathHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');

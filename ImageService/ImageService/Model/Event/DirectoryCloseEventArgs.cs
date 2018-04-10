@@ -12,6 +12,11 @@ namespace ImageService.Model
 
         public string Message { get; set; }             // The Message That goes to the logger
 
+        /// <summary>
+        /// The constructor of the class that holds the details of the handler that closed
+        /// </summary>
+        /// <param name="dirPath"> the directory path </param>
+        /// <param name="message"> a message of the handler that has closed </param>
         public DirectoryCloseEventArgs(string dirPath, string message)
         {
             DirectoryPath = dirPath;                    // Setting the Directory Name

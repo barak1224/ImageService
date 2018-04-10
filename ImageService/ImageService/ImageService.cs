@@ -92,12 +92,6 @@ namespace ImageService
         /// <param name="args"> Args </param>
         protected override void OnStart(string[] args)
         {
-            // Set up a timer to trigger every minute.  
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 60000; // 60 seconds  
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
-            timer.Start();
-
             eventLog1.WriteEntry("In OnStart");
 
             // Update the service state to Start Pending.  
@@ -148,29 +142,22 @@ namespace ImageService
         }
 
         /// <summary>
-        /// The function monitoring the service for showing it is still working
-        /// </summary>
-        /// <param name="sender"> the class ImageService </param>
-        /// <param name="args"> the message </param>
-        public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
-        {
-            // TODO: Insert monitoring activities here.  
-            eventLog1.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
-        }
-
-        /// <summary>
-        /// Rising
+        /// Getting the message to write to the logging
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="messageArgs"></param>
         private void OnMessage(object sender, MessageRecievedEventArgs messageArgs)
         {
-            if (messageArgs.Status == MessageTypeEnum.INFO)
+            switch ((int)messageArgs.Status)
             {
-                eventLog1.WriteEntry("INFO:" + messageArgs.Message);
-            } else
-            {
-                eventLog1.WriteEntry("FAIL:" + messageArgs.Message);
+                case 0:
+                    eventLog1.WriteEntry("INFO: " + messageArgs.Message);
+                    break;
+                case 1:
+                    eventLog1.WriteEntry("WARNING: " + messageArgs.Message);
+                    break;
+                case 2: eventLog1.WriteEntry("FAIL: " + messageArgs.Message);
+                    break;
             }
         }
 

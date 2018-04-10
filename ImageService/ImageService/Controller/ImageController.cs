@@ -17,6 +17,10 @@ namespace ImageService.Controller
         private IImageServiceModel m_Model;                      // The Model Object
         private Dictionary<int, ICommand> commands;
 
+        /// <summary>
+        /// The constructor
+        /// </summary>
+        /// <param name="Model"> The class that responsible to manage the files </param>
         public ImageController(IImageServiceModel Model)
         {
             m_Model = Model;                    // Storing the Model Of The System
@@ -26,12 +30,13 @@ namespace ImageService.Controller
             };
         }
 
-        /**
-         * The function executing the command by dechipering the command ID
-         * Input: commandID, args - of the command to be execute, 
-         * resultSuccesful - check if the command was execut succesfully
-         * Output: string message, if command was not found - error
-         */
+        /// <summary>
+        /// The function executing the command by dechipering the command ID
+        /// </summary>
+        /// <param name="commandID"></param>
+        /// <param name="args"> of the command to be execute </param>
+        /// <param name="resultSuccesful"> check if the command was execut succesfully </param>
+        /// <returns> string message, if command was not found - error </returns>
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
             ICommand command;
