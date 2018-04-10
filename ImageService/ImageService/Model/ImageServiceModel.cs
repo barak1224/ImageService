@@ -36,7 +36,15 @@ namespace ImageService.Model
             int counter = 1;
             Thread.Sleep(1000);
             // get the time of creation of the file
-            DateTime date = GetDateTakenFromImage(path);
+            DateTime date;
+            try
+            {
+                date = GetDateTakenFromImage(path);
+            } catch (IOException) {
+                //The file has no film date to be extract
+                result = false;
+                return String.Format("The file {0} has no date", path, OutputFolder);
+            }
             string dateFolder = Path.Combine(date.Year.ToString(), GetMonth(date.Month));
             string destPath = Path.Combine(OutputFolder, dateFolder);
             string destFile = Path.Combine(destPath, Path.GetFileName(path));
@@ -70,9 +78,12 @@ namespace ImageService.Model
                 Directory.CreateDirectory(thumbnailFolder);
             }
 
-            Image thumb = Image.FromFile(destFile).GetThumbnailImage(100, 100, null, IntPtr.Zero);
-            thumb.Save(Path.Combine(thumbnailFolder, Path.ChangeExtension(Path.GetFileName(destFile), "thumb")));
-            thumb.Dispose();
+            using (Image source = Image.FromFile(destFile))
+            using (Image thumb = source.GetThumbnailImage(100, 100, null, IntPtr.Zero))
+            {
+                thumb.Save(Path.Combine(thumbnailFolder, Path.ChangeExtension(Path.GetFileName(destFile), "thumb")));
+                thumb.Dispose();
+            }
         }
 
         private string CopyFile(string path, string monthFolder, out bool result)
