@@ -42,8 +42,7 @@ namespace ImageService.Model
                 date = GetDateTakenFromImage(path);
             } catch (Exception) {
                 //The file has no film date to be extract
-                result = false;
-                return String.Format("The file {0} has no date", path, OutputFolder);
+                date = File.GetCreationTime(path);
             }
             string dateFolder = Path.Combine(date.Year.ToString(), GetMonth(date.Month));
             string destPath = Path.Combine(OutputFolder, dateFolder);
