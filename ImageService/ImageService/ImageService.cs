@@ -18,6 +18,9 @@ using ImageService.Infrastructure;
 
 namespace ImageService
 {
+    /// <summary>
+    /// Service state as enum
+    /// </summary>
     public enum ServiceState
     {
         SERVICE_STOPPED = 0x00000001,
@@ -29,6 +32,9 @@ namespace ImageService
         SERVICE_PAUSED = 0x00000007,
     }
 
+    /// <summary>
+    /// Struct to save details about the service status
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct ServiceStatus
     {
@@ -41,11 +47,11 @@ namespace ImageService
         public int dwWaitHint;
     };
 
+    /// <summary>
+    /// The class which managing the service and writing to the log
+    /// </summary>
     public partial class ImageService : ServiceBase
     {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
         #region Members
         private System.ComponentModel.IContainer components = null;
 
@@ -63,7 +69,9 @@ namespace ImageService
 
         #endregion
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ImageService()
         {
             InitializeComponent();
@@ -78,6 +86,10 @@ namespace ImageService
             eventLog1.Log = appPar.LogName;
         }
 
+        /// <summary>
+        /// The function starts the service flow
+        /// </summary>
+        /// <param name="args"> Args </param>
         protected override void OnStart(string[] args)
         {
             // Set up a timer to trigger every minute.  
@@ -97,10 +109,13 @@ namespace ImageService
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            CreateObjects();
+            MembersInitialize();
         }
 
-        private void CreateObjects()
+        /// <summary>
+        /// The function initializing the members of the service
+        /// </summary>
+        private void MembersInitialize()
         {
             modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThubnailSized);
             controller = new ImageController(modelImage);
@@ -110,6 +125,9 @@ namespace ImageService
             m_imageServer = new ImageServer(controller, logging, appPar.PathHandlers);
         }
 
+        /// <summary>
+        /// The function stops the service flow
+        /// </summary>
         protected override void OnStop()
         {
             // Update the service state to Pause Pending.  
@@ -126,33 +144,34 @@ namespace ImageService
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
             m_imageServer.CloseServer();
             logging.MessageRecieved -= OnMessage;
+            Dispose();
         }
 
-        protected override void OnContinue()
-        {
-            // Update the service state to Pause Pending.  
-            ServiceStatus serviceStatus = new ServiceStatus();
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_CONTINUE_PENDING;
-            serviceStatus.dwWaitHint = 100000;
-            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-
-            // Write a log entry.
-            eventLog1.WriteEntry("In OnContinue");
-
-            // Update the service state to Paused.  
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
-            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-        }
-
+        /// <summary>
+        /// The function monitoring the service for showing it is still working
+        /// </summary>
+        /// <param name="sender"> the class ImageService </param>
+        /// <param name="args"> the message </param>
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
             // TODO: Insert monitoring activities here.  
             eventLog1.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
         }
 
+        /// <summary>
+        /// Rising
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="messageArgs"></param>
         private void OnMessage(object sender, MessageRecievedEventArgs messageArgs)
         {
-            eventLog1.WriteEntry(messageArgs.Message);
+            if (messageArgs.Status == MessageTypeEnum.INFO)
+            {
+                eventLog1.WriteEntry("INFO:" + messageArgs.Message);
+            } else
+            {
+                eventLog1.WriteEntry("FAIL:" + messageArgs.Message);
+            }
         }
 
     }
