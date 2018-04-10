@@ -40,7 +40,7 @@ namespace ImageService.Model
             try
             {
                 date = GetDateTakenFromImage(path);
-            } catch (IOException) {
+            } catch (Exception) {
                 //The file has no film date to be extract
                 result = false;
                 return String.Format("The file {0} has no date", path, OutputFolder);
