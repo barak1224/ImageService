@@ -142,7 +142,7 @@ namespace ImageService
         }
 
         /// <summary>
-        /// Getting the message to write to the logging
+        /// Getting a message to write to the logging
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="messageArgs"></param>
