@@ -13,24 +13,38 @@ using System.Threading.Tasks;
 
 namespace ImageService.Model
 {
-    /*
-     *Class in charge of dealing with the basic functions for the files organization.
-     */
+    /// <summary>
+    /// The model for the service. In charge of performing the actions needed, like moving files.
+    /// </summary>
     public class ImageServiceModel : IImageServiceModel
     {
         #region Members
         private string OutputFolder { get; set; }
         private int Thumbnail { get; set; }
 
+        private static Regex r = new Regex(":");
+
         #endregion
 
-        // Constructor
+        /// <summary>
+        /// Constructor.
+        /// Gets the output folder (where to save the images) and the thumbnail size.
+        /// </summary>
+        /// <param name="m_OutputFolder"></param>
+        /// <param name="m_thumbnailSize"></param>
         public ImageServiceModel(string m_OutputFolder, int m_thumbnailSize)
         {
             OutputFolder = m_OutputFolder;
             Thumbnail = m_thumbnailSize;
         }
 
+        /// <summary>
+        /// Method in charge of actually moving a file.
+        /// It takes the original image, moves it an creates its thumbnail counterpart.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public string AddFile(string path, out bool result)
         {
             int counter = 1;
@@ -40,7 +54,9 @@ namespace ImageService.Model
             try
             {
                 date = GetDateTakenFromImage(path);
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 //The file has no film date to be extract
                 date = File.GetCreationTime(path);
             }
@@ -56,7 +72,7 @@ namespace ImageService.Model
                 string tentativePath = destFile;
                 while (File.Exists(tentativePath))
                 {
-                    
+
                     tentativePath = Path.Combine(destPath, Path.GetFileNameWithoutExtension(destFile) + " (" + counter + ")" + Path.GetExtension(destFile));
                     counter++;
                 }
@@ -69,7 +85,12 @@ namespace ImageService.Model
             return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
         }
 
-        private void AddToThumbnail(string destFile, string destFolder)
+        /// <summary>
+        /// Creates and saves the thumbnail version for an image.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="destFolder"></param>
+        private void AddToThumbnail(string file, string destFolder)
         {
             string thumbnailFolder = Path.Combine(OutputFolder, Path.Combine(@"Thumbnail", destFolder));
             if (!Directory.Exists(thumbnailFolder))
@@ -77,40 +98,19 @@ namespace ImageService.Model
                 Directory.CreateDirectory(thumbnailFolder);
             }
 
-            using (Image source = Image.FromFile(destFile))
+            using (Image source = Image.FromFile(file))
             using (Image thumb = source.GetThumbnailImage(100, 100, null, IntPtr.Zero))
             {
-                thumb.Save(Path.Combine(thumbnailFolder, Path.ChangeExtension(Path.GetFileName(destFile), "thumb")));
+                thumb.Save(Path.Combine(thumbnailFolder, Path.ChangeExtension(Path.GetFileName(file), "thumb")));
                 thumb.Dispose();
             }
         }
 
-        private string CopyFile(string path, string monthFolder, out bool result)
-        {
-            try
-            {
-                File.Copy(path, monthFolder);
-                result = true;
-
-                return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, monthFolder);
-            } catch (IOException) {
-                bool temp = Directory.Exists(Path.Combine(monthFolder, Path.GetFileName(path)));
-                result = temp;
-                return String.Format("A file called \"{0}\" already exists at \"{1}\".", Path.GetFileName(path), monthFolder);
-            }
-        }
-
-        private void CreateFolder(string path, out bool result)
-        {
-            result = true; //might change
-            Directory.CreateDirectory(path);
-        }
-
-        private void MoveFile(string path, out bool result)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Gets the name of the month by number.
+        /// </summary>
+        /// <param name="monthNumber"></param>
+        /// <returns>English name of the monthNumber</returns>
         private static string GetMonth(int monthNumber)
         {
             switch (monthNumber)
@@ -131,8 +131,11 @@ namespace ImageService.Model
             }
         }
 
-        private static Regex r = new Regex(":");
-
+        /// <summary>
+        /// Gets the date (year and month) in which the image what created.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>A DateTime instance for the data the image was created.</returns>
         public static DateTime GetDateTakenFromImage(string path)
         {
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))

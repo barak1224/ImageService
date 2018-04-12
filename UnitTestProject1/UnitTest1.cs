@@ -12,9 +12,10 @@ namespace UnitTestProject1
             int thumbnailSize = 5;
             bool result;
             IImageServiceModel imageModel = new ImageServiceModel(@"C:\Users\Iosi\Desktop\Test", thumbnailSize);
-            string error = imageModel.AddFile(@"C:\Users\Iosi\Pictures\final.jpg", out result);
+            string error = imageModel.AddFile(@"C:\Users\Iosi\Pictures\TMlogo.png", out result);
 
             Assert.AreEqual(result, true, error);
         }
+
     }
 }
