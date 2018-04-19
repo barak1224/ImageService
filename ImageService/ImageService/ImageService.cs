@@ -92,6 +92,7 @@ namespace ImageService
         /// <param name="args"> Args </param>
         protected override void OnStart(string[] args)
         {
+            appPar.Reload();
             eventLog1.WriteEntry("In OnStart");
 
             // Update the service state to Start Pending.  

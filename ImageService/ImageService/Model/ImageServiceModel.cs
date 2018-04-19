@@ -32,10 +32,10 @@ namespace ImageService.Model
         /// </summary>
         /// <param name="m_OutputFolder"></param>
         /// <param name="m_thumbnailSize"></param>
-        public ImageServiceModel(string m_OutputFolder, int m_thumbnailSize)
+        public ImageServiceModel(string outputFolder, int thumbnailSize)
         {
-            OutputFolder = m_OutputFolder;
-            Thumbnail = m_thumbnailSize;
+            OutputFolder = outputFolder;
+            Thumbnail = thumbnailSize;
         }
 
         /// <summary>
@@ -43,12 +43,14 @@ namespace ImageService.Model
         /// It takes the original image, moves it an creates its thumbnail counterpart.
         /// </summary>
         /// <param name="path"></param>
-        /// <param name="result"></param>
+        /// <param name="result"> a bool variable to check if the  </param>
         /// <returns></returns>
         public string AddFile(string path, out bool result)
         {
             int counter = 1;
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
+            DirectoryInfo outDir = Directory.CreateDirectory(OutputFolder);
+            outDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             // get the time of creation of the file
             DateTime date;
             try
@@ -79,8 +81,23 @@ namespace ImageService.Model
                 destFile = tentativePath;
             }
 
-            File.Move(path, destFile);
-            AddToThumbnail(destFile, dateFolder);
+            try
+            {
+                File.Move(path, destFile);
+            } catch (Exception e)
+            {
+                result = false;
+                return String.Format("Moving the file \"{0}\" was faild",path);
+            }
+
+            try
+            {
+                AddToThumbnail(destFile, dateFolder);
+            } catch (Exception e)
+            {
+                result = false;
+                return String.Format("Copying the file \"{0}\" into a thumbnail copy was failed", path);
+            }
             result = true;
             return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
         }
@@ -88,8 +105,8 @@ namespace ImageService.Model
         /// <summary>
         /// Creates and saves the thumbnail version for an image.
         /// </summary>
-        /// <param name="file"></param>
-        /// <param name="destFolder"></param>
+        /// <param name="file"> the file we need to create for him a thumbnail copy </param>
+        /// <param name="destFolder"> The outputdir folder where hold the thumbnail folder </param>
         private void AddToThumbnail(string file, string destFolder)
         {
             string thumbnailFolder = Path.Combine(OutputFolder, Path.Combine(@"Thumbnail", destFolder));
@@ -109,7 +126,7 @@ namespace ImageService.Model
         /// <summary>
         /// Gets the name of the month by number.
         /// </summary>
-        /// <param name="monthNumber"></param>
+        /// <param name="monthNumber"> converting the number month into a string month </param>
         /// <returns>English name of the monthNumber</returns>
         private static string GetMonth(int monthNumber)
         {
@@ -134,7 +151,7 @@ namespace ImageService.Model
         /// <summary>
         /// Gets the date (year and month) in which the image what created.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path"> the path of the file we need to move </param>
         /// <returns>A DateTime instance for the data the image was created.</returns>
         public static DateTime GetDateTakenFromImage(string path)
         {
