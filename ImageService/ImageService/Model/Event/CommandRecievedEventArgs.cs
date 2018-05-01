@@ -11,7 +11,7 @@ namespace ImageService.Model
         public int CommandID { get; set; }      // The Command ID
         public string[] Args { get; set; }
         public string RequestDirPath { get; set; }  // The Request Directory
-
+        ///TODO
         /// <summary>
         /// The constructor of the class that holds the details of the command that the server sends
         /// </summary>
