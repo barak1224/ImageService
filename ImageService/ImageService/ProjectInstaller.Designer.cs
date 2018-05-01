@@ -41,7 +41,7 @@
             // serviceInstaller1
             // 
             this.serviceInstaller1.Description = "Our Image Service";
-            this.serviceInstaller1.DisplayName = "ImageServiceTM";
+            this.serviceInstaller1.DisplayName = "ImageService";
             this.serviceInstaller1.ServiceName = "ImageService";
             this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
