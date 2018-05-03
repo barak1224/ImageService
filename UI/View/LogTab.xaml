@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UI"
-             xmlns:vm="clr-namespace:UI.ViewModel"
              xmlns:UI="clr-namespace:UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -12,11 +11,11 @@
         <Grid.Resources>
 
         </Grid.Resources>
-        <ListView Name="logList">
+        <ListView x:Name="logList" ItemsSource="{Binding LogList}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding GetLogTypeAsString(Type)}"/>
-                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}"/>
+                    <GridViewColumn Header="Type" CellTemplate="{Binding Color}" Width="100" DisplayMemberBinding="{Binding TypeAsString}"/>
+                    <GridViewColumn Header="Message" Width="700"  DisplayMemberBinding="{Binding Message}"/>
                 </GridView>
             </ListView.View>
         </ListView>

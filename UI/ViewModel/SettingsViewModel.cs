@@ -80,6 +80,8 @@ namespace UI
             m_model.PropertyChanged += this.PropertyChanged;
             this.SubmitRemove = new DelegateCommand<object>(this.OnSubmit, this.CanSubmit);
             this.PropertyChanged += RemoveCommand;
+
+            // just for the test, to be removed
             Directories = new ObservableCollection<string> { "iosi", "is", "gay" };
         }
 

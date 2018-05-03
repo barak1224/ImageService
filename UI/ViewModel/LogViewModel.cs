@@ -1,51 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI.Model;
 
-namespace UI.ViewModel
+namespace UI
 {
-    public class LogViewModel
+    public class LogViewModel : ILogViewModel
     {
-        public LogEntryList LogEntries { get; set; }
+        private ILogModel LogModel;
+
+        public LogEntryList LogList { get; }
 
         public LogViewModel()
         {
-            LogEntries = new LogEntryList { new LogEntry(LType.INFO, "This in info"),
-                new LogEntry(LType.ERROR, "This in error"),
-                new LogEntry(LType.WARNING, "This in warning") };
+            LogModel = new LogModel();
+
+            // just for the test, to be removed
+            LogList = new LogEntryList { new LogEntry(LType.INFO, "This in info, IMA"),
+                new LogEntry(LType.ERROR, "This in error, SHEL"),
+                new LogEntry(LType.WARNING, "This in warning, BARAK") };
         }
-    }
 
-    public class LogEntryList : ObservableCollection<LogEntry> { }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-    public class LogEntry
-    {
-        public LogEntry(LType logType, string message)
+        public void NotifyPropertyChanged(string name)
         {
-            LogType = logType;
-            Message = message;
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public LType LogType { get; }
-        public String Message { get; }
-
-        public String GetLogTypeAsString(LType type)
+        internal class LogAsString
         {
-            if (type == LType.INFO)
-                return "INFO";
-            else if (type == LType.ERROR)
-                return "ERROR";
-            else return "WARNING";
+            public string Type { get; set; }
+            public string Color { get; set; }
+            public string Message { get; set; }
         }
     }
 
-    public enum LType
-    {
-        INFO,
-        ERROR,
-        WARNING,
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
