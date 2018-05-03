@@ -3,12 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:UI.View"
+             xmlns:local="clr-namespace:UI"
+             xmlns:vm="clr-namespace:UI.ViewModel"
              xmlns:UI="clr-namespace:UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock>Log here!!</TextBlock>
+    <Grid TextBlock.FontSize="14" Background="AntiqueWhite">
+        <Grid.Resources>
 
+        </Grid.Resources>
+        <ListView Name="logList">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding GetLogTypeAsString(Type)}"/>
+                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>
