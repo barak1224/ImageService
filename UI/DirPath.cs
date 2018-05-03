@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace UI
 {
-    class SettingViewModel
+    class DirPath
     {
+        public string Path { get; set; }
     }
 }
