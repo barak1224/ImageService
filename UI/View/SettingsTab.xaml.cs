@@ -23,6 +23,7 @@ namespace UI.View
         public SettingsTab()
         {
             InitializeComponent();
+            this.DataContext = new SettingsViewModel();
         }
     }
 }
