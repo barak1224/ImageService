@@ -10,7 +10,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestParsingApp()
         {
-            AppParsing app = new AppParsing();
+            AppParsing app = AppParsing.Instance;
             Assert.AreEqual(app.SourceName, "ImageServiceSource");
             Assert.AreEqual(app.LogName, "ImageServiceLog");
             Assert.AreEqual(app.ThubnailSized, 120);

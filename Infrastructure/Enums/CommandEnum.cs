@@ -11,7 +11,9 @@ namespace ImageService.Infrastructure.Enums
     /// </summary>
     public enum CommandEnum : int
     {
-        NewFileCommand = 0,
-        CloseCommand = 1
+        NewFileCommand,
+        GetConfigCommand,
+        LogCommand,
+        CloseCommand
     }
 }

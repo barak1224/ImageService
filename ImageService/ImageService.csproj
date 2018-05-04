@@ -69,7 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageService\AppParsing.cs" />
+    <Compile Include="ImageService\Commands\CloseCommand.cs" />
+    <Compile Include="ImageService\Commands\GetConfigCommand.cs" />
     <Compile Include="ImageService\Commands\ICommand.cs" />
+    <Compile Include="ImageService\Commands\LogCommand.cs" />
     <Compile Include="ImageService\Commands\NewFileCommand.cs" />
     <Compile Include="ImageService\Controller\Handlers\DirectoyHandler.cs" />
     <Compile Include="ImageService\Controller\Handlers\IDirectoryHandler.cs" />
@@ -81,6 +84,7 @@
     <Compile Include="ImageService\ImageService.Designer.cs">
       <DependentUpon>ImageService.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageService\ConfigJson.cs" />
     <Compile Include="ImageService\Model\Event\CommandRecievedEventArgs.cs" />
     <Compile Include="ImageService\Model\Event\DirectoryCloseEventArgs.cs" />
     <Compile Include="ImageService\Model\IImageServiceModel.cs" />
@@ -92,7 +96,10 @@
     <Compile Include="ImageService\ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageService\Server\HandleClient.cs" />
+    <Compile Include="ImageService\Server\IClientHandler.cs" />
     <Compile Include="ImageService\Server\ImageServer.cs" />
+    <Compile Include="ImageService\Server\TCPServer.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
     <Compile Include="Logging\LoggingService.cs" />
     <Compile Include="Logging\Model\MessageRecievedEventArgs.cs" />
@@ -129,5 +136,6 @@
       <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

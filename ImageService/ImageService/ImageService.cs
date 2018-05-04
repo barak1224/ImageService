@@ -13,8 +13,7 @@ using ImageService.Controller;
 using ImageService.Model;
 using ImageService.Logging;
 using ImageService.Logging.Model;
-using System.Configuration;
-using ImageService.Infrastructure;
+using ImageService.Commands;
 
 namespace ImageService
 {
@@ -61,9 +60,8 @@ namespace ImageService
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
 
         private ImageServer m_imageServer;          // The Image Server
-        private IImageServiceModel modelImage;
-        private IImageController controller;
-        private ILoggingService logging; private AppParsing appPar;
+        private ILoggingService logging;
+        private AppParsing appPar;
 
         private int eventId = 1;
 
@@ -75,7 +73,7 @@ namespace ImageService
         public ImageService()
         {
             InitializeComponent();
-            appPar = new AppParsing();
+            appPar = AppParsing.Instance;
             eventLog1 = new System.Diagnostics.EventLog();
             if (!System.Diagnostics.EventLog.SourceExists(appPar.SourceName))
             {
@@ -92,8 +90,11 @@ namespace ImageService
         /// <param name="args"> Args </param>
         protected override void OnStart(string[] args)
         {
+            MembersInitialize();
             appPar.Reload();
-            eventLog1.WriteEntry("In OnStart");
+            string s = ConfigJson.ConvertConfigToString();
+            logging.Log(s, MessageTypeEnum.INFO);
+            logging.Log("In OnStart", MessageTypeEnum.INFO);
 
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
@@ -104,7 +105,6 @@ namespace ImageService
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            MembersInitialize();
         }
 
         /// <summary>
@@ -112,12 +112,10 @@ namespace ImageService
         /// </summary>
         private void MembersInitialize()
         {
-            modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThubnailSized);
-            controller = new ImageController(modelImage);
             logging = new LoggingService();
             logging.MessageRecieved += OnMessage;
 
-            m_imageServer = new ImageServer(controller, logging, appPar.PathHandlers);
+            m_imageServer = new ImageServer(appPar, logging, appPar.PathHandlers);
         }
 
         /// <summary>
@@ -132,7 +130,7 @@ namespace ImageService
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
             // Write a log entry.
-            eventLog1.WriteEntry("In OnStop");
+            logging.Log("In OnStop", MessageTypeEnum.INFO);
 
             // Update the service state to Paused.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
@@ -151,16 +149,16 @@ namespace ImageService
         {
             switch ((int)messageArgs.Status)
             {
-                case 0:
-                    eventLog1.WriteEntry("INFO: " + messageArgs.Message);
+                case (int)MessageTypeEnum.INFO:
+                    eventLog1.WriteEntry("INFO:" + messageArgs.Message, EventLogEntryType.Information, eventId++);
                     break;
-                case 1:
-                    eventLog1.WriteEntry("WARNING: " + messageArgs.Message);
+                case (int)MessageTypeEnum.FAIL:
+                    eventLog1.WriteEntry("FAIL:" + messageArgs.Message, EventLogEntryType.FailureAudit, eventId++);
                     break;
-                case 2: eventLog1.WriteEntry("FAIL: " + messageArgs.Message);
+                case (int)MessageTypeEnum.WARNING:
+                    eventLog1.WriteEntry("WARNING:" + messageArgs.Message, EventLogEntryType.Warning, eventId++);
                     break;
             }
         }
-
     }
 }

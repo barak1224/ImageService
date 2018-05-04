@@ -18,6 +18,7 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
+        private IImageServiceModel m_modelImage;
 
         #endregion
 
@@ -32,15 +33,22 @@ namespace ImageService.Server
         /// <param name="controller"> The controller of the service </param>
         /// <param name="logging"> The class that hold the event handler to notify on new message to the event log </param>
         /// <param name="pathHandlers"> the path of the directories that need to create for them handlers</param>
-        public ImageServer(IImageController controller, ILoggingService logging, string[] pathHandlers)
+        public ImageServer(AppParsing appPar, ILoggingService logging, string[] pathHandlers)
         {
-            m_controller = controller;
+            m_modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThubnailSized);
+            m_controller = new ImageController(m_modelImage);
             m_logging = logging;
             foreach (string pathHandler in pathHandlers)
             {
                 CreateHandler(pathHandler);
                 logging.Log($"Handler for {pathHandler} was created", MessageTypeEnum.INFO);
             }
+            m_controller.PassCommandReceived += CommandRecievedSend;
+        }
+
+        private void CommandRecievedSend(object sender, CommandRecievedEventArgs e)
+        {
+            CommandRecieved?.Invoke(sender, e);
         }
 
         /// <summary>

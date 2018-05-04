@@ -17,20 +17,31 @@ namespace ImageService
         public string SourceName { get; }
         public string LogName { get; }
         public int ThubnailSized { get; set; }
-
+        public int Port { get; set; }
+        private static AppParsing instance = new AppParsing();
         /// <summary>
         /// The constructor parsing the app.config file and save as members
         /// </summary>
-        public AppParsing()
+        private AppParsing()
         {
             PathHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
             OutputDir = ConfigurationManager.AppSettings["OutputDir"];
             SourceName = ConfigurationManager.AppSettings["SourceName"];
             LogName = ConfigurationManager.AppSettings["LogName"];
             int ts;
-            if(int.TryParse(ConfigurationManager.AppSettings["ThumbnailSized"], out ts))
+            if (int.TryParse(ConfigurationManager.AppSettings["ThumbnailSized"], out ts))
             {
                 ThubnailSized = ts;
+            } else
+            {
+                ThubnailSized = 120;
+            }
+            if (int.TryParse(ConfigurationManager.AppSettings["Port"], out ts))
+            {
+                Port = ts;
+            } else
+            {
+                Port = 8000;
             }
         }
 
@@ -42,6 +53,26 @@ namespace ImageService
             if (int.TryParse(ConfigurationManager.AppSettings["ThumbnailSized"], out ts))
             {
                 ThubnailSized = ts;
+            }
+            else
+            {
+                ThubnailSized = 120;
+            }
+            if (int.TryParse(ConfigurationManager.AppSettings["Port"], out ts))
+            {
+                Port = ts;
+            }
+            else
+            {
+                Port = 8000;
+            }
+        }
+
+        public static AppParsing Instance
+        {
+            get
+            {
+                return instance;
             }
         }
     }
