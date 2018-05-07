@@ -40,14 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="ClientHandler.cs" />
-    <Compile Include="EventArgs\DataReceivedEventArgs.cs" />
+    <Compile Include="Events\DataReceivedEventArgs.cs" />
     <Compile Include="IClientCommunication.cs" />
     <Compile Include="IClientHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCPClient.cs" />
-    <Compile Include="TCPServer.cs" />
+    <Compile Include="TCPServiceClient.cs" />
+    <Compile Include="TCPServiceServer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

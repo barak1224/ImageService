@@ -7,7 +7,7 @@ using Communication;
 
 namespace Communication
 {
-    interface IClientCommunication: IClientHandler
+    public interface IClientCommunication: IClientHandler
     {
         int Send(string msg);
     }

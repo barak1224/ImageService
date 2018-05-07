@@ -6,11 +6,11 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Communication.EventArgs;
+using Communication.Events;
 
 namespace Communication
 {
-    class ClientHandler : IClientHandler
+    public class ClientHandler : IClientHandler
     {
         private TcpClient m_client;
         private NetworkStream m_stream;

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Communication
 {
-    class TCPServer
+    public class TCPServiceServer
     {
         List<TcpClient> clients = new List<TcpClient>();
         private int port;
         private TcpListener listener;
         private IClientHandler ch;
 
-        public TCPServer(int port)
+        public TCPServiceServer(int port)
         {
             this.port = port;
         }

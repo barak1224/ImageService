@@ -10,13 +10,30 @@ namespace UI.Model
 {
     class SettingsModel : ISettingsModel
     {
-        public ObservableCollection<string> Directories { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public SettingsModel()
+        {
+            this.OutputDirName = "Output Directory";
+            this.SourceName = "Source Name";
+            this.LogName = "Log Name";
+            this.ThumbnailSize = 120;
 
+        }
+
+        public ObservableCollection<string> Directories
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+
+        public ModelCommunicationHandler communicationHandler;
         private string m_outputDirName;
         private string m_sourceName;
         private string m_logName;
         private int m_thumbnailSize;
-        public string OutputDirName {
+
+        public string OutputDirName
+        {
             get
             {
                 return m_outputDirName;
@@ -66,15 +83,6 @@ namespace UI.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SettingsModel()
-        {
-            this.OutputDirName = "Output Directory";
-            this.SourceName = "Source Name";
-            this.LogName = "Log Name";
-            this.ThumbnailSize = 120;
-
-        }
-
         private void NotifyPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -82,7 +90,7 @@ namespace UI.Model
 
         public void RemoveDir(string dir)
         {
-            
+
         }
     }
 }
