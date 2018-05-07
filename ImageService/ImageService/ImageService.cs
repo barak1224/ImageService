@@ -92,7 +92,8 @@ namespace ImageService
         {
             MembersInitialize();
             appPar.Reload();
-            string s = ConfigJson.ConvertConfigToString();
+            LogCommand loggg = new LogCommand();
+            string s = loggg.Execute(null, out bool result);
             logging.Log(s, MessageTypeEnum.INFO);
             logging.Log("In OnStart", MessageTypeEnum.INFO);
 
@@ -115,7 +116,7 @@ namespace ImageService
             logging = new LoggingService();
             logging.MessageRecieved += OnMessage;
 
-            m_imageServer = new ImageServer(appPar, logging, appPar.PathHandlers);
+            m_imageServer = new ImageServer(logging);
         }
 
         /// <summary>
@@ -137,6 +138,7 @@ namespace ImageService
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
             m_imageServer.CloseServer();
             logging.MessageRecieved -= OnMessage;
+            eventLog1.Clear();
             Dispose();
         }
 

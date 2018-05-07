@@ -96,10 +96,7 @@
     <Compile Include="ImageService\ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageService\Server\HandleClient.cs" />
-    <Compile Include="ImageService\Server\IClientHandler.cs" />
     <Compile Include="ImageService\Server\ImageServer.cs" />
-    <Compile Include="ImageService\Server\TCPServer.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
     <Compile Include="Logging\LoggingService.cs" />
     <Compile Include="Logging\Model\MessageRecievedEventArgs.cs" />

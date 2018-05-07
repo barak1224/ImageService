@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Communication;
 
-namespace UI
+namespace Communication
 {
-    class DirPath
+    interface IClientCommunication: IClientHandler
     {
-        public string Path { get; set; }
+        int Send(string msg);
     }
 }

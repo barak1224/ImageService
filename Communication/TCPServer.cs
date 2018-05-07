@@ -6,18 +6,18 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService.Server
+namespace Communication
 {
     class TCPServer
     {
+        List<TcpClient> clients = new List<TcpClient>();
         private int port;
         private TcpListener listener;
         private IClientHandler ch;
 
-        public TCPServer(int port, IClientHandler ch)
+        public TCPServer(int port)
         {
             this.port = port;
-            this.ch = ch;
         }
 
         public void Start()
@@ -30,13 +30,15 @@ namespace ImageService.Server
 
             Task task = new Task(() =>
             {
+                IClientHandler ch;
                 while (true)
                 {
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
-                        Console.WriteLine();
-                        ch.HandleClient(client);
+                        clients.Add(client);
+                        ch = new ClientHandler(client);
+                        ch.Start();
                     }
                     catch(SocketException)
                     {

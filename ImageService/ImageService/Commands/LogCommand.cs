@@ -14,7 +14,6 @@ namespace ImageService.Commands
         {
             AppParsing app = AppParsing.Instance;
             EventLog log = new EventLog(app.LogName, ".");
-            EventLogEntry logEntry;
             EventLogEntryCollection logEntries = log.Entries;
             List<string> logs = new List<string>();
             for (int index = 0; index < logEntries.Count; index++) {
