@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageService.Infrastructure.Enums;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -22,6 +23,16 @@ namespace UI.Model
         public LogModel()
         {
             LogList = new LogEntryList();
+            communicationHandler = ModelCommunicationHandler.Instance;
+            communicationHandler.DataReceived += GetCommand;
+        }
+
+        private void GetCommand(object sender, ModelCommandArgs e)
+        {
+            if (e.Command == CommandEnum.LogCommand)
+            {
+                // TODO
+            }
         }
 
         public void GetLogList()
@@ -64,10 +75,10 @@ namespace UI.Model
         {
             switch (type)
             {
-                case LType.INFO: return "green";
-                case LType.WARNING: return "yellow";
-                case LType.ERROR: return "red";
-                default: return "white";
+                case LType.INFO: return "Green";
+                case LType.WARNING: return "Yellow";
+                case LType.ERROR: return "Red";
+                default: return "White";
             }
         }
     }

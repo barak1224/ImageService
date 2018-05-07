@@ -40,8 +40,7 @@ namespace UI.Model
             string[] args = message.Split(';');
             if (int.TryParse(args[0], out commandNum))
             {
-                CommandEnum command = (CommandEnum)commandNum;
-                return new ModelCommandArgs(command, args[1]);
+                return new ModelCommandArgs((CommandEnum)commandNum, args[1]);
             }
             else
             {
