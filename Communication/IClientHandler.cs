@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Communication.EventArgs;
+using Communication.Events;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;

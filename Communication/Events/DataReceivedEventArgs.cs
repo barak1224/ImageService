@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Communication.EventArgs
+namespace Communication.Events
 {
-    class DataReceivedEventArgs
+    class DataReceivedEventArgs : EventArgs
     {
         public DataReceivedEventArgs(string msg)
         {

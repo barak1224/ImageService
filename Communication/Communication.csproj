@@ -40,9 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="ClientHandler.cs" />
-    <Compile Include="EventArgs\DataReceivedEventArgs.cs" />
+    <Compile Include="Events\DataReceivedEventArgs.cs" />
     <Compile Include="IClientCommunication.cs" />
     <Compile Include="IClientHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,7 +17,7 @@ namespace ImageService.Commands
         /// <returns></returns>
         public string Execute(string[] args, out bool result)
         {
-            SendCommand?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args, args[0]));
+            SendCommand?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, null, args[0]));
             result = true;
             return String.Format("CloseCommand for {0} was finished", args[0]);
         }
