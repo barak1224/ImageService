@@ -10,7 +10,7 @@ using Communication.Events;
 
 namespace Communication
 {
-    class ClientHandler : IClientHandler
+    public class ClientHandler : IClientHandler
     {
         private TcpClient m_client;
         private NetworkStream m_stream;

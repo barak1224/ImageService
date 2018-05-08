@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Communication.Events
 {
-    class DataReceivedEventArgs : EventArgs
+    public class DataReceivedEventArgs : EventArgs
     {
         public DataReceivedEventArgs(string msg)
         {

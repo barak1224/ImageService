@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Communication
 {
-    interface IClientHandler
+    public interface IClientHandler
     {
         event EventHandler<DataReceivedEventArgs> DataReceived;
         void Start();

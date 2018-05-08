@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageService.Infrastructure.Enums;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,13 +11,46 @@ namespace UI.Model
 {
     class SettingsModel : ISettingsModel
     {
-        public ObservableCollection<string> Directories { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ModelCommunicationHandler communicationHandler;
 
         private string m_outputDirName;
         private string m_sourceName;
         private string m_logName;
+
         private int m_thumbnailSize;
-        public string OutputDirName {
+
+        private List<CommandEnum> commandList = new List<CommandEnum> {CommandEnum.NewFileCommand,
+                                                 CommandEnum.GetConfigCommand,
+                                                 CommandEnum.CloseCommand };
+
+        public ObservableCollection<string> Directories
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public SettingsModel()
+        {
+            // need to remove this
+            this.OutputDirName = "Output Directory";
+            this.SourceName = "Source Name";
+            this.LogName = "Log Name";
+            this.ThumbnailSize = 120;
+
+            communicationHandler = ModelCommunicationHandler.Instance;
+            communicationHandler.DataReceived += GetCommand;
+        }
+
+        private void GetCommand(object sender, ModelCommandArgs e)
+        {
+            if (commandList.Contains(e.Command))
+            {
+                // TODO
+            }
+        }
+
+        public string OutputDirName
+        {
             get
             {
                 return m_outputDirName;
@@ -51,6 +85,7 @@ namespace UI.Model
                 NotifyPropertyChanged("LogName");
             }
         }
+
         public int ThumbnailSize
         {
             get
@@ -66,15 +101,6 @@ namespace UI.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SettingsModel()
-        {
-            this.OutputDirName = "Output Directory";
-            this.SourceName = "Source Name";
-            this.LogName = "Log Name";
-            this.ThumbnailSize = 120;
-
-        }
-
         private void NotifyPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -82,7 +108,7 @@ namespace UI.Model
 
         public void RemoveDir(string dir)
         {
-            
+
         }
     }
 }
