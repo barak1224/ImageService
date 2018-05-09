@@ -31,7 +31,6 @@ namespace UI.Model
             {
                 DataReceived?.Invoke(this, command); 
             }
-
         }
 
         private ModelCommandArgs ParseData(string message)

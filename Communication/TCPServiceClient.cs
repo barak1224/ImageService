@@ -15,7 +15,6 @@ namespace Communication
         public event EventHandler<DataReceivedEventArgs> DataReceived;
 
         private TcpClient Client { get; set; }
-
         private NetworkStream m_stream;
         private BinaryReader m_reader;
         private BinaryWriter m_writer;
@@ -23,6 +22,8 @@ namespace Communication
         public TCPServiceClient()
         {
             Client = new TcpClient();
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
+            Client.Connect(ep);
             m_stream = Client.GetStream();
             m_reader = new BinaryReader(m_stream, Encoding.ASCII);
             m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
@@ -42,9 +43,6 @@ namespace Communication
 
         public void Start()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-            Client.Connect(ep);
-
             new Task(() =>
             {
                 while(true)
@@ -52,7 +50,7 @@ namespace Communication
                     try
                     {
                         string message = m_reader.ReadString();
-
+                        DataReceived?.Invoke(this, new DataReceivedEventArgs(message));
                     }
                     catch(SocketException)
                     {
@@ -62,7 +60,5 @@ namespace Communication
 
             });
         }
-
-
     }
 }

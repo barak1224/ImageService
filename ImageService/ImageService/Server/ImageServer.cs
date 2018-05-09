@@ -1,4 +1,5 @@
-﻿using ImageService.Commands;
+﻿using Communication;
+using ImageService.Commands;
 using ImageService.Controller;
 using ImageService.Controller.Handlers;
 using ImageService.Infrastructure.Enums;
@@ -19,6 +20,7 @@ namespace ImageService.Server
         private IImageController m_controller;
         private ILoggingService m_logging;
         private IImageServiceModel m_modelImage;
+        private TCPServiceServer m_tcpServer;
 
         #endregion
 
@@ -45,6 +47,8 @@ namespace ImageService.Server
                 logging.Log($"Handler for {pathHandler} was created", MessageTypeEnum.INFO);
             }
             m_controller.PassCommandReceived += CommandRecievedSend;
+            m_tcpServer = new TCPServiceServer(8000);
+            m_tcpServer.Start();
         }
 
         private void CommandRecievedSend(object sender, CommandRecievedEventArgs e)

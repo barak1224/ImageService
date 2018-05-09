@@ -43,7 +43,6 @@ namespace UI
                 return m_model.ThumbnailSize;
             }
         }
-
         private string m_selectedDir;
         public string SelectedDir
         {
@@ -67,7 +66,12 @@ namespace UI
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public ObservableCollection<string> Directories { get; }
+        public ObservableCollection<string> Directories {
+            get
+            {
+                return this.m_model.Directories;
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -82,7 +86,6 @@ namespace UI
             this.PropertyChanged += RemoveCommand;
 
             // just for the test, to be removed
-            Directories = new ObservableCollection<string> { "iosi", "is", "gay" };
         }
 
         /// <summary>
@@ -102,7 +105,7 @@ namespace UI
         /// <param name="obj"></param>
         private void OnSubmit(object obj)
         {
-            Directories.Remove(SelectedDir);
+            this.m_model.Directories.Remove(SelectedDir);
             this.SelectedDir = null;
         }
 
