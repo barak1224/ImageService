@@ -8,16 +8,22 @@ using ImageService.Infrastructure.Enums;
 
 namespace UI.Model
 {
-    public class ModelCommunicationHandler 
+    public class ModelCommunicationHandler
     {
-        private TCPServiceClient client;
         private static ModelCommunicationHandler instance;
+
+        public TCPServiceClient Client { get; set; }
 
         public static ModelCommunicationHandler Instance
         {
             get
             {
-                return instance ?? (instance = new ModelCommunicationHandler());
+                if (instance == null)
+                {
+                    instance = new ModelCommunicationHandler();
+                    instance.Client.Start();
+                }
+                return instance;
             }
         }
 
@@ -48,8 +54,8 @@ namespace UI.Model
 
         private ModelCommunicationHandler()
         {
-            client = new TCPServiceClient();
-            client.DataReceived += OnDataReceived;
+            Client = new TCPServiceClient();
+            Client.DataReceived += OnDataReceived;
         }
     }
 }

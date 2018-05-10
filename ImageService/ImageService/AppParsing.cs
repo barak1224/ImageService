@@ -19,7 +19,7 @@ namespace ImageService
         public int ThubnailSized { get; set; }
         public int Port { get; set; }
 
-        public static readonly AppParsing Instance = new AppParsing();
+        public static AppParsing Instance = new AppParsing();
 
         /// <summary>
         /// The constructor parsing the app.config file and save as members

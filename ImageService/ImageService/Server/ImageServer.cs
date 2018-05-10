@@ -47,7 +47,7 @@ namespace ImageService.Server
                 logging.Log($"Handler for {pathHandler} was created", MessageTypeEnum.INFO);
             }
             m_controller.PassCommandReceived += CommandRecievedSend;
-            m_tcpServer = new TCPServiceServer(8000);
+            m_tcpServer = new TCPServiceServer(8001, ref m_controller);
             m_tcpServer.Start();
         }
 

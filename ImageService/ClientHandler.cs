@@ -8,6 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Infrastructure.Events;
 using Infrastructure.Communication;
+using ImageService.Controller;
+using ImageService.Infrastructure.Enums;
+using Newtonsoft.Json;
 
 namespace ImageService
 {
@@ -16,17 +19,18 @@ namespace ImageService
         private TcpClient m_client;
         private NetworkStream m_stream;
         private BinaryReader m_reader;
-        private BinaryReader m_writer;
+        private BinaryWriter m_writer;
         private CancellationTokenSource m_cancelToken;
-
+        private IImageController m_controller;
         public event EventHandler<DataReceivedEventArgs> DataReceived;
-        public ClientHandler(TcpClient client)
+        public ClientHandler(TcpClient client, ref IImageController controller)
         {
             m_client = client;
             m_stream = client.GetStream();
             m_reader = new BinaryReader(m_stream, Encoding.ASCII);
-            m_writer = new BinaryReader(m_stream, Encoding.ASCII);
+            m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
             m_cancelToken = new CancellationTokenSource();
+            m_controller = controller;
         }
 
         public void Start()
@@ -41,7 +45,16 @@ namespace ImageService
                         msg = m_reader.ReadString();
                         if (msg != null)
                         {
-                            DataReceived?.Invoke(this, new DataReceivedEventArgs(msg));
+                            string[] args = msg.Split(';');
+                            CommandEnum c = JsonConvert.DeserializeObject<CommandEnum>(args[0]);
+                            if (c == CommandEnum.GetConfigCommand)
+                            {
+                                string convert =  m_controller.ExecuteCommand((int)CommandEnum.GetConfigCommand, null, out bool result);
+                                m_writer.Write(convert);
+                            } else
+                            {
+                                DataReceived?.Invoke(this, new DataReceivedEventArgs(msg));
+                            }
                         }
                     }
                     catch (Exception e)

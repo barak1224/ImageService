@@ -45,13 +45,15 @@ namespace UI.Model
             this.SourceName = "Source Name";
             this.LogName = "Log Name";
             this.ThumbnailSize = 120;
+            m_directories = new ObservableCollection<string> { "iosi", "is", "gay" };
             m_commands = new Dictionary<CommandEnum, CommandExecute>
             {
                 {CommandEnum.GetConfigCommand, setConfigSettings }
             };
             communicationHandler = ModelCommunicationHandler.Instance;
             communicationHandler.DataReceived += GetCommand;
-            m_directories = new ObservableCollection<string> { "iosi", "is", "gay" };
+            string message = JsonConvert.SerializeObject(CommandEnum.GetConfigCommand) + ";";
+            communicationHandler.Client.Send(message);
         }
 
         private void setConfigSettings(string msg)

@@ -23,8 +23,11 @@ namespace UI
         public TCPServiceClient()
         {
             Client = new TcpClient();
-            Start();
-
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8001);
+            Client.Connect(ep);
+            m_stream = Client.GetStream();
+            m_reader = new BinaryReader(m_stream, Encoding.ASCII);
+            m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
         }
 
         public void Close()
@@ -34,17 +37,17 @@ namespace UI
 
         public int Send(string msg)
         {
-            throw new NotImplementedException();
+            try
+            {
+                m_writer.Write(msg);
+                return 1;
+            } catch (Exception e) {
+                return 0;
+            }
         }
 
         public void Start()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-            Client.Connect(ep);
-            m_stream = Client.GetStream();
-            m_reader = new BinaryReader(m_stream, Encoding.ASCII);
-            m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
-
             new Task(() =>
             {
                 while(true)
@@ -52,7 +55,10 @@ namespace UI
                     try
                     {
                         string message = m_reader.ReadString();
-
+                        if (message != null)
+                        {
+                            DataReceived?.Invoke(this, new DataReceivedEventArgs(message));
+                        }
                     }
                     catch(SocketException)
                     {

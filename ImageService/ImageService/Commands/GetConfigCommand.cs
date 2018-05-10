@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace ImageService.Commands
 {
-    class GetConfigCommand
+    class GetConfigCommand : ICommand
     {
+        public string Execute(string[] args, out bool result)
+        {
+            result = true;
+            return ConfigJson.ConvertConfigToString();
+        }
     }
 }
