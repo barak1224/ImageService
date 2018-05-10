@@ -1,4 +1,6 @@
 ﻿using ImageService.Infrastructure.Enums;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,22 +13,28 @@ namespace UI.Model
 {
     class SettingsModel : ISettingsModel
     {
+        delegate void CommandExecute(string msg);
+        private Dictionary<CommandEnum, CommandExecute> m_commands;
         public ModelCommunicationHandler communicationHandler;
 
         private string m_outputDirName;
         private string m_sourceName;
         private string m_logName;
-
+        private ObservableCollection<string> m_directories;
         private int m_thumbnailSize;
 
-        private List<CommandEnum> commandList = new List<CommandEnum> {CommandEnum.NewFileCommand,
-                                                 CommandEnum.GetConfigCommand,
-                                                 CommandEnum.CloseCommand };
 
         public ObservableCollection<string> Directories
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get
+            {
+                return this.m_directories;
+            }
+            set
+            {
+                this.m_directories = value;
+                NotifyPropertyChanged("Directories");
+            }
         }
 
         public SettingsModel()
@@ -37,16 +45,30 @@ namespace UI.Model
             this.SourceName = "Source Name";
             this.LogName = "Log Name";
             this.ThumbnailSize = 120;
-
+            m_commands = new Dictionary<CommandEnum, CommandExecute>
+            {
+                {CommandEnum.GetConfigCommand, setConfigSettings }
+            };
             communicationHandler = ModelCommunicationHandler.Instance;
             communicationHandler.DataReceived += GetCommand;
+            m_directories = new ObservableCollection<string> { "iosi", "is", "gay" };
+        }
+
+        private void setConfigSettings(string msg)
+        {
+            JObject jsonAppConfig = new JObject(msg);
+            SourceName = (string)jsonAppConfig["Source Name"];
+            LogName = (string)jsonAppConfig["Log Name"];
+            OutputDirName = (string)jsonAppConfig["OutputDir"];
+            string dirs = (string)jsonAppConfig["Directories"];
+            Directories = JsonConvert.DeserializeObject<ObservableCollection<string>>(dirs);
         }
 
         private void GetCommand(object sender, ModelCommandArgs e)
         {
-            if (commandList.Contains(e.Command))
+            if (m_commands.ContainsKey(e.Command))
             {
-                // TODO
+                m_commands[e.Command](e.Message);
             }
         }
 

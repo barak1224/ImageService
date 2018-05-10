@@ -23,7 +23,6 @@ namespace ImageService
                 ["Log Name"] = appPar.LogName,
                 ["OutputDir"] = appPar.OutputDir,
                 ["Directories"] = JsonConvert.SerializeObject(appPar.PathHandlers),
-                ["Port"] = appPar.Port
             };
             return jsonAppConfig.ToString();
         }

@@ -16,7 +16,7 @@ namespace ImageService
         private TcpClient m_client;
         private NetworkStream m_stream;
         private BinaryReader m_reader;
-        private BinaryWriter m_writer;
+        private BinaryReader m_writer;
         private CancellationTokenSource m_cancelToken;
 
         public event EventHandler<DataReceivedEventArgs> DataReceived;
@@ -25,7 +25,7 @@ namespace ImageService
             m_client = client;
             m_stream = client.GetStream();
             m_reader = new BinaryReader(m_stream, Encoding.ASCII);
-            m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
+            m_writer = new BinaryReader(m_stream, Encoding.ASCII);
             m_cancelToken = new CancellationTokenSource();
         }
 
