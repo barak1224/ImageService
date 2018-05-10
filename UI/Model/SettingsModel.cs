@@ -52,6 +52,7 @@ namespace UI.Model
             };
             communicationHandler = ModelCommunicationHandler.Instance;
             communicationHandler.DataReceived += GetCommand;
+            communicationHandler.Client.Start();
             string message = JsonConvert.SerializeObject(CommandEnum.GetConfigCommand) + ";";
             communicationHandler.Client.Send(message);
         }

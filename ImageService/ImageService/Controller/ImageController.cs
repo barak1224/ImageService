@@ -28,7 +28,8 @@ namespace ImageService.Controller
             commands = new Dictionary<int, ICommand>()
             {
                 { (int)CommandEnum.NewFileCommand, new NewFileCommand(Model) },
-                { (int)CommandEnum.CloseCommand, new CloseCommand() }
+                { (int)CommandEnum.CloseCommand, new CloseCommand() },
+                { (int)CommandEnum.GetConfigCommand, new GetConfigCommand() }
             };
             CloseCommand c = (commands[(int)CommandEnum.CloseCommand]) as CloseCommand;
             c.SendCommand += PassCommand;

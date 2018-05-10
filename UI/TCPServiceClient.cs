@@ -54,6 +54,7 @@ namespace UI
                 {
                     try
                     {
+                        m_stream.Flush();
                         string message = m_reader.ReadString();
                         if (message != null)
                         {
@@ -66,7 +67,7 @@ namespace UI
                     }
                 }
 
-            });
+            }).Start();
         }
     }
 }
