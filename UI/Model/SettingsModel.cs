@@ -30,6 +30,7 @@ namespace UI.Model
         }
 
         public SettingsModel()
+       
         {
             // need to remove this
             this.OutputDirName = "Output Directory";

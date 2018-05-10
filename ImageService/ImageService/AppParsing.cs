@@ -18,7 +18,9 @@ namespace ImageService
         public string LogName { get; }
         public int ThubnailSized { get; set; }
         public int Port { get; set; }
-        private static AppParsing instance = new AppParsing();
+
+        public static readonly AppParsing Instance = new AppParsing();
+
         /// <summary>
         /// The constructor parsing the app.config file and save as members
         /// </summary>
@@ -65,14 +67,6 @@ namespace ImageService
             else
             {
                 Port = 8000;
-            }
-        }
-
-        public static AppParsing Instance
-        {
-            get
-            {
-                return instance;
             }
         }
     }

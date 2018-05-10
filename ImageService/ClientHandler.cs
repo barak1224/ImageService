@@ -6,9 +6,10 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Communication.Events;
+using Infrastructure.Events;
+using Infrastructure.Communication;
 
-namespace Communication
+namespace ImageService
 {
     public class ClientHandler : IClientHandler
     {

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Communication;
+using Infrastructure.Communication;
 
-namespace Communication
+
+namespace UI
 {
     public interface IClientCommunication: IClientHandler
     {

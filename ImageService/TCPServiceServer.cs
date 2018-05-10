@@ -5,8 +5,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Communication;
 
-namespace Communication
+namespace ImageService
 {
     public class TCPServiceServer
     {

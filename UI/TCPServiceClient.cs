@@ -6,9 +6,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using Communication.Events;
+using Infrastructure.Events;
 
-namespace Communication
+namespace UI
 {
     public class TCPServiceClient : IClientCommunication
     {
@@ -23,9 +23,6 @@ namespace Communication
         public TCPServiceClient()
         {
             Client = new TcpClient();
-            m_stream = Client.GetStream();
-            m_reader = new BinaryReader(m_stream, Encoding.ASCII);
-            m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
             Start();
 
         }
@@ -44,6 +41,9 @@ namespace Communication
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             Client.Connect(ep);
+            m_stream = Client.GetStream();
+            m_reader = new BinaryReader(m_stream, Encoding.ASCII);
+            m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
 
             new Task(() =>
             {
@@ -62,7 +62,5 @@ namespace Communication
 
             });
         }
-
-
     }
 }

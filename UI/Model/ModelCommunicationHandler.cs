@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Communication;
-using Communication.Events;
+using Infrastructure.Events;
 using ImageService.Infrastructure.Enums;
 
 namespace UI.Model
