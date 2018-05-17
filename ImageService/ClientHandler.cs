@@ -38,7 +38,7 @@ namespace ImageService
             string msg;
             new Task(() =>
             {
-                while(true)
+                while (true)
                 {
                     try
                     {
@@ -49,10 +49,11 @@ namespace ImageService
                             CommandEnum c = JsonConvert.DeserializeObject<CommandEnum>(args[0]);
                             if (c == CommandEnum.GetConfigCommand)
                             {
-                                string convert =  m_controller.ExecuteCommand((int)CommandEnum.GetConfigCommand, null, out bool result);
+                                string convert = m_controller.ExecuteCommand((int)CommandEnum.GetConfigCommand, null, out bool result);
                                 string s = "1;" + convert;
                                 m_writer.Write(s);
-                            } else
+                            }
+                            else
                             {
                                 DataReceived?.Invoke(this, new DataReceivedEventArgs(msg));
                             }

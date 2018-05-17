@@ -19,7 +19,16 @@
             </ListView.ItemContainerStyle>-->
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Type" Width="100" DisplayMemberBinding="{Binding TypeAsString}"/>
+                    <GridViewColumn Header="Type" Width="100" DisplayMemberBinding="{Binding TypeAsString}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Fill="{Binding}" Opacity="0.4"></Rectangle>
+                                    <Label Content="{Binding Color}"></Label>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Message" Width="700"  DisplayMemberBinding="{Binding Message}"/>
                 </GridView>
             </ListView.View>

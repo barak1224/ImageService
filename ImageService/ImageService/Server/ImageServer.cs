@@ -38,7 +38,7 @@ namespace ImageService.Server
         public ImageServer(ILoggingService logging)
         {
             AppParsing appPar = AppParsing.Instance;
-            m_modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThubnailSized);
+            m_modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThumbnailSize);
             m_controller = new ImageController(m_modelImage);
             m_logging = logging;
             foreach (string pathHandler in appPar.PathHandlers)

@@ -14,6 +14,7 @@ using ImageService.Model;
 using ImageService.Logging;
 using ImageService.Logging.Model;
 using ImageService.Commands;
+using System.Threading;
 
 namespace ImageService
 {
@@ -90,6 +91,7 @@ namespace ImageService
         /// <param name="args"> Args </param>
         protected override void OnStart(string[] args)
         {
+            Thread.Sleep(1000);
             MembersInitialize();
             appPar.Reload();
             LogCommand loggg = new LogCommand();

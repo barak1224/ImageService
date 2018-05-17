@@ -16,7 +16,7 @@ namespace ImageService
         public string OutputDir { get; set; }
         public string SourceName { get; }
         public string LogName { get; }
-        public int ThubnailSized { get; set; }
+        public int ThumbnailSize { get; set; }
         public int Port { get; set; }
 
         public static AppParsing Instance = new AppParsing();
@@ -33,10 +33,10 @@ namespace ImageService
             int ts;
             if (int.TryParse(ConfigurationManager.AppSettings["ThumbnailSized"], out ts))
             {
-                ThubnailSized = ts;
+                ThumbnailSize = ts;
             } else
             {
-                ThubnailSized = 120;
+                ThumbnailSize = 120;
             }
             if (int.TryParse(ConfigurationManager.AppSettings["Port"], out ts))
             {
@@ -54,11 +54,11 @@ namespace ImageService
             int ts;
             if (int.TryParse(ConfigurationManager.AppSettings["ThumbnailSized"], out ts))
             {
-                ThubnailSized = ts;
+                ThumbnailSize = ts;
             }
             else
             {
-                ThubnailSized = 120;
+                ThumbnailSize = 120;
             }
             if (int.TryParse(ConfigurationManager.AppSettings["Port"], out ts))
             {

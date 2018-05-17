@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace UI.Model
 {
@@ -69,16 +70,16 @@ namespace UI.Model
 
         public string TypeAsString { get; set; }
 
-        public string Color { get; set; }
+        public SolidColorBrush Color { get; set; }
 
-        private string GetColorFromType(LType type)
+        private SolidColorBrush GetColorFromType(LType type)
         {
             switch (type)
             {
-                case LType.INFO: return "Green";
-                case LType.WARNING: return "Yellow";
-                case LType.ERROR: return "Red";
-                default: return "White";
+                case LType.INFO: return Brushes.Green;
+                case LType.WARNING: return Brushes.Yellow ;
+                case LType.ERROR: return Brushes.Red;
+                default: return Brushes.White;
             }
         }
     }
