@@ -5,41 +5,30 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Logging.Model;
 using UI.Model;
 
 namespace UI
 {
     public class LogViewModel : ILogViewModel
     {
-        private ILogModel LogModel;
+        private ILogModel m_model;
 
-        //public LogEntryList LogList { get; }
-
-        public LogViewModel()
+        public ObservableCollection<MessageRecievedEventArgs> LogEntries
         {
-            LogModel = new LogModel();
-
-            //    // just for the test, to be removed
-            //    LogList = new LogEntryList { new LogEntry(LType.INFO, "This in info, IMA"),
-            //        new LogEntry(LType.ERROR, "This in error, SHEL"),
-            //        new LogEntry(LType.WARNING, "This in warning, BARAK") };
-            //}
-
-            //public event PropertyChangedEventHandler PropertyChanged;
-
-            //public void NotifyPropertyChanged(string name)
-            //{
-            //    this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-            //}
-
-            //internal class LogAsString
-            //{
-            //    public string Type { get; set; }
-            //    public string Color { get; set; }
-            //    public string Message { get; set; }
-            //}
+            get
+            {
+                return m_model.LogEntries;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public LogViewModel()
+        {
+            m_model = new LogModel();
+            m_model.PropertyChanged += PropertyChanged;
+
+        }
     }
 }

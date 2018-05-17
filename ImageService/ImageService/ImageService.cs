@@ -154,13 +154,13 @@ namespace ImageService
             switch ((int)messageArgs.Status)
             {
                 case (int)MessageTypeEnum.INFO:
-                    eventLog1.WriteEntry("INFO:" + messageArgs.Message, EventLogEntryType.Information, eventId++);
+                    eventLog1.WriteEntry("INFO;" + messageArgs.Message, EventLogEntryType.Information, eventId++);
                     break;
                 case (int)MessageTypeEnum.FAIL:
-                    eventLog1.WriteEntry("FAIL:" + messageArgs.Message, EventLogEntryType.FailureAudit, eventId++);
+                    eventLog1.WriteEntry("FAIL;" + messageArgs.Message, EventLogEntryType.FailureAudit, eventId++);
                     break;
                 case (int)MessageTypeEnum.WARNING:
-                    eventLog1.WriteEntry("WARNING:" + messageArgs.Message, EventLogEntryType.Warning, eventId++);
+                    eventLog1.WriteEntry("WARNING;" + messageArgs.Message, EventLogEntryType.Warning, eventId++);
                     break;
             }
         }

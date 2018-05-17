@@ -15,4 +15,18 @@ namespace Infrastructure.Logging.Model
         WARNING,
         FAIL
     }
+
+    public static class MessageTypeEnumParser
+    {
+        public static MessageTypeEnum ParseTypeFromString(string type)
+        {
+            switch(type)
+            {
+                case "INFO": return MessageTypeEnum.INFO;
+                case "FAIL": return MessageTypeEnum.FAIL;
+                case "WARNING": return MessageTypeEnum.WARNING;
+                default: return 0;
+            }
+        }
+    }
 }
