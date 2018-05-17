@@ -52,7 +52,9 @@ namespace UI.Model
             communicationHandler.DataReceived += GetCommand;
             string message = JsonConvert.SerializeObject(CommandEnum.GetConfigCommand) + ";";
             communicationHandler.Client.Send(message);
+            Thread.Sleep(100);
             communicationHandler.Client.Start();
+
         }
 
         private void setConfigSettings(string msg)
