@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService.Logging.Model
+namespace Infrastructure.Logging.Model
 {
     /// <summary>
     /// The enum to the message type enum

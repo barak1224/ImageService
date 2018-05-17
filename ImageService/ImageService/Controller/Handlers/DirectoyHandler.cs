@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
-using ImageService.Logging;
-using ImageService.Logging.Model;
+using Infrastructure.Logging;
+using Infrastructure.Logging.Model;
 using System.Text.RegularExpressions;
 
 namespace ImageService.Controller.Handlers

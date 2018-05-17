@@ -43,6 +43,10 @@
     <Compile Include="Communication\IClientHandler.cs" />
     <Compile Include="Enums\CommandEnum.cs" />
     <Compile Include="Events\DataReceivedEventArgs.cs" />
+    <Compile Include="Logging\ILoggingService.cs" />
+    <Compile Include="Logging\LoggingService.cs" />
+    <Compile Include="Logging\Model\MessageRecievedEventArgs.cs" />
+    <Compile Include="Logging\Model\MessageTypeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

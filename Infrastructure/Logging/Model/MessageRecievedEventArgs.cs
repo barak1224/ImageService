@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService.Logging.Model
+namespace Infrastructure.Logging.Model
 {
     /// <summary>
     /// The class that holds the details for messaging for the logging

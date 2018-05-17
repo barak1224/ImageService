@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 using ImageService.Server;
 using ImageService.Controller;
 using ImageService.Model;
-using ImageService.Logging;
-using ImageService.Logging.Model;
+using Infrastructure.Logging;
+using Infrastructure.Logging.Model;
 using ImageService.Commands;
 using System.Threading;
 

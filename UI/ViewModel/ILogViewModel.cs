@@ -11,6 +11,5 @@ namespace UI
 {
     internal interface ILogViewModel : INotifyPropertyChanged
     {
-        LogEntryList LogList { get; }
     }
 }
