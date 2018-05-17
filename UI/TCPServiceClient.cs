@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Infrastructure.Events;
 
@@ -26,8 +27,9 @@ namespace UI
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8001);
             Client.Connect(ep);
             m_stream = Client.GetStream();
-            m_reader = new BinaryReader(m_stream, Encoding.ASCII);
-            m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
+            m_reader = new BinaryReader(m_stream);
+            m_writer = new BinaryWriter(m_stream);
+            Thread.Sleep(1000);
         }
 
         public void Close()
@@ -54,7 +56,6 @@ namespace UI
                 {
                     try
                     {
-                        m_stream.Flush();
                         string message = m_reader.ReadString();
                         if (message != null)
                         {

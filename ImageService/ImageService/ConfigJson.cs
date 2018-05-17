@@ -22,6 +22,7 @@ namespace ImageService
                 ["Source Name"] = appPar.SourceName,
                 ["Log Name"] = appPar.LogName,
                 ["OutputDir"] = appPar.OutputDir,
+                ["Thumbnail Size"] = appPar.ThubnailSized,
                 ["Directories"] = JsonConvert.SerializeObject(appPar.PathHandlers),
             };
             return jsonAppConfig.ToString();

@@ -27,8 +27,8 @@ namespace ImageService
         {
             m_client = client;
             m_stream = client.GetStream();
-            m_reader = new BinaryReader(m_stream, Encoding.ASCII);
-            m_writer = new BinaryWriter(m_stream, Encoding.ASCII);
+            m_reader = new BinaryReader(m_stream);
+            m_writer = new BinaryWriter(m_stream);
             m_cancelToken = new CancellationTokenSource();
             m_controller = controller;
         }
@@ -50,7 +50,8 @@ namespace ImageService
                             if (c == CommandEnum.GetConfigCommand)
                             {
                                 string convert =  m_controller.ExecuteCommand((int)CommandEnum.GetConfigCommand, null, out bool result);
-                                m_writer.Write(convert);
+                                string s = "1;" + convert;
+                                m_writer.Write(s);
                             } else
                             {
                                 DataReceived?.Invoke(this, new DataReceivedEventArgs(msg));
@@ -61,6 +62,7 @@ namespace ImageService
                     {
                         DataReceived?.Invoke(this, new DataReceivedEventArgs("Client channel was closed"));
                         Close();
+                        break;
                     }
                 }
             }, m_cancelToken.Token).Start();

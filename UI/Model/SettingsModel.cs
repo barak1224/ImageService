@@ -7,7 +7,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace UI.Model
 {
@@ -41,10 +43,6 @@ namespace UI.Model
        
         {
             // need to remove this
-            this.OutputDirName = "Output Directory";
-            this.SourceName = "Source Name";
-            this.LogName = "Log Name";
-            this.ThumbnailSize = 120;
             m_directories = new ObservableCollection<string> { "iosi", "is", "gay" };
             m_commands = new Dictionary<CommandEnum, CommandExecute>
             {
@@ -52,27 +50,31 @@ namespace UI.Model
             };
             communicationHandler = ModelCommunicationHandler.Instance;
             communicationHandler.DataReceived += GetCommand;
-            communicationHandler.Client.Start();
             string message = JsonConvert.SerializeObject(CommandEnum.GetConfigCommand) + ";";
             communicationHandler.Client.Send(message);
+            communicationHandler.Client.Start();
         }
 
         private void setConfigSettings(string msg)
         {
-            JObject jsonAppConfig = new JObject(msg);
+            JObject jsonAppConfig = JObject.Parse(msg);
             SourceName = (string)jsonAppConfig["Source Name"];
             LogName = (string)jsonAppConfig["Log Name"];
             OutputDirName = (string)jsonAppConfig["OutputDir"];
+            ThumbnailSize = (int)jsonAppConfig["Thumbnail Size"];
             string dirs = (string)jsonAppConfig["Directories"];
             Directories = JsonConvert.DeserializeObject<ObservableCollection<string>>(dirs);
         }
 
         private void GetCommand(object sender, ModelCommandArgs e)
         {
-            if (m_commands.ContainsKey(e.Command))
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                m_commands[e.Command](e.Message);
-            }
+                if (m_commands.ContainsKey(e.Command))
+                {
+                    m_commands[e.Command](e.Message);
+                }
+            }));
         }
 
         public string OutputDirName

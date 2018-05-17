@@ -31,13 +31,13 @@
                 </Style>
             </Grid.Resources>
             <TextBlock > Output Directory:</TextBlock>
-            <TextBlock x:Name="txtOuputDir" Grid.Column="1" Text="{Binding OutputDirName, Mode=OneTime}"></TextBlock>
+            <TextBlock x:Name="txtOuputDir" Grid.Column="1" Text="{Binding OutputDirName}"></TextBlock>
             <TextBlock Grid.Row="1"> Source Name:</TextBlock>
-            <TextBlock x:Name="txtSourceName" Grid.Row="1" Grid.Column="2" Text="{Binding SourceName, Mode=OneTime}"></TextBlock>
+            <TextBlock x:Name="txtSourceName" Grid.Row="1" Grid.Column="2" Text="{Binding SourceName}"></TextBlock>
             <TextBlock Grid.Row="2"> Log Name:</TextBlock>
-            <TextBlock x:Name="txtLogName" Grid.Row="2" Grid.Column="2" Text="{Binding LogName, Mode=OneTime}"></TextBlock>
+            <TextBlock x:Name="txtLogName" Grid.Row="2" Grid.Column="2" Text="{Binding LogName}"></TextBlock>
             <TextBlock Grid.Row="3"> Thumbnail Size:</TextBlock>
-            <TextBlock x:Name="thumbnailSize" Grid.Row="3" Grid.Column="2" Text="{Binding ThumbnailSize, Mode=OneTime}"></TextBlock>
+            <TextBlock x:Name="thumbnailSize" Grid.Row="3" Grid.Column="2" Text="{Binding ThumbnailSize}"></TextBlock>
         </Grid>
         <Button Padding="3" Margin="3" HorizontalContentAlignment="Stretch" Command="{Binding SubmitRemove}">
             <TextBlock Margin="3" HorizontalAlignment="Center"> Remove</TextBlock>
