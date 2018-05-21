@@ -11,7 +11,7 @@
         <Grid.Resources>
 
         </Grid.Resources>
-        <ListView x:Name="logList" ItemsSource="{Binding LogList}">
+        <ListView x:Name="logList" ItemsSource="{Binding LogEntries}">
             <!--<ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type GridViewColumn}">
                     <Setter Property="Background" Value="{Binding Color}" />
@@ -19,7 +19,7 @@
             </ListView.ItemContainerStyle>-->
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Type" Width="100" DisplayMemberBinding="{Binding TypeAsString}">
+                    <GridViewColumn Header="Type" Width="100" DisplayMemberBinding="{Binding Type}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>

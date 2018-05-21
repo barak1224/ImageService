@@ -27,8 +27,15 @@ namespace UI
         public LogViewModel()
         {
             m_model = new LogModel();
-            m_model.PropertyChanged += PropertyChanged;
+            m_model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
+            {
+                NotifyPropertyChanged(e.PropertyName);
+            };
+        }
 
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
