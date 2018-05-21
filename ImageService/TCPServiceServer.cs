@@ -14,7 +14,7 @@ namespace ImageService
     public class TCPServiceServer
     {
         public event EventHandler<DataReceivedEventArgs> DataReceived;
-        List<TcpClient> clients = new List<TcpClient>();
+        List<IClientHandler> clients = new List<IClientHandler>();
         private int m_port;
         private TcpListener listener;
         private IClientHandler ch;
@@ -41,8 +41,8 @@ namespace ImageService
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
-                        clients.Add(client);
                         ch = new ClientHandler(client, ref m_controller);
+                        clients.Add(ch);
                         ch.DataReceived += MoveToServer;
                         ch.Start();
                     }
@@ -57,7 +57,15 @@ namespace ImageService
 
         private void MoveToServer(object sender, DataReceivedEventArgs e)
         {
-            DataReceived?.Invoke(sender, e);
+            if (e.Message.CommandID == -1)
+            {
+                IClientHandler c = sender as IClientHandler;
+                clients.Remove(c);
+            }
+            else
+            {
+                DataReceived?.Invoke(sender, e);
+            }
         }
     }
 }

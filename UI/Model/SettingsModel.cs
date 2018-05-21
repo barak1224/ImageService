@@ -52,11 +52,11 @@ namespace UI.Model
             };
             communicationHandler = ModelCommunicationHandler.Instance;
             communicationHandler.DataReceived += GetCommand;
-            Thread.Sleep(1000);
             MessageCommand mc = new MessageCommand();
             mc.CommandID = (int)CommandEnum.GetConfigCommand;
             mc.CommandMsg = "";
             communicationHandler.Client.Send(mc.ToJSON());
+            Thread.Sleep(1000);
         }
 
         private void RemoveDir(string msg)
@@ -146,8 +146,10 @@ namespace UI.Model
 
         public void SendRemoveDir(string dir)
         {
-            String message = JsonConvert.SerializeObject(CommandEnum.CloseCommand) + ";" + dir;
-            communicationHandler.Client.Send(message);
+            MessageCommand mc = new MessageCommand();
+            mc.CommandID = (int)CommandEnum.CloseCommand;
+            mc.CommandMsg = dir;
+            communicationHandler.Client.Send(mc.ToJSON());
         }
     }
 }

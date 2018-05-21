@@ -68,7 +68,7 @@ namespace ImageService
                     {
                         MessageCommand mc = new MessageCommand();
                         mc.CommandID = -1;
-                        mc.CommandMsg = "Client channel was closed";
+                        mc.CommandMsg = e.Message;
                         DataReceived?.Invoke(this, new DataReceivedEventArgs(mc));
                         Close();
                         break;

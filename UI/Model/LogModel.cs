@@ -55,7 +55,6 @@ namespace UI.Model
             mc.CommandMsg = "";
             communicationHandler.Client.Send(mc.ToJSON());
             Thread.Sleep(100);
-            //communicationHandler.Client.Start();
         }
 
         private void SetLogEntries(string msg)

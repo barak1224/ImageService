@@ -16,7 +16,7 @@ namespace ImageService.Commands
             EventLog log = new EventLog(app.LogName, ".");
             EventLogEntryCollection logEntries = log.Entries;
             List<string> logs = new List<string>();
-            for (int index = 0; index < logEntries.Count; index++) {
+            for (int index = logEntries.Count - 1; index >= 0; index--) {
                 logs.Add(logEntries[index].Message.ToString());
             }
             string convertToString;
