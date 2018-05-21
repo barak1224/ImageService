@@ -11,11 +11,10 @@
         <Button >
             <Button.Style>
                 <Style TargetType="Button">
-                    <Setter Property="Background" Value="White" />
+                    <Setter Property="Background" Value="White"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsConnected}"
-                             Value="False">
-                            <Setter Property="Background" Value="Gray" />
+                        <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                            <Setter Property="Background" Value="Gray"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
