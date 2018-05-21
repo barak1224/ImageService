@@ -22,3 +22,4 @@ namespace UI.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
+}

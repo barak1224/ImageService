@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Events;
 using ImageService.Infrastructure.Enums;
+using System.Threading;
 
 namespace UI.Model
 {

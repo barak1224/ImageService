@@ -16,7 +16,6 @@ namespace ImageService.Controller
     {
         private IImageServiceModel m_Model;                      // The Model Object
         private Dictionary<int, ICommand> commands;
-        public event EventHandler<CommandRecievedEventArgs> PassCommandReceived;
 
         /// <summary>
         /// The constructor
@@ -28,23 +27,9 @@ namespace ImageService.Controller
             commands = new Dictionary<int, ICommand>()
             {
                 { (int)CommandEnum.NewFileCommand, new NewFileCommand(Model) },
-                { (int)CommandEnum.CloseCommand, new CloseCommand() },
                 { (int)CommandEnum.GetConfigCommand, new GetConfigCommand() }
             };
-            CloseCommand c = (commands[(int)CommandEnum.CloseCommand]) as CloseCommand;
-            c.SendCommand += PassCommand;
         }
-
-        /// <summary>
-        /// The function pass the command to who was needed to help execute that.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void PassCommand(object sender, CommandRecievedEventArgs e)
-        {
-            PassCommandReceived?.Invoke(sender, e);
-        }
-
 
         /// <summary>
         /// The function executing the command by dechipering the command ID

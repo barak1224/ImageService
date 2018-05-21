@@ -7,11 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Controller;
 using Infrastructure.Communication;
+using Infrastructure.Events;
 
 namespace ImageService
 {
     public class TCPServiceServer
     {
+        public event EventHandler<DataReceivedEventArgs> DataReceived;
         List<TcpClient> clients = new List<TcpClient>();
         private int m_port;
         private TcpListener listener;
@@ -41,6 +43,7 @@ namespace ImageService
                         TcpClient client = listener.AcceptTcpClient();
                         clients.Add(client);
                         ch = new ClientHandler(client, ref m_controller);
+                        ch.DataReceived += MoveToServer;
                         ch.Start();
                     }
                     catch(SocketException)
@@ -50,6 +53,11 @@ namespace ImageService
                 }
             });
             task.Start();
+        }
+
+        private void MoveToServer(object sender, DataReceivedEventArgs e)
+        {
+            DataReceived?.Invoke(sender, e);
         }
     }
 }

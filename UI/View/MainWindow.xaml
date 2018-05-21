@@ -8,6 +8,9 @@
         mc:Ignorable="d"
         Title="ThunderMore" Height="450" Width="800">
     <Grid>
+        <Button >
+            
+        </Button>
         <TabControl>
             <TabItem Header="Setting">
                 <local:SettingsTab/>

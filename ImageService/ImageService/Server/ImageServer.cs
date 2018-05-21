@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Events;
+using Newtonsoft.Json;
 
 namespace ImageService.Server
 {
@@ -21,6 +23,7 @@ namespace ImageService.Server
         private ILoggingService m_logging;
         private IImageServiceModel m_modelImage;
         private TCPServiceServer m_tcpServer;
+        private AppParsing m_appParsing;
 
         #endregion
 
@@ -37,24 +40,36 @@ namespace ImageService.Server
         /// <param name="pathHandlers"> the path of the directories that need to create for them handlers</param>
         public ImageServer(ILoggingService logging)
         {
-            AppParsing appPar = AppParsing.Instance;
-            m_modelImage = new ImageServiceModel(appPar.OutputDir, appPar.ThumbnailSize);
+            m_appParsing = AppParsing.Instance;
+            m_modelImage = new ImageServiceModel(m_appParsing.OutputDir, m_appParsing.ThumbnailSize);
             m_controller = new ImageController(m_modelImage);
             m_logging = logging;
-            foreach (string pathHandler in appPar.PathHandlers)
+            foreach (string pathHandler in m_appParsing.PathHandlers)
             {
                 CreateHandler(pathHandler);
                 logging.Log($"Handler for {pathHandler} was created", MessageTypeEnum.INFO);
             }
-            m_controller.PassCommandReceived += CommandRecievedSend;
+            //m_controller.PassCommandReceived += CommandRecievedSend;
             m_tcpServer = new TCPServiceServer(8001, ref m_controller);
+            m_tcpServer.DataReceived += DataReceviedServer;
             m_tcpServer.Start();
         }
 
-        private void CommandRecievedSend(object sender, CommandRecievedEventArgs e)
+        private void DataReceviedServer(object sender, DataReceivedEventArgs e)
         {
-            CommandRecieved?.Invoke(sender, e);
+            string[] args = e.Message.Split(';');
+            CommandEnum c = JsonConvert.DeserializeObject<CommandEnum>(args[0]);
+            if (c == CommandEnum.CloseCommand)
+            {
+                CommandRecievedEventArgs comArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, null, args[1]);
+                CommandRecieved?.Invoke(this, comArgs);
+            }
         }
+
+        //private void CommandRecievedSend(object sender, CommandRecievedEventArgs e)
+        //{
+        //    CommandRecieved?.Invoke(sender, e);
+        //}
 
         /// <summary>
         /// Creating a handler for a directory path
@@ -86,6 +101,7 @@ namespace ImageService.Server
         {
             IDirectoryHandler handler = (IDirectoryHandler)sender;
             CommandRecieved -= handler.OnCommandRecieved;
+            m_appParsing.RemoveDir(handler.DirPath);
             m_logging.Log(d.DirectoryPath + " " + d.Message, MessageTypeEnum.INFO);
         }
     }

@@ -62,7 +62,7 @@ namespace UI
                             DataReceived?.Invoke(this, new DataReceivedEventArgs(message));
                         }
                     }
-                    catch(SocketException)
+                    catch(SocketException e)
                     {
                         break;
                     }

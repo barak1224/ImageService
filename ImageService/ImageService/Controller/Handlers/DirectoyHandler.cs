@@ -21,6 +21,14 @@ namespace ImageService.Controller.Handlers
         private FileSystemWatcher m_dirWatcher;       // The Watcher of the Dir
         private string m_path;                              // The Path of directory
         private static readonly string[] extensions = { ".jpg", ".png", ".bmp", ".gif" };
+
+        public string DirPath
+        {
+            get
+            {
+                return m_path;
+            }
+        }
         #endregion
 
         /// <summary>

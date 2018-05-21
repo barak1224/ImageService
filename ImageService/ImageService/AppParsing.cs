@@ -12,7 +12,7 @@ namespace ImageService
     /// </summary>
     public class AppParsing
     {
-        public string[] PathHandlers { get; set; }
+        public List<string> PathHandlers { get; set; }
         public string OutputDir { get; set; }
         public string SourceName { get; }
         public string LogName { get; }
@@ -26,7 +26,7 @@ namespace ImageService
         /// </summary>
         private AppParsing()
         {
-            PathHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+            PathHandlers = new List<string>(ConfigurationManager.AppSettings["Handler"].Split(';'));
             OutputDir = ConfigurationManager.AppSettings["OutputDir"];
             SourceName = ConfigurationManager.AppSettings["SourceName"];
             LogName = ConfigurationManager.AppSettings["LogName"];
@@ -34,7 +34,8 @@ namespace ImageService
             if (int.TryParse(ConfigurationManager.AppSettings["ThumbnailSized"], out ts))
             {
                 ThumbnailSize = ts;
-            } else
+            }
+            else
             {
                 ThumbnailSize = 120;
             }
@@ -49,7 +50,7 @@ namespace ImageService
 
         public void Reload()
         {
-            PathHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+            PathHandlers = new List<string>(ConfigurationManager.AppSettings["Handler"].Split(';'));
             OutputDir = ConfigurationManager.AppSettings["OutputDir"];
             int ts;
             if (int.TryParse(ConfigurationManager.AppSettings["ThumbnailSized"], out ts))
@@ -68,6 +69,11 @@ namespace ImageService
             {
                 Port = 8000;
             }
+        }
+
+        public void RemoveDir(string dir)
+        {
+            PathHandlers.Remove(dir);
         }
     }
 }

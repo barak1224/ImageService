@@ -15,6 +15,6 @@ namespace UI.Model
         string LogName { get; set; }
         int ThumbnailSize { get; set; }
         ObservableCollection<string> Directories { get; set; }
-        void RemoveDir(string dir);
+        void SendRemoveDir(string dir);
     }
 }

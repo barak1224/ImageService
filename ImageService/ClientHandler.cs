@@ -20,6 +20,7 @@ namespace ImageService
         private NetworkStream m_stream;
         private BinaryReader m_reader;
         private BinaryWriter m_writer;
+        private List<CommandEnum> m_commands;
         private CancellationTokenSource m_cancelToken;
         private IImageController m_controller;
         public event EventHandler<DataReceivedEventArgs> DataReceived;
@@ -31,6 +32,11 @@ namespace ImageService
             m_writer = new BinaryWriter(m_stream);
             m_cancelToken = new CancellationTokenSource();
             m_controller = controller;
+            m_commands = new List<CommandEnum>()
+            {
+                CommandEnum.GetConfigCommand,
+                CommandEnum.LogCommand
+            };
         }
 
         public void Start()
@@ -47,10 +53,10 @@ namespace ImageService
                         {
                             string[] args = msg.Split(';');
                             CommandEnum c = JsonConvert.DeserializeObject<CommandEnum>(args[0]);
-                            if (c == CommandEnum.GetConfigCommand)
+                            if (m_commands.Contains(c))
                             {
-                                string convert = m_controller.ExecuteCommand((int)CommandEnum.GetConfigCommand, null, out bool result);
-                                string s = "1;" + convert;
+                                string convert = m_controller.ExecuteCommand((int)c, null, out bool result);
+                                string s = args[0] + ";" + convert;
                                 m_writer.Write(s);
                             }
                             else

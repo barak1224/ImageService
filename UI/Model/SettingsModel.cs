@@ -43,21 +43,24 @@ namespace UI.Model
        
         {
             // need to remove this
-            m_directories = new ObservableCollection<string> { "iosi", "is", "gay" };
             m_commands = new Dictionary<CommandEnum, CommandExecute>
             {
-                {CommandEnum.GetConfigCommand, setConfigSettings }
+                {CommandEnum.GetConfigCommand, SetConfigSettings },
+                {CommandEnum.CloseCommand, RemoveDir }
             };
             communicationHandler = ModelCommunicationHandler.Instance;
             communicationHandler.DataReceived += GetCommand;
+            Thread.Sleep(1000);
             string message = JsonConvert.SerializeObject(CommandEnum.GetConfigCommand) + ";";
             communicationHandler.Client.Send(message);
-            Thread.Sleep(100);
-            communicationHandler.Client.Start();
-
         }
 
-        private void setConfigSettings(string msg)
+        private void RemoveDir(string msg)
+        {
+            ;
+        }
+
+        private void SetConfigSettings(string msg)
         {
             JObject jsonAppConfig = JObject.Parse(msg);
             SourceName = (string)jsonAppConfig["Source Name"];
@@ -136,9 +139,10 @@ namespace UI.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public void RemoveDir(string dir)
+        public void SendRemoveDir(string dir)
         {
-
+            String message = JsonConvert.SerializeObject(CommandEnum.CloseCommand) + ";" + dir;
+            communicationHandler.Client.Send(message);
         }
     }
 }

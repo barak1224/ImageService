@@ -105,7 +105,8 @@ namespace UI
         /// <param name="obj"></param>
         private void OnSubmit(object obj)
         {
-            this.m_model.Directories.Remove(SelectedDir);
+            //this.m_model.Directories.Remove(SelectedDir);
+            m_model.SendRemoveDir(SelectedDir);
             this.SelectedDir = null;
         }
 
