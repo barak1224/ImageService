@@ -20,16 +20,25 @@ namespace UI
         private NetworkStream m_stream;
         private BinaryReader m_reader;
         private BinaryWriter m_writer;
-
+        public bool IsConnected { get; set; }
+        
         public TCPServiceClient()
         {
-            Client = new TcpClient();
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8001);
-            Client.Connect(ep);
-            m_stream = Client.GetStream();
-            m_reader = new BinaryReader(m_stream);
-            m_writer = new BinaryWriter(m_stream);
-            Thread.Sleep(1000);
+            try
+            {
+                Client = new TcpClient();
+                IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8001);
+                Client.Connect(ep);
+                m_stream = Client.GetStream();
+                m_reader = new BinaryReader(m_stream);
+                m_writer = new BinaryWriter(m_stream);
+                IsConnected = true;
+                Thread.Sleep(1000);
+
+            } catch (Exception e)
+            {
+                IsConnected = false;
+            }
         }
 
         public void Close()

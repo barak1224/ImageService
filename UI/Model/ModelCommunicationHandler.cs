@@ -14,7 +14,7 @@ namespace UI.Model
         private static ModelCommunicationHandler instance;
 
         public TCPServiceClient Client { get; set; }
-
+        public bool IsConnected { get; set; }
         public static ModelCommunicationHandler Instance
         {
             get
@@ -57,6 +57,7 @@ namespace UI.Model
         {
             Client = new TCPServiceClient();
             Client.DataReceived += OnDataReceived;
+            IsConnected = Client.IsConnected;
         }
     }
 }

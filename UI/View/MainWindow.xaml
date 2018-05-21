@@ -9,7 +9,17 @@
         Title="ThunderMore" Height="450" Width="800">
     <Grid>
         <Button >
-            
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="White" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsConnected}"
+                             Value="False">
+                            <Setter Property="Background" Value="Gray" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
         <TabControl>
             <TabItem Header="Setting">

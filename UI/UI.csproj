@@ -77,6 +77,7 @@
     <Compile Include="ViewModel\ILogViewModel.cs" />
     <Compile Include="ViewModel\ISettingsViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\SettingsTab.xaml.cs">
       <DependentUpon>SettingsTab.xaml</DependentUpon>
     </Compile>
