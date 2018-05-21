@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure.Logging.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,5 +12,6 @@ namespace UI
 {
     internal interface ILogViewModel : INotifyPropertyChanged
     {
+        ObservableCollection<MessageRecievedEventArgs> LogEntries { get; }
     }
 }

@@ -50,13 +50,19 @@ namespace ImageService
                     {
                         msg = m_reader.ReadString();
                         if (msg != null)
-                        {
+                         {
                             string[] args = msg.Split(';');
                             CommandEnum c = JsonConvert.DeserializeObject<CommandEnum>(args[0]);
                             if (m_commands.Contains(c))
                             {
                                 string convert = m_controller.ExecuteCommand((int)c, null, out bool result);
                                 string s = args[0] + ";" + convert;
+                                m_writer.Write(s);
+                            }
+                            else if (c == CommandEnum.LogCommand)
+                            {
+                                string convert = m_controller.ExecuteCommand((int)CommandEnum.LogCommand, null, out bool result);
+                                string s = "3;" + convert;
                                 m_writer.Write(s);
                             }
                             else

@@ -23,7 +23,7 @@ namespace ImageService.Commands
             if ((convertToString = JsonConvert.SerializeObject(logs)) == null)
             {
                 result = false;
-                return "Coludn't convert logs message into string";
+                return "Couldn't convert logs message into string";
             }
             result = true;
             return convertToString;

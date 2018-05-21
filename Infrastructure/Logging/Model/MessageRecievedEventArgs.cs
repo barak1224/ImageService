@@ -13,5 +13,19 @@ namespace Infrastructure.Logging.Model
     {
         public MessageTypeEnum Status { get; set; }
         public string Message { get; set; }
+
+        public MessageRecievedEventArgs(MessageTypeEnum status, string message)
+        {
+            Status = status;
+            Message = message;
+        }
+
+        public static MessageRecievedEventArgs ParseFromString(string messageReceived)
+        {
+            string[] args = messageReceived.Split(';');
+            MessageTypeEnum type = MessageTypeEnumParser.ParseTypeFromString(args[0]);
+            string message = args[1];
+            return new MessageRecievedEventArgs(type, message);
+        }
     }
 }

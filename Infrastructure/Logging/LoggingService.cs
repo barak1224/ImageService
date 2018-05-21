@@ -20,9 +20,7 @@ namespace Infrastructure.Logging
         /// <param name="type"> An enum type for the message </param>
         public void Log(string message, MessageTypeEnum type)
         {
-            MessageRecievedEventArgs messageArgs = new MessageRecievedEventArgs();
-            messageArgs.Status = type;
-            messageArgs.Message = message;
+            MessageRecievedEventArgs messageArgs = new MessageRecievedEventArgs(type, message);
             MessageRecieved?.Invoke(this, messageArgs);
         }
     }
