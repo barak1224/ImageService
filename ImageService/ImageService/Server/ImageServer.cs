@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Events;
 using Newtonsoft.Json;
+using Infrastructure.Communication;
 
 namespace ImageService.Server
 {
@@ -57,19 +58,13 @@ namespace ImageService.Server
 
         private void DataReceviedServer(object sender, DataReceivedEventArgs e)
         {
-            string[] args = e.Message.Split(';');
-            CommandEnum c = JsonConvert.DeserializeObject<CommandEnum>(args[0]);
-            if (c == CommandEnum.CloseCommand)
+            MessageCommand mc = e.Message;
+            if (mc.CommandID == (int)CommandEnum.CloseCommand)
             {
-                CommandRecievedEventArgs comArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, null, args[1]);
+                CommandRecievedEventArgs comArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, null, mc.CommandMsg);
                 CommandRecieved?.Invoke(this, comArgs);
             }
         }
-
-        //private void CommandRecievedSend(object sender, CommandRecievedEventArgs e)
-        //{
-        //    CommandRecieved?.Invoke(sender, e);
-        //}
 
         /// <summary>
         /// Creating a handler for a directory path

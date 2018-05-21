@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure.Communication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,10 @@ namespace Infrastructure.Events
 {
     public class DataReceivedEventArgs : EventArgs
     {
-        public DataReceivedEventArgs(string msg)
+        public DataReceivedEventArgs(MessageCommand msg)
         {
             Message = msg;
         }
-        public string Message { get; set; }
+        public MessageCommand Message { get; set; }
     }
 }

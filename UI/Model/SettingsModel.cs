@@ -1,4 +1,6 @@
 ﻿using ImageService.Infrastructure.Enums;
+using Infrastructure.Communication;
+using Infrastructure.Events;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -16,7 +18,7 @@ namespace UI.Model
     class SettingsModel : ISettingsModel
     {
         delegate void CommandExecute(string msg);
-        private Dictionary<CommandEnum, CommandExecute> m_commands;
+        private Dictionary<int, CommandExecute> m_commands;
         public ModelCommunicationHandler communicationHandler;
 
         private string m_outputDirName;
@@ -43,16 +45,18 @@ namespace UI.Model
        
         {
             // need to remove this
-            m_commands = new Dictionary<CommandEnum, CommandExecute>
+            m_commands = new Dictionary<int, CommandExecute>
             {
-                {CommandEnum.GetConfigCommand, SetConfigSettings },
-                {CommandEnum.CloseCommand, RemoveDir }
+                {(int)CommandEnum.GetConfigCommand, SetConfigSettings },
+                {(int)CommandEnum.CloseCommand, RemoveDir }
             };
             communicationHandler = ModelCommunicationHandler.Instance;
             communicationHandler.DataReceived += GetCommand;
             Thread.Sleep(1000);
-            string message = JsonConvert.SerializeObject(CommandEnum.GetConfigCommand) + ";";
-            communicationHandler.Client.Send(message);
+            MessageCommand mc = new MessageCommand();
+            mc.CommandID = (int)CommandEnum.GetConfigCommand;
+            mc.CommandMsg = "";
+            communicationHandler.Client.Send(mc.ToJSON());
         }
 
         private void RemoveDir(string msg)
@@ -71,13 +75,14 @@ namespace UI.Model
             Directories = JsonConvert.DeserializeObject<ObservableCollection<string>>(dirs);
         }
 
-        private void GetCommand(object sender, ModelCommandArgs e)
+        private void GetCommand(object sender, DataReceivedEventArgs e)
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                if (m_commands.ContainsKey(e.Command))
+                MessageCommand mc = e.Message;
+                if (m_commands.ContainsKey(mc.CommandID))
                 {
-                    m_commands[e.Command](e.Message);
+                    m_commands[mc.CommandID](mc.CommandMsg);
                 }
             }));
         }

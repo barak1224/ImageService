@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Infrastructure.Communication;
 using Infrastructure.Events;
 
 namespace UI
@@ -68,7 +69,7 @@ namespace UI
                         string message = m_reader.ReadString();
                         if (message != null)
                         {
-                            DataReceived?.Invoke(this, new DataReceivedEventArgs(message));
+                            DataReceived?.Invoke(this, new DataReceivedEventArgs(MessageCommand.FromJSON(message)));
                         }
                     }
                     catch(SocketException e)

@@ -1,4 +1,6 @@
 ﻿using ImageService.Infrastructure.Enums;
+using Infrastructure.Communication;
+using Infrastructure.Events;
 using Infrastructure.Logging.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -21,7 +23,7 @@ namespace UI.Model
     class LogModel : ILogModel
     {
         delegate void CommandExecute(string msg);
-        private Dictionary<CommandEnum, CommandExecute> m_commands;
+        private Dictionary<int, CommandExecute> m_commands;
         public ModelCommunicationHandler communicationHandler;
 
         private ObservableCollection<MessageRecievedEventArgs> m_logEntries;
@@ -42,23 +44,25 @@ namespace UI.Model
         public LogModel()
         {
             m_logEntries = new ObservableCollection<MessageRecievedEventArgs>();
-            m_commands = new Dictionary<CommandEnum, CommandExecute>
+            m_commands = new Dictionary<int, CommandExecute>
             {
-                {CommandEnum.LogCommand, SetLogEntries }
+                {(int)CommandEnum.LogCommand, SetLogEntries }
             };
             communicationHandler = ModelCommunicationHandler.Instance;
             communicationHandler.DataReceived += GetCommand;
-            string message = JsonConvert.SerializeObject(CommandEnum.LogCommand) + ";";
-            communicationHandler.Client.Send(message);
+            MessageCommand mc = new MessageCommand();
+            mc.CommandID = (int)CommandEnum.LogCommand;
+            mc.CommandMsg = "";
+            communicationHandler.Client.Send(mc.ToJSON());
             Thread.Sleep(100);
-            communicationHandler.Client.Start();
+            //communicationHandler.Client.Start();
         }
 
         private void SetLogEntries(string msg)
         {
-            JObject jsonData = JObject.Parse(msg);
-            string logs = (string)jsonData;
-            LogEntries = GetLogFromStringList(JsonConvert.DeserializeObject<ObservableCollection<string>>(logs));
+            //JObject jsonData = JObject.Parse(msg);
+            //string logs = (string)jsonData;
+            LogEntries = GetLogFromStringList(JsonConvert.DeserializeObject<ObservableCollection<string>>(msg));
             
         }
 
@@ -72,15 +76,16 @@ namespace UI.Model
             return logEntries;
         }
 
-        private void GetCommand(object sender, ModelCommandArgs e)
+        private void GetCommand(object sender, DataReceivedEventArgs e)
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                if (m_commands.ContainsKey(e.Command))
+                MessageCommand mc = e.Message;
+                if (m_commands.ContainsKey(mc.CommandID))
                 {
-                    m_commands[e.Command](e.Message);
+                    m_commands[mc.CommandID](mc.CommandMsg);
                 }
-            }));
+        }));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

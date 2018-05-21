@@ -94,9 +94,6 @@ namespace ImageService
             Thread.Sleep(1000);
             MembersInitialize();
             appPar.Reload();
-            LogCommand loggg = new LogCommand();
-            string s = loggg.Execute(null, out bool result);
-            logging.Log(s, MessageTypeEnum.INFO);
             logging.Log("In OnStart", MessageTypeEnum.INFO);
 
             // Update the service state to Start Pending.  

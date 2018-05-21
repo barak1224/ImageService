@@ -20,7 +20,7 @@ namespace ImageService
         private NetworkStream m_stream;
         private BinaryReader m_reader;
         private BinaryWriter m_writer;
-        private List<CommandEnum> m_commands;
+        private List<int> m_commands;
         private CancellationTokenSource m_cancelToken;
         private IImageController m_controller;
         public event EventHandler<DataReceivedEventArgs> DataReceived;
@@ -32,10 +32,10 @@ namespace ImageService
             m_writer = new BinaryWriter(m_stream);
             m_cancelToken = new CancellationTokenSource();
             m_controller = controller;
-            m_commands = new List<CommandEnum>()
+            m_commands = new List<int>()
             {
-                CommandEnum.GetConfigCommand,
-                CommandEnum.LogCommand
+                ((int)CommandEnum.GetConfigCommand),
+                ((int)CommandEnum.LogCommand)
             };
         }
 
@@ -51,29 +51,25 @@ namespace ImageService
                         msg = m_reader.ReadString();
                         if (msg != null)
                          {
-                            string[] args = msg.Split(';');
-                            CommandEnum c = JsonConvert.DeserializeObject<CommandEnum>(args[0]);
-                            if (m_commands.Contains(c))
+                            MessageCommand mc = MessageCommand.FromJSON(msg);
+                            if (m_commands.Contains(mc.CommandID))
                             {
-                                string convert = m_controller.ExecuteCommand((int)c, null, out bool result);
-                                string s = args[0] + ";" + convert;
-                                m_writer.Write(s);
-                            }
-                            else if (c == CommandEnum.LogCommand)
-                            {
-                                string convert = m_controller.ExecuteCommand((int)CommandEnum.LogCommand, null, out bool result);
-                                string s = "3;" + convert;
-                                m_writer.Write(s);
+                                string convert = m_controller.ExecuteCommand(mc.CommandID, null, out bool result);
+                                mc.CommandMsg = convert;
+                                m_writer.Write(mc.ToJSON());
                             }
                             else
                             {
-                                DataReceived?.Invoke(this, new DataReceivedEventArgs(msg));
+                                DataReceived?.Invoke(this, new DataReceivedEventArgs(mc));
                             }
                         }
                     }
                     catch (Exception e)
                     {
-                        DataReceived?.Invoke(this, new DataReceivedEventArgs("Client channel was closed"));
+                        MessageCommand mc = new MessageCommand();
+                        mc.CommandID = -1;
+                        mc.CommandMsg = "Client channel was closed";
+                        DataReceived?.Invoke(this, new DataReceivedEventArgs(mc));
                         Close();
                         break;
                     }

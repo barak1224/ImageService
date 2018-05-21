@@ -28,29 +28,14 @@ namespace UI.Model
             }
         }
 
-        public event EventHandler<ModelCommandArgs> DataReceived;
+        public event EventHandler<DataReceivedEventArgs> DataReceived;
 
         public void OnDataReceived(object sender, DataReceivedEventArgs e)
         {
-            ModelCommandArgs command = ParseData(e.Message);
-            if (command != null)
+            if (e != null)
             {
-                DataReceived?.Invoke(this, command); 
+                DataReceived?.Invoke(this, e); 
             }
-        }
-
-        private ModelCommandArgs ParseData(string message)
-        {
-            int commandNum;
-            string[] args = message.Split(';');
-            if (int.TryParse(args[0], out commandNum))
-            {
-                return new ModelCommandArgs((CommandEnum)commandNum, args[1]);
-            }
-            else
-            {
-                return null;
-            }            
         }
 
         private ModelCommunicationHandler()
