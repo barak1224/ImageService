@@ -14,6 +14,14 @@ namespace Infrastructure.Logging.Model
         public MessageTypeEnum Status { get; set; }
         public string Message { get; set; }
 
+        public string StatusAsString
+        {
+            get
+            {
+                return (Status as Enum).ToString();
+            }
+        }
+
         public MessageRecievedEventArgs(MessageTypeEnum status, string message)
         {
             Status = status;

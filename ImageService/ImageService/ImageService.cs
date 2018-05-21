@@ -148,18 +148,8 @@ namespace ImageService
         /// <param name="messageArgs"></param>
         private void OnMessage(object sender, MessageRecievedEventArgs messageArgs)
         {
-            switch ((int)messageArgs.Status)
-            {
-                case (int)MessageTypeEnum.INFO:
-                    eventLog1.WriteEntry("INFO;" + messageArgs.Message, EventLogEntryType.Information, eventId++);
-                    break;
-                case (int)MessageTypeEnum.FAIL:
-                    eventLog1.WriteEntry("FAIL;" + messageArgs.Message, EventLogEntryType.FailureAudit, eventId++);
-                    break;
-                case (int)MessageTypeEnum.WARNING:
-                    eventLog1.WriteEntry("WARNING;" + messageArgs.Message, EventLogEntryType.Warning, eventId++);
-                    break;
-            }
+            string status = (messageArgs.Status as Enum).ToString() + ";";
+            eventLog1.WriteEntry(status + messageArgs.Message, EventLogEntryType.Information, eventId++);
         }
     }
 }

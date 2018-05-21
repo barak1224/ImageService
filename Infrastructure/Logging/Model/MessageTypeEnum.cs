@@ -25,7 +25,7 @@ namespace Infrastructure.Logging.Model
                 case "INFO": return MessageTypeEnum.INFO;
                 case "FAIL": return MessageTypeEnum.FAIL;
                 case "WARNING": return MessageTypeEnum.WARNING;
-                default: return 0;
+                default: throw new Exception("Unsupported type");
             }
         }
     }
