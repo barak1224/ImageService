@@ -29,7 +29,8 @@ namespace ImageService.Controller
             {
                 { (int)CommandEnum.NewFileCommand, new NewFileCommand(Model) },
                 { (int)CommandEnum.CloseCommand, new CloseCommand() },
-                { (int)CommandEnum.GetConfigCommand, new GetConfigCommand() }
+                { (int)CommandEnum.GetConfigCommand, new GetConfigCommand() },
+                { (int)CommandEnum.LogCommand, new LogCommand() }
             };
             CloseCommand c = (commands[(int)CommandEnum.CloseCommand]) as CloseCommand;
             c.SendCommand += PassCommand;
