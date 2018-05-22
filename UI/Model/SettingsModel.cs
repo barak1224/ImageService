@@ -27,7 +27,6 @@ namespace UI.Model
         private ObservableCollection<string> m_directories;
         private int m_thumbnailSize;
 
-
         public ObservableCollection<string> Directories
         {
             get
@@ -59,9 +58,9 @@ namespace UI.Model
             Thread.Sleep(1000);
         }
 
-        private void RemoveDir(string msg)
+        private void RemoveDir(string dir)
         {
-            ;
+            m_directories.Remove(dir);
         }
 
         private void SetConfigSettings(string msg)

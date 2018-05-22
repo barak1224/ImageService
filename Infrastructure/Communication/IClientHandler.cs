@@ -13,5 +13,6 @@ namespace Infrastructure.Communication
         event EventHandler<DataReceivedEventArgs> DataReceived;
         void Start();
         void Close();
+        int Send(string message);
     }
 }

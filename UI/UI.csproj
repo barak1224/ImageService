@@ -67,14 +67,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="LogColorConverter.cs" />
-    <Compile Include="IClientCommunication.cs" />
     <Compile Include="Model\ILogModel.cs" />
     <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogModel.cs" />
     <Compile Include="Model\ModelCommandArgs.cs" />
     <Compile Include="Model\ModelCommunicationHandler.cs" />
     <Compile Include="Model\SettingsModel.cs" />
-    <Compile Include="TCPServiceClient.cs" />
     <Compile Include="ViewModel\ILogViewModel.cs" />
     <Compile Include="ViewModel\ISettingsViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />

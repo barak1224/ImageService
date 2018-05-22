@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Infrastructure.Communication;
 
 
-namespace UI
+namespace Communication
 {
-    public interface IClientCommunication: IClientHandler
+    public interface IClientCommunication
     {
+        void Close();
+        void Start();
         int Send(string msg);
     }
 }

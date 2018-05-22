@@ -6,8 +6,10 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Controller;
+using ImageService.Infrastructure.Enums;
 using Infrastructure.Communication;
 using Infrastructure.Events;
+using Infrastructure.Logging.Model;
 
 namespace ImageService
 {
@@ -66,6 +68,24 @@ namespace ImageService
             {
                 DataReceived?.Invoke(sender, e);
             }
+        }
+
+        public void SendAll(string messageCommand)
+        {
+            foreach (IClientHandler client in clients) {
+                if (client.Send(messageCommand) == 0)
+                {
+                    client.Close();
+                    clients.Remove(client);
+                }
+            }
+        }
+
+        internal void Close()
+        {
+            MessageCommand mc = new MessageCommand();
+            mc.CommandID = (int)CommandEnum.CloseServerCommand;
+            SendAll(mc.ToJSON());
         }
     }
 }

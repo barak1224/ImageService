@@ -57,22 +57,12 @@ namespace UI.Model
             Thread.Sleep(100);
         }
 
-        private void SetLogEntries(string msg)
-        {
-            //JObject jsonData = JObject.Parse(msg);
-            //string logs = (string)jsonData;
-            LogEntries = GetLogFromStringList(JsonConvert.DeserializeObject<ObservableCollection<string>>(msg));
-            
-        }
-
-        private ObservableCollection<MessageRecievedEventArgs> GetLogFromStringList(ObservableCollection<string> logsList)
-        {
-            ObservableCollection<MessageRecievedEventArgs> logEntries = new ObservableCollection<MessageRecievedEventArgs>();
+        private void SetLogEntries(string msg) {
+            List<string> logsList = JsonConvert.DeserializeObject<List<string>>(msg);
             foreach (string log in logsList)
             {
-                logEntries.Add(MessageRecievedEventArgs.ParseFromString(log));
+                m_logEntries.Insert(0,MessageRecievedEventArgs.ParseFromString(log));
             }
-            return logEntries;
         }
 
         private void GetCommand(object sender, DataReceivedEventArgs e)

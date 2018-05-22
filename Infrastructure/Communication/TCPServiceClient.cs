@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Infrastructure.Communication;
 using Infrastructure.Events;
 
-namespace UI
+namespace Communication
 {
     public class TCPServiceClient : IClientCommunication
     {
@@ -74,7 +74,7 @@ namespace UI
                     }
                     catch(SocketException e)
                     {
-                        break;
+                        IsConnected = false;
                     }
                 }
 

@@ -31,6 +31,7 @@ namespace ImageService.Server
         #region Properties
         // The event that notifies about a new Command being recieved
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;
+
         #endregion
 
         /// <summary>
@@ -44,16 +45,27 @@ namespace ImageService.Server
             m_appParsing = AppParsing.Instance;
             m_modelImage = new ImageServiceModel(m_appParsing.OutputDir, m_appParsing.ThumbnailSize);
             m_controller = new ImageController(m_modelImage);
+            m_tcpServer = new TCPServiceServer(8001, ref m_controller);
+            m_tcpServer.DataReceived += DataReceviedServer;
+            m_tcpServer.Start();
             m_logging = logging;
+            m_logging.MessageRecieved += NewLogEntry;
             foreach (string pathHandler in m_appParsing.PathHandlers)
             {
                 CreateHandler(pathHandler);
                 logging.Log($"Handler for {pathHandler} was created", MessageTypeEnum.INFO);
             }
             //m_controller.PassCommandReceived += CommandRecievedSend;
-            m_tcpServer = new TCPServiceServer(8001, ref m_controller);
-            m_tcpServer.DataReceived += DataReceviedServer;
-            m_tcpServer.Start();
+        }
+
+        private void NewLogEntry(object sender, MessageRecievedEventArgs messageArgs)
+        {
+            MessageCommand mc = new MessageCommand();
+            mc.CommandID = (int)CommandEnum.LogCommand;
+            List<string> log = new List<string>();
+            log.Add((messageArgs.Status as Enum).ToString() + ";" + messageArgs.Message);
+            mc.CommandMsg = JsonConvert.SerializeObject(log);
+            m_tcpServer.SendAll(mc.ToJSON());
         }
 
         private void DataReceviedServer(object sender, DataReceivedEventArgs e)
@@ -85,6 +97,7 @@ namespace ImageService.Server
         {
             CommandRecievedEventArgs comArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, null, "*");
             CommandRecieved?.Invoke(this, comArgs);
+            m_tcpServer.Close();
         }
 
         /// <summary>
@@ -97,7 +110,20 @@ namespace ImageService.Server
             IDirectoryHandler handler = (IDirectoryHandler)sender;
             CommandRecieved -= handler.OnCommandRecieved;
             m_appParsing.RemoveDir(handler.DirPath);
+            RemoveHandlerFromClients(handler.DirPath);
             m_logging.Log(d.DirectoryPath + " " + d.Message, MessageTypeEnum.INFO);
+        }
+
+        /// <summary>
+        /// The function sending to the tcp the command of closed handler to notify all clients
+        /// </summary>
+        /// <param name="dirPath"> dirPath of folder to remove </param>
+        private void RemoveHandlerFromClients(string dirPath)
+        {
+            MessageCommand mc = new MessageCommand();
+            mc.CommandID = (int)CommandEnum.CloseCommand;
+            mc.CommandMsg = dirPath;
+            m_tcpServer.SendAll(mc.ToJSON());
         }
     }
 }

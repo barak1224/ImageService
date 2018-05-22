@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Events;
 using ImageService.Infrastructure.Enums;
+using Infrastructure.Communication;
 using System.Threading;
+using Communication;
 
 namespace UI.Model
 {
@@ -34,7 +36,14 @@ namespace UI.Model
         {
             if (e != null)
             {
-                DataReceived?.Invoke(this, e); 
+                if (e.Message.CommandID == (int)CommandEnum.CloseServerCommand)
+                {
+                    IsConnected = false;
+                }
+                else
+                {
+                    DataReceived?.Invoke(this, e);
+                }
             }
         }
 

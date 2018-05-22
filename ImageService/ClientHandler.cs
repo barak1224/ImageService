@@ -79,7 +79,25 @@ namespace ImageService
 
         public void Close()
         {
+            m_writer.Close();
+            m_reader.Close();
+            m_stream.Close();
             m_cancelToken.Cancel();
+        }
+
+        public int Send(string message)
+        {
+            lock (m_writer)
+            {
+                try
+                {
+                    m_writer.Write(message);
+                    return 1;
+                } catch (Exception e)
+                {
+                    return 0;
+                }
+            }
         }
     }
 }

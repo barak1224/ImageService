@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Include="ClientHandler.cs" />
     <Compile Include="ImageService\AppParsing.cs" />
-    <Compile Include="ImageService\Commands\CloseCommand.cs" />
     <Compile Include="ImageService\Commands\GetConfigCommand.cs" />
     <Compile Include="ImageService\Commands\ICommand.cs" />
     <Compile Include="ImageService\Commands\LogCommand.cs" />
