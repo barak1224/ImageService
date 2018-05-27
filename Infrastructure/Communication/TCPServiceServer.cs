@@ -5,13 +5,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using ImageService.Controller;
 using ImageService.Infrastructure.Enums;
 using Infrastructure.Communication;
 using Infrastructure.Events;
 using Infrastructure.Logging.Model;
 
-namespace ImageService
+namespace Infrastructure.Communication
 {
     public class TCPServiceServer
     {
@@ -20,16 +19,22 @@ namespace ImageService
         private int m_port;
         private TcpListener listener;
         private IClientHandler ch;
-        private IImageController m_controller;
 
-        public TCPServiceServer(int port, ref Controller.IImageController controller)
+        /// <summary>
+        /// C'tor.
+        /// </summary>
+        /// <param name="port">The port.</param>
+        /// <param name="controller">The controller.</param>
+        public TCPServiceServer(int port, string ip)
         {
             m_port = port;
-            m_controller = controller;
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), m_port);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), m_port);
             listener = new TcpListener(ep);
         }
 
+        /// <summary>
+        /// Starts this instance.
+        /// </summary>
         public void Start()
         {
             listener.Start();
@@ -43,7 +48,7 @@ namespace ImageService
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
-                        ch = new ClientHandler(client, ref m_controller);
+                        ch = new ClientHandler(client);
                         clients.Add(ch);
                         ch.DataReceived += MoveToServer;
                         ch.Start();
@@ -57,9 +62,15 @@ namespace ImageService
             task.Start();
         }
 
+        /// <summary>
+        /// Moves to server.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DataReceivedEventArgs"/> instance containing the event data.</param>
         private void MoveToServer(object sender, DataReceivedEventArgs e)
         {
-            if (e.Message.CommandID == -1)
+            MessageCommand mc = MessageCommand.FromJSON(e.Message);
+            if (mc.CommandID == -1)
             {
                 IClientHandler c = sender as IClientHandler;
                 clients.Remove(c);
@@ -70,6 +81,10 @@ namespace ImageService
             }
         }
 
+        /// <summary>
+        /// Sends all.
+        /// </summary>
+        /// <param name="messageCommand">The message command.</param>
         public void SendAll(string messageCommand)
         {
             foreach (IClientHandler client in clients) {
@@ -81,11 +96,18 @@ namespace ImageService
             }
         }
 
-        internal void Close()
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        public void Close()
         {
             MessageCommand mc = new MessageCommand();
             mc.CommandID = (int)CommandEnum.CloseServerCommand;
             SendAll(mc.ToJSON());
+            foreach (ClientHandler client in clients)
+            {
+                client.Close();
+            }
         }
     }
 }

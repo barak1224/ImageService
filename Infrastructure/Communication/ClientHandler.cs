@@ -8,11 +8,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Infrastructure.Events;
 using Infrastructure.Communication;
-using ImageService.Controller;
 using ImageService.Infrastructure.Enums;
 using Newtonsoft.Json;
 
-namespace ImageService
+namespace Infrastructure.Communication
 {
     public class ClientHandler : IClientHandler
     {
@@ -22,23 +21,19 @@ namespace ImageService
         private BinaryWriter m_writer;
         private List<int> m_commands;
         private CancellationTokenSource m_cancelToken;
-        private IImageController m_controller;
         public event EventHandler<DataReceivedEventArgs> DataReceived;
-        public ClientHandler(TcpClient client, ref IImageController controller)
+        public ClientHandler(TcpClient client)
         {
             m_client = client;
             m_stream = client.GetStream();
             m_reader = new BinaryReader(m_stream);
             m_writer = new BinaryWriter(m_stream);
             m_cancelToken = new CancellationTokenSource();
-            m_controller = controller;
-            m_commands = new List<int>()
-            {
-                ((int)CommandEnum.GetConfigCommand),
-                ((int)CommandEnum.LogCommand)
-            };
         }
 
+        /// <summary>
+        /// Starts this instance.
+        /// </summary>
         public void Start()
         {
             string msg;
@@ -50,18 +45,8 @@ namespace ImageService
                     {
                         msg = m_reader.ReadString();
                         if (msg != null)
-                         {
-                            MessageCommand mc = MessageCommand.FromJSON(msg);
-                            if (m_commands.Contains(mc.CommandID))
-                            {
-                                string convert = m_controller.ExecuteCommand(mc.CommandID, null, out bool result);
-                                mc.CommandMsg = convert;
-                                m_writer.Write(mc.ToJSON());
-                            }
-                            else
-                            {
-                                DataReceived?.Invoke(this, new DataReceivedEventArgs(mc));
-                            }
+                        {
+                                DataReceived?.Invoke(this, new DataReceivedEventArgs(msg));
                         }
                     }
                     catch (Exception e)
@@ -69,7 +54,7 @@ namespace ImageService
                         MessageCommand mc = new MessageCommand();
                         mc.CommandID = -1;
                         mc.CommandMsg = e.Message;
-                        DataReceived?.Invoke(this, new DataReceivedEventArgs(mc));
+                        DataReceived?.Invoke(this, new DataReceivedEventArgs(mc.ToJSON()));
                         Close();
                         break;
                     }
@@ -77,6 +62,9 @@ namespace ImageService
             }, m_cancelToken.Token).Start();
         }
 
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
         public void Close()
         {
             m_writer.Close();
@@ -85,6 +73,11 @@ namespace ImageService
             m_cancelToken.Cancel();
         }
 
+        /// <summary>
+        /// Sends the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
         public int Send(string message)
         {
             lock (m_writer)

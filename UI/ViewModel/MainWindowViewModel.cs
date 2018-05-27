@@ -27,12 +27,19 @@ namespace UI.ViewModel
             }
         }
 
+        /// <summary>
+        /// C'tor
+        /// </summary>
         public MainWindowViewModel()
         {
             m_communicationClient = ModelCommunicationHandler.Instance;
             IsConnected = m_communicationClient.IsConnected;
         }
 
+        /// <summary>
+        /// Notifies the property changed.
+        /// </summary>
+        /// <param name="name">The name.</param>
         private void NotifyPropertyChanged(string name)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

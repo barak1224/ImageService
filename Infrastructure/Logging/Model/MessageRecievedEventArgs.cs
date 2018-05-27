@@ -22,12 +22,22 @@ namespace Infrastructure.Logging.Model
             }
         }
 
+        /// <summary>
+        /// C'tor.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="message">The message.</param>
         public MessageRecievedEventArgs(MessageTypeEnum status, string message)
         {
             Status = status;
             Message = message;
         }
 
+        /// <summary>
+        /// Parses from string.
+        /// </summary>
+        /// <param name="messageReceived">The message received.</param>
+        /// <returns></returns>
         public static MessageRecievedEventArgs ParseFromString(string messageReceived)
         {
             string[] args = messageReceived.Split(';');

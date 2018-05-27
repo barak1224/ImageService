@@ -22,13 +22,16 @@ namespace Communication
         private BinaryReader m_reader;
         private BinaryWriter m_writer;
         public bool IsConnected { get; set; }
-        
-        public TCPServiceClient()
+
+        /// <summary>
+        /// C'tor
+        /// </summary>
+        public TCPServiceClient(int port, string ip)
         {
             try
             {
                 Client = new TcpClient();
-                IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8001);
+                IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
                 Client.Connect(ep);
                 m_stream = Client.GetStream();
                 m_reader = new BinaryReader(m_stream);
@@ -42,11 +45,22 @@ namespace Communication
             }
         }
 
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         public void Close()
         {
-            throw new NotImplementedException();
+            m_stream.Close();
+            m_reader.Close();
+            m_writer.Close();
         }
 
+        /// <summary>
+        /// Sends the specified MSG.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        /// <returns></returns>
         public int Send(string msg)
         {
             try
@@ -58,6 +72,9 @@ namespace Communication
             }
         }
 
+        /// <summary>
+        /// Starts this instance.
+        /// </summary>
         public void Start()
         {
             new Task(() =>
@@ -69,12 +86,13 @@ namespace Communication
                         string message = m_reader.ReadString();
                         if (message != null)
                         {
-                            DataReceived?.Invoke(this, new DataReceivedEventArgs(MessageCommand.FromJSON(message)));
+                            DataReceived?.Invoke(this, new DataReceivedEventArgs(message));
                         }
                     }
                     catch(SocketException e)
                     {
                         IsConnected = false;
+                        Close();
                     }
                 }
 

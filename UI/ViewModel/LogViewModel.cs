@@ -24,6 +24,9 @@ namespace UI
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// C'tor
+        /// </summary>
         public LogViewModel()
         {
             m_model = new LogModel();
@@ -33,6 +36,10 @@ namespace UI
             };
         }
 
+        /// <summary>
+        /// Notifies the property changed.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
         private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -41,6 +41,9 @@ namespace UI.Model
             }
         }
 
+        /// <summary>
+        /// C'tor
+        /// </summary>
         public LogModel()
         {
             m_logEntries = new ObservableCollection<MessageRecievedEventArgs>();
@@ -57,6 +60,10 @@ namespace UI.Model
             Thread.Sleep(100);
         }
 
+        /// <summary>
+        /// Sets the log entries.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
         private void SetLogEntries(string msg) {
             List<string> logsList = JsonConvert.DeserializeObject<List<string>>(msg);
             foreach (string log in logsList)
@@ -65,11 +72,16 @@ namespace UI.Model
             }
         }
 
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DataReceivedEventArgs"/> instance containing the event data.</param>
         private void GetCommand(object sender, DataReceivedEventArgs e)
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                MessageCommand mc = e.Message;
+                MessageCommand mc = MessageCommand.FromJSON(e.Message);
                 if (m_commands.ContainsKey(mc.CommandID))
                 {
                     m_commands[mc.CommandID](mc.CommandMsg);
@@ -79,6 +91,10 @@ namespace UI.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Notifies the property changed.
+        /// </summary>
+        /// <param name="name">The name.</param>
         private void NotifyPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
