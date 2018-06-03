@@ -40,51 +40,6 @@ namespace UI.Model
             }
         }
 
-        public SettingsModel()
-       
-        {
-            // need to remove this
-            m_commands = new Dictionary<int, CommandExecute>
-            {
-                {(int)CommandEnum.GetConfigCommand, SetConfigSettings },
-                {(int)CommandEnum.CloseCommand, RemoveDir }
-            };
-            communicationHandler = ModelCommunicationHandler.Instance;
-            communicationHandler.DataReceived += GetCommand;
-            MessageCommand mc = new MessageCommand();
-            mc.CommandID = (int)CommandEnum.GetConfigCommand;
-            mc.CommandMsg = "";
-            communicationHandler.Client.Send(mc.ToJSON());
-            Thread.Sleep(1000);
-        }
-
-        private void RemoveDir(string dir)
-        {
-            m_directories.Remove(dir);
-        }
-
-        private void SetConfigSettings(string msg)
-        {
-            JObject jsonAppConfig = JObject.Parse(msg);
-            SourceName = (string)jsonAppConfig["Source Name"];
-            LogName = (string)jsonAppConfig["Log Name"];
-            OutputDirName = (string)jsonAppConfig["OutputDir"];
-            ThumbnailSize = (int)jsonAppConfig["Thumbnail Size"];
-            string dirs = (string)jsonAppConfig["Directories"];
-            Directories = JsonConvert.DeserializeObject<ObservableCollection<string>>(dirs);
-        }
-
-        private void GetCommand(object sender, DataReceivedEventArgs e)
-        {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                MessageCommand mc = e.Message;
-                if (m_commands.ContainsKey(mc.CommandID))
-                {
-                    m_commands[mc.CommandID](mc.CommandMsg);
-                }
-            }));
-        }
 
         public string OutputDirName
         {
@@ -136,13 +91,83 @@ namespace UI.Model
             }
         }
 
+        /// <summary>
+        /// C'tor.
+        /// </summary>
+        public SettingsModel()
+       
+        {
+            // need to remove this
+            m_commands = new Dictionary<int, CommandExecute>
+            {
+                {(int)CommandEnum.GetConfigCommand, SetConfigSettings },
+                {(int)CommandEnum.CloseCommand, RemoveDir }
+            };
+            communicationHandler = ModelCommunicationHandler.Instance;
+            communicationHandler.DataReceived += GetCommand;
+            MessageCommand mc = new MessageCommand();
+            mc.CommandID = (int)CommandEnum.GetConfigCommand;
+            mc.CommandMsg = "";
+            communicationHandler.Client.Send(mc.ToJSON());
+            Thread.Sleep(1000);
+        }
+
+        /// <summary>
+        /// Removes the dir.
+        /// </summary>
+        /// <param name="dir">The dir.</param>
+        private void RemoveDir(string dir)
+        {
+            m_directories.Remove(dir);
+        }
+
+        /// <summary>
+        /// Sets the configuration settings.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        private void SetConfigSettings(string msg)
+        {
+            JObject jsonAppConfig = JObject.Parse(msg);
+            SourceName = (string)jsonAppConfig["Source Name"];
+            LogName = (string)jsonAppConfig["Log Name"];
+            OutputDirName = (string)jsonAppConfig["OutputDir"];
+            ThumbnailSize = (int)jsonAppConfig["Thumbnail Size"];
+            string dirs = (string)jsonAppConfig["Directories"];
+            Directories = JsonConvert.DeserializeObject<ObservableCollection<string>>(dirs);
+        }
+
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DataReceivedEventArgs"/> instance containing the event data.</param>
+        private void GetCommand(object sender, DataReceivedEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                MessageCommand mc = MessageCommand.FromJSON(e.Message);
+                if (m_commands.ContainsKey(mc.CommandID))
+                {
+                    m_commands[mc.CommandID](mc.CommandMsg);
+                }
+            }));
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Notifies the property changed.
+        /// </summary>
+        /// <param name="name">The name.</param>
         private void NotifyPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        /// <summary>
+        /// Sends the remove dir.
+        /// </summary>
+        /// <param name="dir">The dir.</param>
         public void SendRemoveDir(string dir)
         {
             MessageCommand mc = new MessageCommand();

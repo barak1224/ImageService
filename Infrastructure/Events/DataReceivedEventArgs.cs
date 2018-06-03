@@ -9,10 +9,14 @@ namespace Infrastructure.Events
 {
     public class DataReceivedEventArgs : EventArgs
     {
-        public DataReceivedEventArgs(MessageCommand msg)
+        /// <summary>
+        /// C'tor
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        public DataReceivedEventArgs(string msg)
         {
             Message = msg;
         }
-        public MessageCommand Message { get; set; }
+        public string Message { get; set; }
     }
 }

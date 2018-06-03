@@ -68,7 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientHandler.cs" />
     <Compile Include="ImageService\AppParsing.cs" />
     <Compile Include="ImageService\Commands\GetConfigCommand.cs" />
     <Compile Include="ImageService\Commands\ICommand.cs" />
@@ -98,7 +97,6 @@
     </Compile>
     <Compile Include="ImageService\Server\ImageServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCPServiceServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ImageService\App.config" />
@@ -125,10 +123,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Communication\Communication.csproj">
-      <Project>{71915F4E-0530-4D52-8E13-0AFC57908C9B}</Project>
-      <Name>Communication</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{128949cc-94fa-474f-a619-855c1cdb2c65}</Project>
       <Name>Infrastructure</Name>

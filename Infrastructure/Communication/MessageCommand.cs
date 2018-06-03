@@ -13,6 +13,10 @@ namespace Infrastructure.Communication
         public int CommandID { get; set; }
         public string CommandMsg { get; set; }
 
+        /// <summary>
+        /// To the json.
+        /// </summary>
+        /// <returns></returns>
         public string ToJSON()
         {
             JObject job = new JObject();
@@ -21,6 +25,11 @@ namespace Infrastructure.Communication
             return job.ToString();
         }
 
+        /// <summary>
+        /// Froms the json.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        /// <returns></returns>
         public static MessageCommand FromJSON(string msg)
         {
             JObject job = JObject.Parse(msg);

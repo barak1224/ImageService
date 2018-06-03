@@ -99,7 +99,7 @@ namespace ImageService.Model
                 return String.Format("Copying the file \"{0}\" into a thumbnail copy was failed", path);
             }
             result = true;
-            return String.Format("File from \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
+            return String.Format("The file \"{0}\" added successfully to \"{1}\".", path, OutputFolder);
         }
 
         /// <summary>

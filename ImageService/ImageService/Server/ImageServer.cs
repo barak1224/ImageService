@@ -25,6 +25,7 @@ namespace ImageService.Server
         private IImageServiceModel m_modelImage;
         private TCPServiceServer m_tcpServer;
         private AppParsing m_appParsing;
+        private List<int> m_commands;
 
         #endregion
 
@@ -45,7 +46,7 @@ namespace ImageService.Server
             m_appParsing = AppParsing.Instance;
             m_modelImage = new ImageServiceModel(m_appParsing.OutputDir, m_appParsing.ThumbnailSize);
             m_controller = new ImageController(m_modelImage);
-            m_tcpServer = new TCPServiceServer(8001, ref m_controller);
+            m_tcpServer = new TCPServiceServer(m_appParsing.Port, m_appParsing.IP);
             m_tcpServer.DataReceived += DataReceviedServer;
             m_tcpServer.Start();
             m_logging = logging;
@@ -55,7 +56,11 @@ namespace ImageService.Server
                 CreateHandler(pathHandler);
                 logging.Log($"Handler for {pathHandler} was created", MessageTypeEnum.INFO);
             }
-            //m_controller.PassCommandReceived += CommandRecievedSend;
+            m_commands = new List<int>()
+            {
+                ((int)CommandEnum.GetConfigCommand),
+                ((int)CommandEnum.LogCommand)
+            };
         }
 
         private void NewLogEntry(object sender, MessageRecievedEventArgs messageArgs)
@@ -70,11 +75,18 @@ namespace ImageService.Server
 
         private void DataReceviedServer(object sender, DataReceivedEventArgs e)
         {
-            MessageCommand mc = e.Message;
+            MessageCommand mc = MessageCommand.FromJSON(e.Message);
             if (mc.CommandID == (int)CommandEnum.CloseCommand)
             {
                 CommandRecievedEventArgs comArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, null, mc.CommandMsg);
                 CommandRecieved?.Invoke(this, comArgs);
+            }
+            else
+            {
+                string convert = m_controller.ExecuteCommand(mc.CommandID, null, out bool result);
+                mc.CommandMsg = convert;
+                ClientHandler ch = sender as ClientHandler;
+                ch.Send(mc.ToJSON());
             }
         }
 

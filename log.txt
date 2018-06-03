@@ -1,0 +1,496 @@
+commit 148b70676efc381b6a178da13b5cddfa5e027a4b
+Author: Barak <barak1224@gmail.com>
+Date:   Tue May 22 18:58:35 2018 +0200
+
+    Everything works... left only to get out ClientHandler and TCPServer into Communication in Infrustructure
+
+commit 9437d703a0cec924c8b20f80b3c833e367bcd6b7
+Author: Barak <barak1224@gmail.com>
+Date:   Mon May 21 21:12:30 2018 +0200
+
+    Left only to send clients new log and when a handler is closed.
+
+commit 4fd4b86a323ef86c6e235701282b761352636d98
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon May 21 23:19:59 2018 +0300
+
+    Status and color added
+
+commit d71cad014e7a054b07c7d3a0cf06e5acae7cb005
+Author: Barak <barak1224@gmail.com>
+Date:   Mon May 21 10:06:50 2018 +0200
+
+    Logs are presented in log tab
+
+commit a10aca6dbd089b1f79e05dae4516c427d30afc07
+Merge: cfbba8a 939ec87
+Author: Barak <barak1224@gmail.com>
+Date:   Mon May 21 08:09:20 2018 +0200
+
+    Merge
+
+commit 939ec8738e856b6a0d84e952d090733fa230d2c4
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon May 21 10:35:25 2018 +0300
+
+    Working on LogCommand
+
+commit 4067ec2a3ecb90125998fbbe121820f73721572c
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon May 21 10:10:20 2018 +0300
+
+    Adding Log command
+
+commit cfbba8a11d089c6386e90d6e1c78483f3b124968
+Author: Barak <barak1224@gmail.com>
+Date:   Mon May 21 08:05:04 2018 +0200
+
+    MainWindow works!
+
+commit 05d787810b0170ac7e82781bf136fe512ff43940
+Author: Barak <barak1224@gmail.com>
+Date:   Mon May 21 08:03:15 2018 +0200
+
+    MainWindow background works
+
+commit 1514082968ae750344e3cd713ef7b8e0f569af48
+Author: Barak <barak1224@gmail.com>
+Date:   Mon May 21 07:36:23 2018 +0200
+
+    Almost removing directory
+
+commit 29e7393f2109d32c63764370a7b18e615c1e7487
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Thu May 17 21:35:23 2018 +0300
+
+    Log semi-built, backup commit
+
+commit 68e5b91985229400697b8d9efd37d6adfee68193
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Thu May 17 17:31:30 2018 +0300
+
+    Logging moved to Infrastructure
+
+commit e34ae716c4ad35d849047b8cdacc5414798f225e
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Thu May 17 17:00:52 2018 +0300
+
+    Some stuff
+
+commit 94fdbca8dc22fd73b71359d7c7559819b74859d4
+Author: Barak <barak1224@gmail.com>
+Date:   Thu May 17 15:57:03 2018 +0200
+
+    Settings binding and TCP server
+
+commit 7c52831244b43cf4d8b76ec2475294ce7f65267a
+Author: Barak <barak1224@gmail.com>
+Date:   Thu May 17 15:52:42 2018 +0200
+
+    TCP Server semi works
+
+commit bf6957836c996dbecfcb15ee6e1b2a30df34c109
+Author: Barak <barak1224@gmail.com>
+Date:   Thu May 10 11:46:42 2018 +0200
+
+    Communication working, need to check why the Json is not passing complete
+
+commit f77066e129fb21474fe528f458170537c6220e02
+Author: Barak <barak1224@gmail.com>
+Date:   Thu May 10 10:52:22 2018 +0200
+
+    Try server
+
+commit 0cc30efc0c5ede940fa6ddf9b443fddd209cac83
+Merge: 30efd3e f7e272d
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Thu May 10 12:07:07 2018 +0300
+
+    Merge commit
+
+commit 30efd3e4b8dfecf53e2cff672ee4d6d9651f4071
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Thu May 10 08:33:53 2018 +0300
+
+    Communication project removed, client fixed
+
+commit f7e272d5466c95523e6bb4bbad6e13e96812ba09
+Author: Barak <barak1224@gmail.com>
+Date:   Wed May 9 09:07:44 2018 +0200
+
+    Settings' directories binding fixed
+
+commit c834a9dd8498ca970719abe1096d69be2980e85e
+Merge: 9283eae ba2b61f
+Author: Barak <barak1224@gmail.com>
+Date:   Tue May 8 10:41:21 2018 +0200
+
+    Commit staged
+
+commit 9283eae8616f6ecfc72fa33daae4710d302aa9e3
+Author: Barak <barak1224@gmail.com>
+Date:   Tue May 8 10:34:22 2018 +0200
+
+    Equals...
+
+commit ba2b61f89c43aac6e06c9b31d532419576901b15
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon May 7 15:42:22 2018 +0300
+
+    Communication Singleton
+
+commit f77b6ddb9b5f2f8b93355521113a76dd0240c95e
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon May 7 15:09:55 2018 +0300
+
+    Backup commit
+
+commit f7db99dcd8f50df29e7284243ed06b041650d79d
+Author: Barak <barak1224@gmail.com>
+Date:   Mon May 7 11:25:40 2018 +0200
+
+    Communication Project
+
+commit 2e657c6d293a3797e5255c33d2e586f855b13fcf
+Merge: 53726ec 97aa65c
+Author: Barak <barak1224@gmail.com>
+Date:   Fri May 4 16:01:30 2018 +0200
+
+    Merge branch 'master' of https://github.com/barak1224/ImageService
+
+commit 53726ec33d95b41570a1d58ccf5122a928c43d33
+Author: Barak <barak1224@gmail.com>
+Date:   Fri May 4 16:01:13 2018 +0200
+
+    New commands logCommand, closeCommand and getConfigCommand
+
+commit 97aa65c15168504564e1e0052a2623e69d846db3
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Thu May 3 20:29:37 2018 +0300
+
+    Added Log tab
+
+commit e91c3b47f99413bfdfc6996625b590c3da15e4e0
+Merge: f49c682 f69601a
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Thu May 3 13:38:53 2018 +0300
+
+    Merge
+
+commit f49c682e8543dcba5e76b1db62fe0349b568e46c
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Thu May 3 13:37:08 2018 +0300
+
+    Saving logtab
+
+commit f69601a362dbdc9ceeb8752bb67b69e7d60048a6
+Author: Barak <barak1224@gmail.com>
+Date:   Thu May 3 11:28:03 2018 +0200
+
+    Settings GUI works (left to connect with TCP server and get app confg)
+
+commit 68524b5b9ba60dbc210481d2c6855d8044cfe5f1
+Author: Barak <barak1224@gmail.com>
+Date:   Wed May 2 13:55:13 2018 +0200
+
+    Updates view in the folders
+
+commit f2da23fc33c924f0172f6433e243b33aea2b6822
+Author: Barak <barak1224@gmail.com>
+Date:   Wed May 2 13:40:00 2018 +0200
+
+    Adding folders for the MVVMs
+
+commit b669e97751f1f242a6e67670918aae1ff0aa72e3
+Author: Barak <barak1224@gmail.com>
+Date:   Tue May 1 21:36:29 2018 +0200
+
+    Made Infrastructure as a DLL
+
+commit aca3ccf75e33c70789c81cc422cee0ef83d9d2cb
+Author: Barak <barak1224@gmail.com>
+Date:   Tue May 1 17:15:12 2018 +0200
+
+    checks
+
+commit 9738a82ef3f93253d838fd14bf55cf6272088ff4
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Tue May 1 17:53:43 2018 +0300
+
+    Backup for rollback
+
+commit 50d8388314c7fb4537483ee463680ea387046262
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Tue May 1 17:36:31 2018 +0300
+
+    Starting ex2
+
+commit c1e1fd13d6549dd11521b21c34256970782a5e4e
+Author: Barak <barak1224@gmail.com>
+Date:   Thu Apr 19 23:47:02 2018 +0200
+
+    Runtime loading parse's bug fixed
+
+commit 368f3cf595d04bf5d09dc0017a485b1c786081b1
+Merge: cb82076 42d3760
+Author: Barak <barak1224@gmail.com>
+Date:   Thu Apr 12 10:27:17 2018 +0200
+
+    Merge branch 'master' of https://github.com/barak1224/ImageService
+
+commit cb8207688813dfa54e63f6270d617eae682eba53
+Author: Barak <barak1224@gmail.com>
+Date:   Thu Apr 12 10:23:24 2018 +0200
+
+    ..
+
+commit 42d37608856abedc04656f363d324bee29ec68a0
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Wed Apr 11 16:55:03 2018 +0300
+
+    Added comments to the Model,
+
+commit bcb212501fa3623bc05152f601171b037ca1b202
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Apr 10 20:41:27 2018 +0200
+
+    Fixing addFile for pictures without metadata
+
+commit f1c37d1148aa7aa973ed3a2a9104b9882bec8876
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Apr 10 18:08:45 2018 +0200
+
+    More comments and fixing handlers
+
+commit 0964354908be53cc01baeba4684e059ae01c3e50
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Apr 10 16:28:03 2018 +0200
+
+    Exception catch fixed
+
+commit 5af68704dccb906ff19e80a55d80e06195d052e8
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Apr 10 16:07:06 2018 +0200
+
+    Bugs fixed
+
+commit 5c5d0f26c3aaed00912c16e1a199801bcbfb81ff
+Merge: 9e72695 cbd7326
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Apr 10 13:38:54 2018 +0200
+
+    Merge branch 'master' of https://github.com/barak1224/ImageService
+
+commit 9e72695a555cefe10c1679c51269d75283065a86
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Apr 10 13:38:29 2018 +0200
+
+    nothing
+
+commit cbd73269a46014a2cc670eb1c6b169753fc02b3d
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon Apr 9 13:52:44 2018 +0300
+
+    Fixed the automatic name changer for repetitions
+
+commit df954464c62d83dc900fd65dee1f3098ddc85d43
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Sun Apr 8 15:27:43 2018 +0300
+
+    Fixes Image name if it is repeated.
+
+commit 80a6157137482ce0000ba5f6682940e5527e1313
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Sun Apr 8 11:55:46 2018 +0300
+
+    Fixed Move instead of Copy, plus real date
+
+commit 2ed56be303278634273cf473a27934ed33c32b9b
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon Apr 2 17:49:18 2018 +0300
+
+    Fully functional addFile
+
+commit fb0c01381954122f4c758447721519fcf8907bb0
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Wed Mar 28 19:17:13 2018 +0300
+
+    Basic thumbnail working
+
+commit 3f3c7b20d57c803e989ee470e6e14050a7418450
+Merge: c4bc493 fb2ca94
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Wed Mar 28 19:01:12 2018 +0300
+
+    Complete merge.
+
+commit c4bc493597e460462d27e688eeba903768879c73
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Wed Mar 28 19:00:03 2018 +0300
+
+    Commit for pull
+
+commit fb2ca9423b7fc355a306779c92f7632acc583175
+Author: Barak <barak1224@gmail.com>
+Date:   Wed Mar 28 16:54:00 2018 +0200
+
+    Working... left only thumbnail
+
+commit 6179bdeeb559b41ecac932c6b9bda80d9cd2c3b1
+Author: Barak <barak1224@gmail.com>
+Date:   Wed Mar 28 00:27:30 2018 +0200
+
+    All handlers, Server and Controller works
+
+commit 788ff627c05f813a71b0d23cae7bd7e770ee076e
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Tue Mar 27 22:38:12 2018 +0300
+
+    Commit to pull
+
+commit a54618f6383d40ed1bf629ee8a707a4630978406
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Mar 27 18:28:03 2018 +0200
+
+    TEST
+
+commit 822e57a52411df1921733ad51583f4b9b5f4ee35
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Mar 27 18:14:40 2018 +0200
+
+    Make appParsing public class
+
+commit 2fc4d372952a7d45a7fdfa13e1f7cfac657be7ee
+Merge: adda138 d560ec3
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Mar 27 18:14:27 2018 +0200
+
+    stages commit
+
+commit adda138e8b90c4a1567c303ea08bef1697d99c08
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Mar 27 12:05:03 2018 +0200
+
+    Image
+
+commit ab8e0d535aa0b9ba747410ad0c6f25894aecbf5d
+Author: Barak <barak1224@gmail.com>
+Date:   Tue Mar 27 11:59:47 2018 +0200
+
+    Handlers, app parsing and server
+
+commit d560ec3f74f0db287c55f74fc992c9650ca612d8
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Tue Mar 27 12:58:59 2018 +0300
+
+    Allow for month names
+
+commit e75263faac490f36da20fa974a57779f2999db64
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Tue Mar 27 12:16:37 2018 +0300
+
+    AddFile works (lightly)
+
+commit cd8b37da1f6dbd75bd0ca699a11d315f77b2b8c0
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Tue Mar 27 12:03:31 2018 +0300
+
+    Added tests, fixed bugs in ImageModel
+
+commit 9ae2e6ef32adc558ad69ec8823bfd80555ad0f96
+Merge: b895d32 ad39dc8
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Tue Mar 27 11:13:17 2018 +0300
+
+    Merge branch 'master' of https://github.com/barak1224/ImageService
+
+commit b895d327b646d514fc57b15f16772df70a2525fe
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Tue Mar 27 11:12:55 2018 +0300
+
+    Commit
+
+commit ad39dc80a511d9eaecc9b434fe94ba62edef7e19
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 19:19:43 2018 +0200
+
+    Tu madre
+
+commit 4fd0cf6710dfec160a81fb49cbbd937b707653d2
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 19:18:07 2018 +0200
+
+    commit
+
+commit 3c7a057b8b4cb70750f0bdfa1cc68a514224fb5d
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 19:17:59 2018 +0200
+
+    more
+
+commit 226d090ad60874645e6825f54b7d897dfa56a00f
+Merge: cc344b5 6e776c9
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 19:17:50 2018 +0200
+
+    Commit
+
+commit cc344b5e128e94b4768704d3bad74dc089355f70
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 18:44:01 2018 +0200
+
+    Handler, newFile command, Controller and Server
+
+commit 6e776c948b21f1d29931064cd32dfc3224575495
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon Mar 26 19:40:47 2018 +0300
+
+    AddFile method implemented, plsu minor changes
+
+commit 5f22ad959786dbd2b1640437aa32f574e19b6532
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 15:14:09 2018 +0200
+
+    Commit
+
+commit 31b30c7533beec6c9878697fc686e8a07778f200
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon Mar 26 15:55:52 2018 +0300
+
+    Commitment is strenght
+
+commit fbd749d95fe05621edb799ec84feefaaaa352839
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon Mar 26 15:19:11 2018 +0300
+
+    Changed modal to model
+
+commit 0895b272961f6bc6c1263fc1eb566727ea819b1d
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 14:06:48 2018 +0200
+
+    Remove ashab
+
+commit 41e20bff4c635254cd3d4d86b59f17f6442d39a6
+Author: Iosi Ginerman <iginerman@hotmail.com>
+Date:   Mon Mar 26 15:04:47 2018 +0300
+
+    ashab
+
+commit 7a85459c31df449476ab98dfc08e2568649bfd06
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 13:58:28 2018 +0200
+
+    dsa
+
+commit afbc7113183b50d38132251364ad805ef3c9cc0b
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 13:50:48 2018 +0200
+
+    Add project files.
+
+commit 684cff851e6b26cbc5404f703d0031a26280e886
+Author: Barak <barak1224@gmail.com>
+Date:   Mon Mar 26 13:50:38 2018 +0200
+
+    Add .gitignore and .gitattributes.

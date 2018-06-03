@@ -18,6 +18,7 @@ namespace ImageService
         public string LogName { get; }
         public int ThumbnailSize { get; set; }
         public int Port { get; set; }
+        public string IP { get; set; }
 
         public static AppParsing Instance = new AppParsing();
 
@@ -46,8 +47,12 @@ namespace ImageService
             {
                 Port = 8000;
             }
+            IP = ConfigurationManager.AppSettings["IP"];
         }
 
+        /// <summary>
+        /// Reloads this instance.
+        /// </summary>
         public void Reload()
         {
             PathHandlers = new List<string>(ConfigurationManager.AppSettings["Handler"].Split(';'));
@@ -69,8 +74,13 @@ namespace ImageService
             {
                 Port = 8000;
             }
+            IP = ConfigurationManager.AppSettings["IP"];
         }
 
+        /// <summary>
+        /// Removes the dir.
+        /// </summary>
+        /// <param name="dir">The dir.</param>
         public void RemoveDir(string dir)
         {
             PathHandlers.Remove(dir);

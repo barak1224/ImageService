@@ -36,7 +36,7 @@ namespace UI
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();    //UNNEEDED
+            throw new NotImplementedException();
         }
     }
 }
