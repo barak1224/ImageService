@@ -8,7 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <TextBlock FontSize="26" HorizontalAlignment="Center"> Settings</TextBlock>
+        <StackPanel.Resources>
+            <Style x:Key="titleStyle">
+                <Setter Property="TextBlock.FontSize" Value="30"/>
+                <Setter Property="TextBlock.HorizontalAlignment" Value="Center"/>
+                <Setter Property="TextBlock.Foreground" Value="Blue" />
+                <Setter Property="TextBlock.FontWeight" Value="Bold" />
+            </Style>
+
+        </StackPanel.Resources>
+        <TextBlock Style="{StaticResource titleStyle}" > Settings</TextBlock>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

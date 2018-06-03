@@ -13,7 +13,18 @@
     </UserControl.Resources>
 
     <DockPanel ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="-1,0,0,10">
-        <Label Content="Logs" FontSize="26" HorizontalAlignment="Center" DockPanel.Dock="Top"/>
+        <DockPanel.Resources>
+            <Style x:Key="titleStyle">
+                <Setter Property="TextBlock.FontSize" Value="30"/>
+                <Setter Property="TextBlock.HorizontalAlignment" Value="Center"/>
+                <Setter Property="TextBlock.Foreground" Value="Blue" />
+                <Setter Property="TextBlock.FontWeight" Value="Bold" />
+                <Setter Property="DockPanel.Dock" Value="Top" />
+            </Style>
+
+        </DockPanel.Resources>
+        <TextBlock Style="{StaticResource titleStyle}" > Logs</TextBlock>
+
         <DataGrid x:Name="logs" 
                   ItemsSource="{Binding LogEntries}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
