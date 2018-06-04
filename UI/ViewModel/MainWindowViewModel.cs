@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Communication;
+using Infrastructure.Communication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;

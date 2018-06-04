@@ -72,7 +72,6 @@
     <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogModel.cs" />
     <Compile Include="Model\ModelCommandArgs.cs" />
-    <Compile Include="Model\ModelCommunicationHandler.cs" />
     <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="ViewModel\ILogViewModel.cs" />
     <Compile Include="ViewModel\ISettingsViewModel.cs" />

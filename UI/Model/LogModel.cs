@@ -1,4 +1,5 @@
-﻿using ImageService.Infrastructure.Enums;
+﻿using Communication;
+using ImageService.Infrastructure.Enums;
 using Infrastructure.Communication;
 using Infrastructure.Events;
 using Infrastructure.Logging.Model;

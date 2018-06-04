@@ -34,6 +34,7 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,6 +48,7 @@
     <Compile Include="Communication\IClientCommunication.cs" />
     <Compile Include="Communication\MessageCommand.cs" />
     <Compile Include="Communication\IClientHandler.cs" />
+    <Compile Include="Communication\ModelCommunicationHandler.cs" />
     <Compile Include="Communication\TCPServiceClient.cs" />
     <Compile Include="Communication\TCPServiceServer.cs" />
     <Compile Include="Enums\CommandEnum.cs" />
