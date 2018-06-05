@@ -4,34 +4,42 @@ using ImageWeb.Models;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Communication;
+using Infrastructure.Communication;
+using ImageService.Infrastructure.Enums;
 
 namespace ImageWeb.Controllers
 {
     public class HomeController : Controller
     {
-        static List<Student> students = new List<Student>()
-        {
-          new Student  { FirstName = "Barak", LastName = "Talmor", ID = 308146240 },
-          new Student  { FirstName = "Iosi", LastName = "Ginerman", ID = 123456789 },
-        };
-
+        static HomeModel m_homeModel = new HomeModel();
+        static SettingsModel m_settingsModel = new SettingsModel();
+        static LogModel m_logModel = new LogModel();
+        static ModelCommunicationHandler m_communication = ModelCommunicationHandler.Instance;
         public ActionResult Index()
         {
-            return View(students);
+            return View(m_homeModel);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            m_settingsModel.SendConfigRequest();
+            return View(m_settingsModel);
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            m_logModel.LogsRequest();
+            return View(m_logModel);
+        }
 
-            return View();
+        public ActionResult DeleteHandler(string directory)
+        {
+            MessageCommand mc = new MessageCommand();
+            mc.CommandID = (int)CommandEnum.CloseCommand;
+            mc.CommandMsg = directory;
+            m_communication.Client.Send(mc.ToJSON());
+            return About();
         }
     }
 }

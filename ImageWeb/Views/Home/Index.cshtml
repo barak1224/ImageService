@@ -1,33 +1,59 @@
-﻿@model IEnumerable<ImageWeb.Models.Student>
+﻿@model ImageWeb.Models.HomeModel
 
 @{
     ViewBag.Title = "Home Page";
 }
-<div class="jumbotron">
-    <h1>ImageService</h1>
+<div>
+    <p><h1>Welcome to ImageService</h1></p>
 </div>
 
+
+
 <h2>Details</h2>
+<table class="table">
+    <tr>
+	    <th>
+            <h5><b>Service status</b><h5>
+        </th>
+        <th>
+            @if(Model.IsConnected){
+                <h4><span class="badge badge-success">Active</span></h4>
+			} else {
+                <h4><span class="badge badge-danger">InActive</span></h4>
+			}
+        </th>
+    </tr>
+	<tr>
+	    <th>
+            <h5><b>Number of photos</b><h5>
+        </th>
+        <td>
+			0
+        </td>
+    </tr>
+</table>
+
+<tr> </th>
+<h2>Students</h2>
 
 <table class="table">
     <tr>
 	    <th>
-            @Html.DisplayNameFor(model => model.ID)
+            @Html.DisplayNameFor(model => model.Students[0].ID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Students[0].FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Students[0].LastName)
         </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Students) {
     <tr>
-		<th>
+		<td>
             @Html.DisplayFor(modelItem => item.ID)
-        </th>
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>

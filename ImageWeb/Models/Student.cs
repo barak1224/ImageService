@@ -11,12 +11,6 @@ namespace ImageWeb.Models
         public Student()
         {
         }
-        public void copy(Student st)
-        {
-            FirstName = st.FirstName;
-            LastName = st.LastName;
-            ID = st.ID;
-        }
 
         [Required]
         [DataType(DataType.Text)]

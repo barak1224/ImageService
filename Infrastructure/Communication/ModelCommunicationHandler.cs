@@ -28,7 +28,10 @@ namespace Communication
                 if (instance == null)
                 {
                     instance = new ModelCommunicationHandler();
-                    instance.Client.Start();
+                    if (instance.IsConnected)
+                    {
+                        instance.Client.Start();
+                    }
                 }
                 return instance;
             }
