@@ -46,7 +46,7 @@
 
     @foreach (var item in Model.Directories)
     {
-        <a href="#" type="button" class="list-group-item list-group-item-action" data-toggle="modal"
+        <a href="#" type="button" class="list-group-item list-group-item-action" data-toggle="modal" data-handler="@item"
            data-target="#myModal">@Html.DisplayFor(modelItem => item)</a>
     }
 </div>
@@ -63,9 +63,21 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-warning" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
+                <button id ="yesBtn" type="button" class="btn btn-success" data-dismiss="modal" onclick=""> Yes </button>
             </div>
         </div>
 
     </div>
 </div>
+
+<script>
+    $('#myModal').click(function (event) {
+        var button = $(event.relatedTarget);
+        var handler = button.data('handler');
+
+        // A workaround to pass JQuery parameter to Razor
+        var url = '@Url.Action("DeleteHandler", "HomeController", new {dirHandlerToDelete = "__param__"})';
+        var replacedUrl = url.replace('__param__', handler);
+
+    });
+</script>
