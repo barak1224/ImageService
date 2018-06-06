@@ -153,7 +153,7 @@
     <Compile Include="Models\ConfigInfo.cs" />
     <Compile Include="Models\ImageItem.cs" />
     <Compile Include="Models\LogModel.cs" />
-    <Compile Include="Models\PhotosModel.cs" />
+    <Compile Include="Models\ImagesModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Student.cs" />
@@ -241,6 +241,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\Images.cshtml" />
+    <Content Include="Views\Home\ImageViewer.cshtml" />
+    <Content Include="Views\Home\ImageDeleter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

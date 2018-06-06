@@ -23,9 +23,9 @@ namespace ImageWeb.Models
 
         #region Properties
         public bool WasRequested { get; set; }
-        public string SourceName { get => m_sourceName ?? "N/A" ; private set => m_sourceName = value; }
-        public string LogName { get => m_logName ?? "N/A" ; private set => m_logName = value; }
-        public string OutputDirName { get => m_outputDir ?? "N/A" ; private set => m_outputDir = value; }
+        public string SourceName { get => m_sourceName ?? "N/A"; private set => m_sourceName = value; }
+        public string LogName { get => m_logName ?? "N/A"; private set => m_logName = value; }
+        public string OutputDirName { get => m_outputDir ?? "N/A"; private set => m_outputDir = value; }
         public int ThumbnailSize { get; set; }
         public List<string> Directories { get; private set; }
         #endregion
@@ -41,6 +41,7 @@ namespace ImageWeb.Models
 
         public void SendConfigRequest()
         {
+
             MessageCommand mc = new MessageCommand();
             mc.CommandID = (int)CommandEnum.GetConfigCommand;
             mc.CommandMsg = "";

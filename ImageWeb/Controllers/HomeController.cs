@@ -15,6 +15,7 @@ namespace ImageWeb.Controllers
         static HomeModel m_homeModel = new HomeModel();
         static SettingsModel m_settingsModel = new SettingsModel();
         static LogModel m_logModel = new LogModel();
+        static ImagesModel m_imagesModel = new ImagesModel(m_settingsModel);
         static ModelCommunicationHandler m_communication = ModelCommunicationHandler.Instance;
         public ActionResult Index()
         {
@@ -31,6 +32,12 @@ namespace ImageWeb.Controllers
         {
             m_logModel.LogsRequest();
             return View(m_logModel);
+        }
+
+        public ActionResult Images()
+        {
+            m_imagesModel.SetPhotos();
+            return View(m_imagesModel);
         }
 
         public ActionResult DeleteHandler(string directory)
