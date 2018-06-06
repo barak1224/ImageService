@@ -46,7 +46,7 @@ namespace ImageWeb.Controllers
             mc.CommandID = (int)CommandEnum.CloseCommand;
             mc.CommandMsg = directory;
             m_communication.Client.Send(mc.ToJSON());
-            return About();
+            return RedirectToAction("About");
         }
     }
 }
