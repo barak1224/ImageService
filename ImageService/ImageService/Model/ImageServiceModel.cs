@@ -118,7 +118,7 @@ namespace ImageService.Model
             using (Image source = Image.FromFile(file))
             using (Image thumb = source.GetThumbnailImage(100, 100, null, IntPtr.Zero))
             {
-                thumb.Save(Path.Combine(thumbnailFolder, Path.ChangeExtension(Path.GetFileName(file), "thumb")));
+                thumb.Save(Path.Combine(thumbnailFolder, Path.GetFileName(file)));
                 thumb.Dispose();
             }
         }

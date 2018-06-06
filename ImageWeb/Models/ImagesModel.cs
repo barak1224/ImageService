@@ -41,7 +41,7 @@ namespace ImageWeb.Models
 
         public void SetPhotos()
         {
-            string thumbExtension = ".thumb";
+            string[] validExtensions = { ".jpg", ".png", ".gif", ".bmp" };
             Images.Clear();
             try
             {
@@ -62,7 +62,7 @@ namespace ImageWeb.Models
                     {
                         foreach (FileInfo fileInfo in monthDirInfo.GetFiles())
                         {
-                            if (String.Equals(thumbExtension, fileInfo.Extension.ToLower()))
+                            if (validExtensions.Contains(fileInfo.Extension.ToLower()))
                             {
                                 if (Images.Find( x => (x.ImageFullUrl == fileInfo.FullName)) == null)
                                 {
