@@ -19,12 +19,16 @@ namespace ImageWeb.Models
         private string m_sourceName;
         private string m_logName;
         private string m_outputDir;
+        private bool _wasRequested;
 
+        #region Properties
+        public bool WasRequested { get; set; }
         public string SourceName { get => m_sourceName ?? "N/A" ; private set => m_sourceName = value; }
         public string LogName { get => m_logName ?? "N/A" ; private set => m_logName = value; }
         public string OutputDirName { get => m_outputDir ?? "N/A" ; private set => m_outputDir = value; }
         public int ThumbnailSize { get; set; }
         public List<string> Directories { get; private set; }
+        #endregion
 
         public SettingsModel()
         {

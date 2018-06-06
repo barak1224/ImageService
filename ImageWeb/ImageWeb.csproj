@@ -151,7 +151,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ConfigInfo.cs" />
+    <Compile Include="Models\ImageItem.cs" />
     <Compile Include="Models\LogModel.cs" />
+    <Compile Include="Models\PhotosModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Student.cs" />
