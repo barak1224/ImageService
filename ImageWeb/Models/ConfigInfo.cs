@@ -10,21 +10,7 @@ namespace ImageWeb.Models
     {
         private static ConfigInfo m_instance;
 
-        static ConfigInfo Instance {
-            get
-            {
-                if (m_instance == null)
-                {
-                    m_instance = new ConfigInfo();
-                }
-                return m_instance;
-            }
-            set
-            {
-                m_instance = value;
-            }
-        }
-
+        #region Properties
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "ThumbnailSize")]
@@ -49,6 +35,25 @@ namespace ImageWeb.Models
         [DataType(DataType.Text)]
         [Display(Name = "Directories")]
         public List<string> Directories { get; set; }
+
+        #endregion
+
+        #region Instance
+        static ConfigInfo Instance {
+            get
+            {
+                if (m_instance == null)
+                {
+                    m_instance = new ConfigInfo();
+                }
+                return m_instance;
+            }
+            set
+            {
+                m_instance = value;
+            }
+        }
+        #endregion
 
     }
 }

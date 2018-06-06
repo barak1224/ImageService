@@ -46,11 +46,11 @@ namespace ImageWeb.Models
             MessageCommand mc = MessageCommand.FromJSON(e.Message);
             if (mc.CommandID == (int)CommandEnum.LogCommand)
             {
-                LogsRecived(mc.CommandMsg);
+                LogsRecieved(mc.CommandMsg);
             }
         }
 
-        private void LogsRecived(string msg)
+        private void LogsRecieved(string msg)
         {
             m_logEntries.Clear();
             List<string> logsList = JsonConvert.DeserializeObject<List<string>>(msg);
