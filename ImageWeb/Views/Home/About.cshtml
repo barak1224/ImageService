@@ -46,14 +46,14 @@
 
     @foreach (var item in Model.Directories)
     {
-        <a href="#" type="button" class="list-group-item list-group-item-action" data-toggle="modal" data-handler="@item"
-           data-target="#myModal">@Html.DisplayFor(modelItem => item)</a>
+        <button type="button" class="list-group-item list-group-item-action" data-toggle="modal" data-handler="@item"
+           data-target="#myModal"> @Html.DisplayFor(modelItem => item) </button>
     }
 </div>
 
 
 <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Delete</h4>
@@ -63,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-warning" data-dismiss="modal">No</button>
-                <button id ="yesBtn" type="button" class="btn btn-success" data-dismiss="modal" onclick=""> Yes </button>
+                <input id ="yesBtn" type="button" class="btn btn-success" data-dismiss="modal" value="Yes" onclick="">
             </div>
         </div>
 
@@ -71,13 +71,31 @@
 </div>
 
 <script>
-    $('#myModal').click(function (event) {
-        var button = $(event.relatedTarget);
-        var handler = button.data('handler');
+    $('a[data-toggle="handler"]').on('shown.bs.tab', function (e) {
+        e.target // newly activated tab
+        e.relatedTarget // previous active tab
+    })
 
-        // A workaround to pass JQuery parameter to Razor
-        var url = '@Url.Action("DeleteHandler", "HomeController", new {dirHandlerToDelete = "__param__"})';
-        var replacedUrl = url.replace('__param__', handler);
+    $('#myModal').on('shown.bs.modal',
+        function () {
+            $('#myInput').trigger('focus');
+        });
+    $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var handler = button.data('handler');
+            var modal = $(this);
 
+            // A workaround to pass JQuery parameter to Razor
+            var url = '@Url.Action("DeleteHandler", "Home", new {directory = "__param__"})';
+            var replacedUrl = url.replace('__param__', handler);
+
+            // Sets "Yes" button onclick to delete corresponding handler
+            var yesButton = modal.find('.modal-footer input');
+            var noButton = modal.find('.modal-footer button');
+            yesButton.click(function() {
+                yesButton.attr("disabled", true);
+                noButton.attr("disabled", true);
+                location.href = replacedUrl;
+            });
     });
 </script>

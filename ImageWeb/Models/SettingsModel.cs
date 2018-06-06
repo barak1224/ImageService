@@ -24,7 +24,7 @@ namespace ImageWeb.Models
         public string LogName { get => m_logName ?? "N/A" ; private set => m_logName = value; }
         public string OutputDirName { get => m_outputDir ?? "N/A" ; private set => m_outputDir = value; }
         public int ThumbnailSize { get; set; }
-        public List<string> Directories { get; private set; }
+        public List<string> Directories { get; set; }
 
         public SettingsModel()
         {
@@ -41,8 +41,9 @@ namespace ImageWeb.Models
             mc.CommandID = (int)CommandEnum.GetConfigCommand;
             mc.CommandMsg = "";
             string m = mc.ToJSON();
+            Directories = new List<string>();
             m_communication.Client.Send(m);
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
         }
 
         private void GetCommand(object sender, DataReceivedEventArgs e)
