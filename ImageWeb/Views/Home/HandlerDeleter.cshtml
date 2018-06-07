@@ -1,0 +1,25 @@
+﻿@model ImageWeb.Models.SettingsModel
+@{
+    ViewBag.Title = "HandlerDeleter";
+}
+
+<h2>DeleteHandler</h2>
+
+<div>
+    <p> Are you sure you want to delete the handler? </p>
+    <button id="yesBtn" type="button" class="btn btn-success"> Yes </button>
+    <button id="noBtn" type="button"  class="btn bg-warning"> Yes </button>
+</div>
+
+<script type="text/javascript">
+    $('#yesBtn').click(function () {
+        // A workaround to pass JQuery parameter to Razor
+
+        // Sets "Yes" button onclick to delete corresponding handler
+        var yesButton = document.getElementById("yesBtn");
+        var noButton = document.getElementById("noBtn");
+        yesButton.disabled = true;
+        noButton.disabled = true;
+        location.href = "DeleteHandler";
+    });
+</script>

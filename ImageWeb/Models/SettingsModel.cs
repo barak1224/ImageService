@@ -20,6 +20,7 @@ namespace ImageWeb.Models
         private string m_logName;
         private string m_outputDir;
         private bool _wasRequested;
+        private ConfigInfo m_confInfo;
 
         #region Properties
         public bool WasRequested { get; set; }
@@ -32,41 +33,43 @@ namespace ImageWeb.Models
 
         public SettingsModel()
         {
+            WasRequested = false;
             m_communication = ModelCommunicationHandler.Instance;
             if (m_communication.IsConnected)
             {
-                m_communication.DataReceived += GetCommand;
+                m_confInfo = ConfigInfo.Instance;
+                SettingsRequest();
             }
         }
 
-        public void SendConfigRequest()
-        {
+        //public void SendConfigRequest()
+        //{
 
-            MessageCommand mc = new MessageCommand();
-            mc.CommandID = (int)CommandEnum.GetConfigCommand;
-            mc.CommandMsg = "";
-            string m = mc.ToJSON();
-            m_communication.Client.Send(m);
-            Thread.Sleep(1000);
-        }
+        //    MessageCommand mc = new MessageCommand();
+        //    mc.CommandID = (int)CommandEnum.GetConfigCommand;
+        //    mc.CommandMsg = "";
+        //    string m = mc.ToJSON();
+        //    m_communication.Client.Send(m);
+        //    Thread.Sleep(1000);
+        //}
 
-        private void GetCommand(object sender, DataReceivedEventArgs e)
+        //private void GetCommand(object sender, DataReceivedEventArgs e)
+        //{
+        //    MessageCommand mc = MessageCommand.FromJSON(e.Message);
+        //    if (mc.CommandID == (int)CommandEnum.GetConfigCommand)
+        //    {
+        //        SettingsRequest(mc.CommandMsg);
+        //    }
+        //}
+        public void SettingsRequest()
         {
-            MessageCommand mc = MessageCommand.FromJSON(e.Message);
-            if (mc.CommandID == (int)CommandEnum.GetConfigCommand)
-            {
-                SettingsRecived(mc.CommandMsg);
-            }
-        }
-        private void SettingsRecived(string msg)
-        {
-            JObject jsonAppConfig = JObject.Parse(msg);
-            SourceName = (string)jsonAppConfig["Source Name"];
-            LogName = (string)jsonAppConfig["Log Name"];
-            OutputDirName = (string)jsonAppConfig["OutputDir"];
-            ThumbnailSize = (int)jsonAppConfig["Thumbnail Size"];
-            string dirs = (string)jsonAppConfig["Directories"];
-            Directories = JsonConvert.DeserializeObject<List<string>>(dirs);
+            m_confInfo.SendConfigRequest();
+            SourceName = m_confInfo.SourceName;
+            LogName = m_confInfo.LogName;
+            OutputDirName = m_confInfo.OutputDir;
+            ThumbnailSize = m_confInfo.ThumbnailSize;
+            Directories = m_confInfo.Directories;
+            WasRequested = true;
         }
     }
 }

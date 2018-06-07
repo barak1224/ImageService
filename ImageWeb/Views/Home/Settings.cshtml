@@ -1,0 +1,53 @@
+﻿@model ImageWeb.Models.SettingsModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<p><h2>Config details</h2></p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SourceName)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.SourceName)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LogName)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.LogName)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OutputDirName)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.OutputDirName)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ThumbnailSize)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.ThumbnailSize)
+        </td>
+    </tr>
+</table>
+
+<p><h2>Directories handlers</h2></p>
+
+<div class="list-group">
+
+    @foreach (var item in Model.Directories)
+    {
+        <a href="@Url.Action("CheckHandlerDelete", "Home", new {directory = @item})" type="button" class="list-group-item list-group-item-action">
+                    @Html.DisplayFor(modelItem => item) 
+        </a>
+    }
+</div>
