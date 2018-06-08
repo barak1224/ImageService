@@ -38,29 +38,9 @@ namespace ImageWeb.Models
             if (m_communication.IsConnected)
             {
                 m_confInfo = ConfigInfo.Instance;
-                SettingsRequest();
             }
         }
 
-        //public void SendConfigRequest()
-        //{
-
-        //    MessageCommand mc = new MessageCommand();
-        //    mc.CommandID = (int)CommandEnum.GetConfigCommand;
-        //    mc.CommandMsg = "";
-        //    string m = mc.ToJSON();
-        //    m_communication.Client.Send(m);
-        //    Thread.Sleep(1000);
-        //}
-
-        //private void GetCommand(object sender, DataReceivedEventArgs e)
-        //{
-        //    MessageCommand mc = MessageCommand.FromJSON(e.Message);
-        //    if (mc.CommandID == (int)CommandEnum.GetConfigCommand)
-        //    {
-        //        SettingsRequest(mc.CommandMsg);
-        //    }
-        //}
         public void SettingsRequest()
         {
             m_confInfo.SendConfigRequest();

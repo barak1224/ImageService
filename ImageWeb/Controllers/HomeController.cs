@@ -18,6 +18,8 @@ namespace ImageWeb.Controllers
         static ImagesModel m_imagesModel = new ImagesModel(m_settingsModel);
         static ModelCommunicationHandler m_communication = ModelCommunicationHandler.Instance;
         static string m_directory;
+        static private bool filtered;
+
         public ActionResult Index()
         {
             m_homeModel.CountNumberOfPhotos();
@@ -26,13 +28,20 @@ namespace ImageWeb.Controllers
 
         public ActionResult Settings()
         {
-            m_settingsModel.SettingsRequest();
+            if (m_communication.IsConnected)
+            {
+                m_settingsModel.SettingsRequest();
+            }
             return View(m_settingsModel);
         }
 
         public ActionResult Contact()
         {
-            m_logModel.LogsRequest();
+            if (!filtered && m_communication.IsConnected)
+            {
+                m_logModel.LogsRequest();
+            }
+            filtered = false;
             return View(m_logModel);
         }
 
@@ -61,6 +70,13 @@ namespace ImageWeb.Controllers
             m_communication.Client.Send(mc.ToJSON());
             m_settingsModel.SettingsRequest();
             return RedirectToAction("Settings");
+        }
+
+        public ActionResult SelectedType(string type)
+        {
+            filtered = true;
+            m_logModel.filterLogsByType(type);
+            return RedirectToAction("Contact");
         }
     }
 }

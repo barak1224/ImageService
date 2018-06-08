@@ -26,7 +26,6 @@ namespace ImageWeb.Models
             m_client = ModelCommunicationHandler.Instance;
             IsConnected = m_client.IsConnected;
             m_conf = ConfigInfo.Instance;
-            m_conf.SendConfigRequest();
         }
 
         public void CountNumberOfPhotos()
