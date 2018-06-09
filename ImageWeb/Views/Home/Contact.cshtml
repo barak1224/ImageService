@@ -1,8 +1,13 @@
 ﻿@model ImageWeb.Models.LogModel
 
 @{
-    ViewBag.Title = "Contact";
+ViewBag.Title = "Contact";
 }
+
+<p><label for="typeSelect">Choose the type of logs you want to see </label></p>
+<label class="radio-inline"><input id="infoRd "type="radio" name="optradio" value="INFO">INFO</label>
+<label class="radio-inline"><input id="warningRd" type="radio" name="optradio" value="WARNING">WARNING</label>
+<label class="radio-inline"><input id="failRd" type="radio" name="optradio" value="FAIL">FAIL</label>
 
 <table class="table">
     <tr>
@@ -26,3 +31,16 @@
         </tr>
     }
 </table>
+
+<script>
+    $(document).ready(function () {
+        $('input[type="radio"]').click(function () {
+            if ($(this).is(':checked')) {
+                var type = ($(this).val());
+                var url = "@Url.Action("SelectedType", "Home", new { type = "__param__" })"
+                var replacedUrl = url.replace("__param__", type);
+                location.href = replacedUrl
+            }
+        });
+    });
+</script>

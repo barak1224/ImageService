@@ -35,7 +35,7 @@ namespace ImageWeb.Models
             Images = new List<ImageItem>();
             Settings = settings;
             if (!settings.WasRequested)
-                settings.SendConfigRequest();
+                settings.SettingsRequest();
             OutputDir = settings.OutputDirName;
         }
 

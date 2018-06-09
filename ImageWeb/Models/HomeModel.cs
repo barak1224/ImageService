@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Communication;
+using System.IO;
 
 namespace ImageWeb.Models
 {
@@ -11,6 +12,8 @@ namespace ImageWeb.Models
     {
         private ModelCommunicationHandler m_client;
         public bool IsConnected { get; set; }
+        public ConfigInfo m_conf;
+        public int NumberOfPhotos { get; set; }
         
         public List<Student> Students = new List<Student>()
         {
@@ -22,6 +25,20 @@ namespace ImageWeb.Models
         {
             m_client = ModelCommunicationHandler.Instance;
             IsConnected = m_client.IsConnected;
+            m_conf = ConfigInfo.Instance;
+        }
+
+        public void CountNumberOfPhotos()
+        {
+            int count = 0;
+            string Directory = m_conf.OutputDir;
+            Directory = Directory + "\\Thumbnail";
+            DirectoryInfo directoryName = new DirectoryInfo(Directory);
+            foreach (string exetension in m_conf.ValidExtensions)
+            {
+                count += directoryName.GetFiles(exetension, SearchOption.AllDirectories).Length;
+            }
+            NumberOfPhotos = count;
         }
     }
 }

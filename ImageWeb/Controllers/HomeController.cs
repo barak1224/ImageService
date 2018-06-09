@@ -17,20 +17,31 @@ namespace ImageWeb.Controllers
         static LogModel m_logModel = new LogModel();
         static ImagesModel m_imagesModel = new ImagesModel(m_settingsModel);
         static ModelCommunicationHandler m_communication = ModelCommunicationHandler.Instance;
+        static string m_directory;
+        static private bool filtered;
+
         public ActionResult Index()
         {
+            m_homeModel.CountNumberOfPhotos();
             return View(m_homeModel);
         }
 
-        public ActionResult About()
+        public ActionResult Settings()
         {
-            m_settingsModel.SendConfigRequest();
+            if (m_communication.IsConnected)
+            {
+                m_settingsModel.SettingsRequest();
+            }
             return View(m_settingsModel);
         }
 
         public ActionResult Contact()
         {
-            m_logModel.LogsRequest();
+            if (!filtered && m_communication.IsConnected)
+            {
+                m_logModel.LogsRequest();
+            }
+            filtered = false;
             return View(m_logModel);
         }
 
@@ -40,13 +51,32 @@ namespace ImageWeb.Controllers
             return View(m_imagesModel);
         }
 
-        public ActionResult DeleteHandler(string directory)
+        public ActionResult HandlerDeleter()
+        {
+            return View(m_settingsModel);
+        }
+
+        public ActionResult CheckHandlerDelete(string directory)
+        {
+            m_directory = directory;
+            return RedirectToAction("HandlerDeleter");
+        }
+
+        public ActionResult DeleteHandler()
         {
             MessageCommand mc = new MessageCommand();
             mc.CommandID = (int)CommandEnum.CloseCommand;
-            mc.CommandMsg = directory;
+            mc.CommandMsg = m_directory;
             m_communication.Client.Send(mc.ToJSON());
-            return RedirectToAction("About");
+            m_settingsModel.SettingsRequest();
+            return RedirectToAction("Settings");
+        }
+
+        public ActionResult SelectedType(string type)
+        {
+            filtered = true;
+            m_logModel.filterLogsByType(type);
+            return RedirectToAction("Contact");
         }
     }
 }

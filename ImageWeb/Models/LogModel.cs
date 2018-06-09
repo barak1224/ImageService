@@ -14,12 +14,14 @@ namespace ImageWeb.Models
 {
     public class LogModel
     {
+        private object theLock = new object(); 
         private ModelCommunicationHandler m_communication;
         private List<MessageRecievedEventArgs> m_logEntries;
         public List<MessageRecievedEventArgs> LogEntries
         {
             get => m_logEntries; private set => m_logEntries = value;
         }
+        public List<MessageRecievedEventArgs> OriginalLogEntries;
 
         public LogModel()
         {
@@ -38,7 +40,10 @@ namespace ImageWeb.Models
             mc.CommandMsg = "";
             string m = mc.ToJSON();
             m_communication.Client.Send(m);
-            Thread.Sleep(100);
+            lock(theLock) {
+                Monitor.Wait(theLock);
+
+            }
         }
 
         private void GetCommand(object sender, DataReceivedEventArgs e)
@@ -52,11 +57,29 @@ namespace ImageWeb.Models
 
         private void LogsRecieved(string msg)
         {
-            m_logEntries.Clear();
+            LogEntries.Clear();
             List<string> logsList = JsonConvert.DeserializeObject<List<string>>(msg);
             foreach (string log in logsList)
             {
                 m_logEntries.Insert(0, MessageRecievedEventArgs.ParseFromString(log));
+            }
+            OriginalLogEntries = new List<MessageRecievedEventArgs>(m_logEntries);
+            lock(theLock)
+            {
+                Monitor.Pulse(theLock);
+            }
+        }
+
+        public void filterLogsByType(string type)
+        {
+            MessageTypeEnum selectedType = MessageTypeEnumParser.ParseTypeFromString(type);
+            LogEntries.Clear();
+            foreach (MessageRecievedEventArgs log in OriginalLogEntries)
+            {
+                if (log.Status == selectedType)
+                {
+                    m_logEntries.Add(log);
+                }
             }
         }
     }
