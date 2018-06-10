@@ -47,13 +47,15 @@ namespace ImageWeb.Controllers
 
         public ActionResult Images()
         {
+            m_imagesModel.Images.Clear();
             m_imagesModel.SetPhotos();
             return View(m_imagesModel);
         }
 
-        public ActionResult CheckDeleteImage()
+        public ActionResult ImageDeleter(string imageFullUrl)
         {
-            return View("ImageDeleter");
+            ImageItem image = new ImageItem(imageFullUrl);
+            return View(image);
         }
 
         public ActionResult DeleteImage(string imageFullUrl)

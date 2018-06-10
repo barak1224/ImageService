@@ -10,6 +10,7 @@
     <div class="caption">
         <h4>@Model.Name</h4>
         <p>Date: @Model.Month / @Model.Year</p>
-        <p> <a href="@Url.Action("CheckDeleteImage", "Index", new { fullUrl = Model.ImageFullUrl })" id="btnDelete" class="btn btn-danger btn-xs" role="button">Delete</a></p>
+        <a href="@Url.Action("ImageDeleter", new { imageFullUrl = Model.ImageFullUrl })" id="btnDelete" class="btn btn-danger btn-xs" role="button">Delete</a>
+        <a href="@Url.Action("Images", "Home", new { imageFullUrl = Model.ImageFullUrl })" id="btnView" class="btn btn-info btn-xs" role="button">Back</a>
     </div>
 </div>

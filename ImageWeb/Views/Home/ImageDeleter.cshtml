@@ -11,8 +11,8 @@
     <div class="caption">
         <h4>@Model.Name</h4>
         <p>
-            <a href="@Url.Action("Images", "Home", new { fullUrl = Model.ImageFullUrl })" id="btnView" class="btn btn-info btn-xs" role="button">No</a>
-            <a href="@Url.Action("DeleteImage", "Home", new { fullUrl = Model.ImageFullUrl })" id="btnDelete" class="btn btn-danger btn-xs" role="button">Yes</a>
+            <a href="@Url.Action("Images", "Home", new { imageFullUrl = Model.ImageFullUrl })" id="btnView" class="btn btn-info btn-xs" role="button">No</a>
+            <a href="@Url.Action("DeleteImage", "Home", new { imageFullUrl = Model.ImageFullUrl })" id="btnDelete" class="btn btn-danger btn-xs" role="button">Yes</a>
         </p>
     </div>
 </div>
