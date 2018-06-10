@@ -51,6 +51,23 @@ namespace ImageWeb.Controllers
             return View(m_imagesModel);
         }
 
+        public ActionResult CheckDeleteImage()
+        {
+            return View("ImageDeleter");
+        }
+
+        public ActionResult DeleteImage(string imageFullUrl)
+        {
+            m_imagesModel.DeleteImage(imageFullUrl);
+            return RedirectToAction("Images");
+        }
+
+        public ActionResult ViewImage(string imageFullUrl)
+        {
+            ImageItem image = new ImageItem(imageFullUrl);
+            return View(image);
+        }
+
         public ActionResult HandlerDeleter()
         {
             return View(m_settingsModel);

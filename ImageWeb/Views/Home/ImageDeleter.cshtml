@@ -3,16 +3,16 @@
     ViewBag.Title = "ImageDeleter";
 }
 
-<h2>PhotosDelete</h2>
+<h2>ImageDeleter</h2>
 
-<h3>Are you sure you want to delete this photo?</h3>
+<h3>Are you sure you want to delete this image?</h3>
 <div class="thumbnail">
     <img src="@Url.Content(Model.ImageRelativePathThumbnail)" alt="" class="circular-image" width="242" height="200">
     <div class="caption">
         <h4>@Model.Name</h4>
         <p>
-            <a href="@Url.Action("Images", "Home", new { fullUrl = Model.ImageFullUrl })" id="btnView" class="btn btn-info btn-xs" role="button">Cancel</a>
-            <a href="@Url.Action("DeleteSpecificPhoto", "Home", new { fullUrl = Model.ImageFullUrl })" id="btnDelete" class="btn btn-danger btn-xs" role="button">OK</a>
+            <a href="@Url.Action("Images", "Home", new { fullUrl = Model.ImageFullUrl })" id="btnView" class="btn btn-info btn-xs" role="button">No</a>
+            <a href="@Url.Action("DeleteImage", "Home", new { fullUrl = Model.ImageFullUrl })" id="btnDelete" class="btn btn-danger btn-xs" role="button">Yes</a>
         </p>
     </div>
 </div>

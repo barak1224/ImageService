@@ -1,10 +1,8 @@
 ﻿@model ImageWeb.Models.ImagesModel
 @{
-                /**/
-
-
-                ViewBag.Title = "Images";
+    ViewBag.Title = "Images";
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +29,8 @@
                             <h4>@imageItem.Name</h4>
                             <p>Date: @imageItem.Month / @imageItem.Year</p>
                             <p>
-                                <a href="@Url.Action("ImageViewer", new { fullUrl = imageItem.ImageFullUrl })" id="btnView" class="btn btn-info btn-xs" role="button">View</a>
-                                <a href="@Url.Action("ImageDeleter", new { fullUrl = imageItem.ImageFullUrl })" id="btnDelete" class="btn btn-danger btn-xs" role="button">Delete</a>
+                                <a href="@Url.Action("ViewImage", new { imageFullUrl = imageItem.ImageFullUrl })" id="btnView" class="btn btn-info btn-xs" role="button">View</a>
+                                <a href="@Url.Action("CheckDeleteImage", new { imageFullUrl = imageItem.ImageFullUrl })" id="btnDelete" class="btn btn-danger btn-xs" role="button">Delete</a>
                             </p>
                         </div>
                     </div>

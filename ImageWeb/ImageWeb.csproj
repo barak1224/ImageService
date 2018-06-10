@@ -242,7 +242,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Images.cshtml" />
-    <Content Include="Views\Home\ImageViewer.cshtml" />
+    <Content Include="Views\Home\ViewImage.cshtml" />
     <Content Include="Views\Home\ImageDeleter.cshtml" />
     <Content Include="Views\Home\HandlerDeleter.cshtml" />
   </ItemGroup>

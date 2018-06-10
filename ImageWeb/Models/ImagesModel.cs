@@ -42,7 +42,10 @@ namespace ImageWeb.Models
         public void SetPhotos()
         {
             string[] validExtensions = { ".jpg", ".png", ".gif", ".bmp" };
+
+            //clear the existing image list
             Images.Clear();
+
             try
             {
                 string thumbnailDir = OutputDir + @"\Thumbnail";
@@ -80,16 +83,16 @@ namespace ImageWeb.Models
             }
         }
 
-        public void DeletePhoto(string fullUrl)
+        public void DeleteImage(string imageFullUrl)
         {
             try
             {
-                foreach (ImageItem photo in Images)
+                foreach (ImageItem imageItem in Images)
                 {
-                    if (photo.ImageFullUrl.Equals(fullUrl))
+                    if (imageItem.ImageFullUrl.Equals(imageFullUrl))
                     {
-                        Images.Remove(photo);
-                        File.Delete(fullUrl);
+                        Images.Remove(imageItem);
+                        File.Delete(imageFullUrl);
                     }
                 }
             }
